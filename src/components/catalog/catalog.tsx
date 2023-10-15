@@ -1,6 +1,6 @@
 import { filmData } from '../../pages/main/filmData.ts';
 import { FilmType } from '../../types/film.ts';
-import { catalogGenres } from './catalog.ts';
+import { catalogGenres } from '../../const.ts';
 import { Genre } from '../../types/genre.ts';
 import FilmCardSmall from '../filmCard/filmCardSmall.tsx';
 
