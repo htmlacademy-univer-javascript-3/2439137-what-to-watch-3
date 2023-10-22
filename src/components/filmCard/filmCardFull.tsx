@@ -7,14 +7,18 @@ import {
 import { AppRoute, filmNav } from '../../const.ts';
 import { Link } from 'react-router-dom';
 import { FilmType } from '../../types/film.ts';
+/*
 import { ReviewType } from '../../types/filmReview.ts';
+*/
 
 interface FullFilmCardProps {
   film: FilmType;
+/*
   reviews: ReviewType;
+*/
 }
 
-const FilmCardFull = ({ film, reviews }: FullFilmCardProps) => (
+const FilmCardFull = ({ film, /*reviews*/ }: FullFilmCardProps) => (
   <section className="film-card film-card--full">
     <div className="film-card__hero">
       <div className="film-card__bg">

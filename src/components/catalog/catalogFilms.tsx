@@ -9,7 +9,7 @@ interface CatalogFilmsProps {
 
 const CatalogFilms = ({ films, countFilmsInfo = films.length }: CatalogFilmsProps) => {
   const [countFilms, setCountFilms] = useState(Math.min(countFilmsInfo, films.length));
-  const [idHoveredFilm, setIdHoveredFilm] = useState<string | null>(null);
+  const idHoveredFilmState = useState<string | null>(null);
   return (
     <>
       <div className="catalog__films-list">
@@ -17,10 +17,9 @@ const CatalogFilms = ({ films, countFilmsInfo = films.length }: CatalogFilmsProp
           <FilmCardSmall
             key={`key_${id}`}
             film={{ id, title, imgPath }}
-            onMouseOut={() => setIdHoveredFilm(null)}
+            onMouseOut={() => idHoveredFilmState[1](null)}
             onMouseOver={() => {
-              setIdHoveredFilm(id);
-              console.log('enrfm ', idHoveredFilm);
+              idHoveredFilmState[1](id);
             }}
           />
         ))}

@@ -23,7 +23,9 @@ function App({
   mainProps,
   movieProps,
   playerProps,
+/*
   reviewProps,
+*/
 }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
@@ -40,7 +42,7 @@ function App({
         />
         <Route
           path={AppRoute.Film}
-          element={<MoviePage film={movieProps[0]} reviews={reviewProps[0]} />}
+          element={<MoviePage film={movieProps[0]} /*reviews={reviewProps[0]} *//>}
         />
         <Route
           path={AppRoute.AddReview}

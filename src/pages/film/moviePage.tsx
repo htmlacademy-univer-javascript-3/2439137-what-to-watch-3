@@ -3,17 +3,21 @@ import FilmCardFull from '../../components/filmCard/filmCardFull.tsx';
 import { films } from '../../mocks/films.ts';
 import Footer from '../../components/footer/footer.tsx';
 import CatalogFilms from '../../components/catalog/catalogFilms.tsx';
+/*
 import { ReviewType } from '../../types/filmReview.ts';
+*/
 
 export interface MoviePagePros {
   film: FilmType;
+/*
   reviews: ReviewType;
+*/
 }
 
-function MoviePage({ film, reviews }: MoviePagePros): JSX.Element {
+function MoviePage({ film, /*reviews*/ }: MoviePagePros): JSX.Element {
   return (
     <>
-      <FilmCardFull film={film} reviews={reviews} />
+      <FilmCardFull film={film} />
       <div className="page-content">
         {film.relatedMovies && (
           <section className="catalog catalog--like-this">

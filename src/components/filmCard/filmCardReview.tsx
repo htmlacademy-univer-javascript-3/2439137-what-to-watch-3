@@ -9,9 +9,7 @@ type RatingType = {
   data: string;
 };
 
-interface ReviewFilmProps extends FilmCardProps {}
-
-const FilmCardReview = ({ film }: ReviewFilmProps) => {
+const FilmCardReview = ({ film }: FilmCardProps) => {
   const [reviewData, setReviewData] = useState<RatingType>({
     review: '',
     rating: '',
