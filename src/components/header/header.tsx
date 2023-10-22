@@ -1,30 +1,32 @@
 import Logo from '../logo/logo.tsx';
 import { ReactNode } from 'react';
 
+export const HeaderType = {
+  Error: 'error',
+  MyList: 'myList',
+  Auth: 'auth',
+  NoAuth: 'noAuth',
+};
+
 interface propTypes {
   children?: ReactNode;
-  authorized?: boolean;
-  error?: boolean;
+  headerType: string;
 }
 
 export const Header = ({
   children,
-  authorized = true,
-  error = false,
+  headerType = HeaderType.Auth,
 }: propTypes) => (
   <>
-    {!children && authorized && !error && (
-      <h1 className="visually-hidden">WTW</h1>
-    )}
+    {headerType === HeaderType.Auth && <h1 className="visually-hidden">WTW</h1>}
     <header
       className={`page-header ${
-        children || !authorized || error ? 'user-page__head' : 'film-card__head'
+        headerType === HeaderType.Auth ? 'film-card__head' : 'user-page__head'
       }`}
     >
       <Logo isLight={false} />
       {children}
-      {error && null}
-      {authorized && !error && (
+      {headerType === HeaderType.Auth && (
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
@@ -41,7 +43,7 @@ export const Header = ({
           </li>
         </ul>
       )}
-      {!authorized && !error && (
+      {headerType === HeaderType.NoAuth && (
         <h1 className="page-title user-page__title">Sign in</h1>
       )}
     </header>

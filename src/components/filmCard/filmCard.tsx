@@ -1,5 +1,5 @@
 import { FilmType } from '../../types/film.ts';
-import Header from '../header/header.tsx';
+import Header, { HeaderType } from '../header/header.tsx';
 
 export interface FilmCardProps {
   film: FilmType;
@@ -11,7 +11,7 @@ const FilmCard = ({ film }: FilmCardProps) => (
       <img src={film.backgroundImgPath} alt={film.title} />
     </div>
 
-    <Header />
+    <Header headerType={HeaderType.Auth} />
 
     <div className="film-card__wrap">
       <div className="film-card__info">

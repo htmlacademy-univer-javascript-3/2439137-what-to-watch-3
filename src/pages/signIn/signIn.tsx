@@ -1,10 +1,10 @@
 import Footer from '../../components/footer/footer.tsx';
-import Header from '../../components/header/header.tsx';
+import Header, { HeaderType } from '../../components/header/header.tsx';
 
 function SignIn(): JSX.Element {
   return (
     <div className="user-page">
-      <Header authorized={false} />
+      <Header headerType={HeaderType.NoAuth} />
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form">
