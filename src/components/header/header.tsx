@@ -4,19 +4,27 @@ import { ReactNode } from 'react';
 interface propTypes {
   children?: ReactNode;
   authorized?: boolean;
+  error?: boolean;
 }
 
-export const Header = ({ children, authorized = true }: propTypes) => (
+export const Header = ({
+  children,
+  authorized = true,
+  error = false,
+}: propTypes) => (
   <>
-    {!children && authorized && <h1 className="visually-hidden">WTW</h1>}
+    {!children && authorized && !error && (
+      <h1 className="visually-hidden">WTW</h1>
+    )}
     <header
       className={`page-header ${
-        children || !authorized ? 'user-page__head' : 'film-card__head'
+        children || !authorized || error ? 'user-page__head' : 'film-card__head'
       }`}
     >
       <Logo isLight={false} />
       {children}
-      {authorized ? (
+      {error && null}
+      {authorized && !error && (
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
@@ -32,7 +40,8 @@ export const Header = ({ children, authorized = true }: propTypes) => (
             <a className="user-block__link">Sign out</a>
           </li>
         </ul>
-      ) : (
+      )}
+      {!authorized && !error && (
         <h1 className="page-title user-page__title">Sign in</h1>
       )}
     </header>

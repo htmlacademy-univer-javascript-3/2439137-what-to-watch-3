@@ -5,7 +5,7 @@ import {
   ratingSelector,
   starringToString,
 } from './filmCardFunctions.ts';
-import { filmNav } from '../filmNav/filmNav.ts';
+import { filmNav } from '../../const.ts';
 
 const FilmCardFull = ({ film }: FilmCardProps) => (
   <section className="film-card film-card--full">
