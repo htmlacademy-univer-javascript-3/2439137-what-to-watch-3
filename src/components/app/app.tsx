@@ -10,20 +10,20 @@ import Player from '../../pages/player/player.tsx';
 import PrivateRoute from '../privateRoute/privateRoute.tsx';
 import { FilmType } from '../../types/film.ts';
 import { PlayerType } from '../../types/filmPlayer.ts';
-import { ReviewType } from '../../types/filmReview.ts';
+import { ReviewsType } from '../../types/filmReview.ts';
 
 interface AppProps {
   mainProps: MainPros;
   movieProps: FilmType[];
   playerProps: PlayerType[];
-  reviewProps: ReviewType[];
+  reviewsProps: ReviewsType[];
 }
 
 function App({
   mainProps,
   movieProps,
   playerProps,
-  // reviewProps,
+  // reviewsProps,
 }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
@@ -40,7 +40,7 @@ function App({
         />
         <Route
           path={AppRoute.Film}
-          element={<MoviePage film={movieProps[0]} /*reviews={reviewProps[0]} *//>}
+          element={<MoviePage film={movieProps[0]}/>}
         />
         <Route
           path={AppRoute.AddReview}

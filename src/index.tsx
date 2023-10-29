@@ -15,7 +15,7 @@ root.render(
     <App
       mainProps={{ film }}
       movieProps={films}
-      reviewProps={reviews}
+      reviewsProps={reviews}
       playerProps={players}
     />
     )
