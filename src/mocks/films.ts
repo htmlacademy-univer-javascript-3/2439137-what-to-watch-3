@@ -9,6 +9,7 @@ export const films: FilmType[] = [
     genre: 'Drama',
     releaseDate: 2014,
     rating: ['8,9', 240],
+    runTime: 99,
     annotation: [
       'In the 1930s, the Grand Budapest Hotel is a popular European ski\n' +
         '              resort, presided over by concierge Gustave H. (Ralph Fiennes).\n' +
@@ -26,13 +27,14 @@ export const films: FilmType[] = [
       'Edward Norton',
       'Jude Law',
       'Willem Dafoe',
-      'other',
-    ],
-    relatedMovies: [
-      'Fantastic Beasts: The Crimes of Grindelwald',
-      'Bohemian Rhapsody',
-      'Macbeth',
-      'Aviator',
+      'Saoirse Ronan',
+      'Tony Revoloru',
+      'Tilda Swinton',
+      'Tom Wilkinson',
+      'Owen Wilkinson',
+      'Adrien Brody',
+      'Ralph Fiennes',
+      'Jeff Goldblum',
     ],
   },
   {
@@ -156,5 +158,5 @@ export const films: FilmType[] = [
     title: 'Mindhunter',
     genre: 'Thrillers',
     imgPath: 'img/mindhunter.jpg',
-  }
+  },
 ];

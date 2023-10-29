@@ -6,9 +6,9 @@ export type FilmType = {
   genre?: string;
   releaseDate?: number;
   rating?: [string, number];
+  runTime?: number;
   annotation?: string[];
   director?: string;
   starring?: string[];
-  relatedMovies?: string[];
   isMyList?: boolean;
 };

@@ -17,15 +17,26 @@ export const ratingSelector = function (ratingCount: number) {
   }
 };
 
-export const starringToString = function (starring: string[]) {
-  if (starring && starring.indexOf('other') + 1) {
-    return starring
-      .slice(0, starring.length - 1)
-      .join(', ')
-      .concat(' and other');
-  }
-  if (starring && starring.length) {
-    return starring.join(', ');
-  }
-  return '';
+export const starringToStringRow = function (starring: string[]) {
+  return starring
+    .slice(0, Math.min(4, starring.length))
+    .join(', ')
+    .concat(starring.length > 4 ? ' and other' : '');
+};
+
+export const starringToStringColumn = function (starring: string[]) {
+  return starring.map((value) => `${value}, \n`);
+};
+
+export const dateToString = function (date: Date) {
+  const dateOld = new Date(date);
+  const dateOldChange = new Date(dateOld.setMonth(dateOld.getMonth() - 1));
+  const year = dateOldChange.toLocaleString('en-us', { year: 'numeric' });
+  const month = dateOldChange.toLocaleString('en-us', { month: 'long' });
+  const day = dateOldChange.toLocaleString('en-us', { day: 'numeric' });
+  return `${month} ${day}, ${year}`;
+};
+
+export const runTimeSelector = function (runTime: number) {
+  return `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
 };
