@@ -1,8 +1,7 @@
-import { filmData } from '../../pages/main/filmData.ts';
+import { films } from '../../mocks/films.ts';
 import { FilmType } from '../../types/film.ts';
-import { catalogGenres } from '../../const.ts';
 import { Genre } from '../../types/genre.ts';
-import FilmCardSmall from '../filmCard/filmCardSmall.tsx';
+import CatalogFilms from './catalogFilms.tsx';
 
 interface CatalogProps {
   film: FilmType;
@@ -26,29 +25,29 @@ const Catalog = ({ film }: CatalogProps) => (
     <h2 className="catalog__title visually-hidden">Catalog</h2>
 
     <ul className="catalog__genres-list">
-      {catalogGenres.map(({ title, href, isActive }) => (
-        <CatalogItem
-          key={`key_${title}`}
-          title={title}
-          href={href}
-          isActive={isActive}
-        />
-      ))}
+      <CatalogItem
+        key={'key_all_genres'}
+        title={'All genres'}
+        href={'#all_genres'}
+        isActive
+      />
+      {[...new Set(films.map(({ genre }) => genre))].map(
+        (genre) =>
+          genre && (
+            <CatalogItem
+              key={`key_${genre}`}
+              title={genre}
+              href={`#${genre.toLowerCase().replace(' ', '_')}`}
+              isActive={false}
+            />
+          ),
+      )}
     </ul>
 
-    <div className="catalog__films-list">
-      {filmData
-        .filter(({ title }) => title !== film.title)
-        .map(({ title, imgPath }) => (
-          <FilmCardSmall key={`key_${title}`} film={{ title, imgPath }} />
-        ))}
-    </div>
-
-    <div className="catalog__more">
-      <button className="catalog__button" type="button">
-        Show more
-      </button>
-    </div>
+    <CatalogFilms
+      films={films.filter(({ id }) => id !== film.id)}
+      countFilmsInfo={8}
+    />
   </section>
 );
 

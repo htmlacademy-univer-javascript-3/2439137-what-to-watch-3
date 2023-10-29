@@ -1,4 +1,5 @@
 export type FilmType = {
+  id: string;
   title: string;
   imgPath: string;
   backgroundImgPath?: string;

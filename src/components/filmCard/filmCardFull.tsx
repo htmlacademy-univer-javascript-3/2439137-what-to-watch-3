@@ -1,20 +1,31 @@
-import Header from '../header/header.tsx';
-import { FilmCardProps } from './filmCard.tsx';
+import Header, { HeaderType } from '../header/header.tsx';
 import {
   getNameRating,
   ratingSelector,
   starringToString,
 } from './filmCardFunctions.ts';
-import { filmNav } from '../../const.ts';
+import { AppRoute, filmNav } from '../../const.ts';
+import { Link } from 'react-router-dom';
+import { FilmType } from '../../types/film.ts';
+/*
+import { ReviewType } from '../../types/filmReview.ts';
+*/
 
-const FilmCardFull = ({ film }: FilmCardProps) => (
+interface FullFilmCardProps {
+  film: FilmType;
+/*
+  reviews: ReviewType;
+*/
+}
+
+const FilmCardFull = ({ film, /*reviews*/ }: FullFilmCardProps) => (
   <section className="film-card film-card--full">
     <div className="film-card__hero">
       <div className="film-card__bg">
         <img src={film.backgroundImgPath} alt={film.title} />
       </div>
 
-      <Header />
+      <Header headerType={HeaderType.Auth} />
 
       <div className="film-card__wrap">
         <div className="film-card__desc">
@@ -38,9 +49,9 @@ const FilmCardFull = ({ film }: FilmCardProps) => (
               <span>My list</span>
               <span className="film-card__count">9</span>
             </button>
-            <a href="add-review.html" className="btn film-card__button">
+            <Link to={AppRoute.AddReview} className="btn film-card__button">
               Add review
-            </a>
+            </Link>
           </div>
         </div>
       </div>

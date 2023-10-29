@@ -1,10 +1,16 @@
-function Player(): JSX.Element {
+import { PlayerType } from '../../types/filmPlayer.ts';
+
+export interface PlayerPros {
+  player: PlayerType;
+}
+
+function Player({ player }: PlayerPros): JSX.Element {
   return (
     <div className="player">
       <video
         src="#"
         className="player__video"
-        poster="img/player-poster.jpg"
+        poster={player.posterPath}
       >
       </video>
 
@@ -21,11 +27,11 @@ function Player(): JSX.Element {
               max="100"
             >
             </progress>
-            <div className="player__toggler" style={{left: '30%'}}>
+            <div className="player__toggler" style={{ left: '30%' }}>
               Toggler
             </div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{player.stopTime}</div>
         </div>
 
         <div className="player__controls-row">

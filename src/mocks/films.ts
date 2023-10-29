@@ -1,7 +1,8 @@
-import { FilmType } from '../../types/film.ts';
+import { FilmType } from '../types/film.ts';
 
-export const filmData: FilmType[] = [
+export const films: FilmType[] = [
   {
+    id: '1',
     title: 'The Grand Budapest Hotel',
     imgPath: 'img/the-grand-budapest-hotel-poster.jpg',
     backgroundImgPath: 'img/bg-the-grand-budapest-hotel.jpg',
@@ -35,92 +36,125 @@ export const filmData: FilmType[] = [
     ],
   },
   {
+    id: '2',
     title: 'Fantastic Beasts: The Crimes of Grindelwald',
     imgPath: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
-    isMyList: true
+    genre: 'Kids & Family',
+    isMyList: true,
   },
   {
+    id: '3',
     title: 'Bohemian Rhapsody',
+    genre: 'Dramas',
     imgPath: 'img/bohemian-rhapsody.jpg',
-    isMyList: true
+    isMyList: true,
   },
   {
+    id: '4',
     title: 'Macbeth',
+    genre: 'Dramas',
     imgPath: 'img/macbeth.jpg',
-    isMyList: true
+    isMyList: true,
   },
   {
+    id: '5',
     title: 'Aviator',
+    genre: 'Dramas',
     imgPath: 'img/aviator.jpg',
-    isMyList: true
+    isMyList: true,
   },
   {
+    id: '6',
     title: 'We need to talk about Kevin',
+    genre: 'Thrillers',
     imgPath: 'img/we-need-to-talk-about-kevin.jpg',
-    isMyList: true
+    isMyList: true,
   },
   {
+    id: '7',
     title: 'What We Do in the Shadows',
+    genre: 'Comedies',
     imgPath: 'img/what-we-do-in-the-shadows.jpg',
-    isMyList: true
+    isMyList: true,
   },
   {
+    id: '8',
     title: 'Revenant',
+    genre: 'Thrillers',
     imgPath: 'img/revenant.jpg',
-    isMyList: true
+    isMyList: true,
   },
   {
+    id: '9',
     title: 'Johnny English',
+    genre: 'Comedies',
     imgPath: 'img/johnny-english.jpg',
-    isMyList: true
+    isMyList: true,
   },
   {
+    id: '10',
     title: 'Shutter Island',
+    genre: 'Horror',
     imgPath: 'img/shutter-island.jpg',
-    isMyList: true
+    isMyList: true,
   },
   {
+    id: '11',
     title: 'Pulp Fiction',
+    genre: 'Crime',
     imgPath: 'img/pulp-fiction.jpg',
   },
   {
+    id: '12',
     title: 'No Country for Old Men',
+    genre: 'Crime',
     imgPath: 'img/no-country-for-old-men.jpg',
   },
   {
+    id: '13',
     title: 'Snatch',
     imgPath: 'img/snatch.jpg',
   },
   {
+    id: '14',
     title: 'Moonrise Kingdom',
+    genre: 'Comedies',
     imgPath: 'img/moonrise-kingdom.jpg',
   },
   {
+    id: '15',
     title: 'Seven Years in Tibet',
+    genre: 'Documentary',
     imgPath: 'img/seven-years-in-tibet.jpg',
   },
   {
+    id: '16',
     title: 'Midnight Special',
+    genre: 'Sci-Fi',
     imgPath: 'img/midnight-special.jpg',
   },
   {
+    id: '17',
     title: 'War of the Worlds',
+    genre: 'Sci-Fi',
     imgPath: 'img/war-of-the-worlds.jpg',
   },
   {
+    id: '18',
     title: 'Dardjeeling Limited',
+    genre: 'Comedies',
     imgPath: 'img/dardjeeling-limited.jpg',
   },
   {
-    title: 'img/orlando.jpg',
-    imgPath: 'Orlando',
+    id: '19',
+    title: 'Orlando',
+    genre: 'Romance',
+    imgPath: 'img/orlando.jpg',
   },
   {
+    id: '20',
     title: 'Mindhunter',
+    genre: 'Thrillers',
     imgPath: 'img/mindhunter.jpg',
-  },
-  {
-    title: 'Midnight Special',
-    imgPath: 'img/midnight-special.jpg',
-  },
+  }
 ];
