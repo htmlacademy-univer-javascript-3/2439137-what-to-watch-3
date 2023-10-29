@@ -23,7 +23,7 @@ function MoviePage({ film }: MoviePagePros): JSX.Element {
         <Tabs film={film} />
       </section>
       <div className="page-content">
-        {film.relatedMovies && (
+        {moreLikeFilms && (
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
