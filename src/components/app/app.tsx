@@ -23,9 +23,7 @@ function App({
   mainProps,
   movieProps,
   playerProps,
-/*
-  reviewProps,
-*/
+  // reviewProps,
 }: AppProps): JSX.Element {
   return (
     <BrowserRouter>

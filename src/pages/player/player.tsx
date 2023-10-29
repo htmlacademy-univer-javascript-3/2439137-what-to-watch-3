@@ -31,7 +31,7 @@ function Player({ player }: PlayerPros): JSX.Element {
               Toggler
             </div>
           </div>
-          <div className="player__time-value">{player.stopTime}</div>
+          <div className="player__time-value">1:30:29</div>
         </div>
 
         <div className="player__controls-row">
