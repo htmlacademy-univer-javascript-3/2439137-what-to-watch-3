@@ -2,6 +2,8 @@ import Header, { HeaderType } from '../header/header.tsx';
 import { FilmCardProps } from './filmCard.tsx';
 import { FormEvent, useState } from 'react';
 
+const MAX_RATING = 10;
+
 type RatingType = {
   review: string;
   rating: string;
@@ -48,7 +50,7 @@ const FilmCardReview = ({ film }: FilmCardProps) => {
         <form action="#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
-              {Array.from({ length: 10 }, (_, i) => i + 1)
+              {Array.from({ length: MAX_RATING }, (_, i) => i + 1)
                 .reverse()
                 .map((number) => (
                   <>
