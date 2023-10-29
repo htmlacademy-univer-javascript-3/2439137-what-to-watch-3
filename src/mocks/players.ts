@@ -5,7 +5,7 @@ export const players: PlayerType[] = [
     id: '1',
     videoPath:
       'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-    posterPath: 'img/players-poster.jpg',
+    posterPath: 'img/player-poster.jpg',
     stopTime: '1:30:29',
   },
 ];
