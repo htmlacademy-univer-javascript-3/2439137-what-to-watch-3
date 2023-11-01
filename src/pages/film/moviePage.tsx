@@ -3,6 +3,7 @@ import FilmCardFull from '../../components/filmCard/filmCardFull.tsx';
 import { films } from '../../mocks/films.ts';
 import Footer from '../../components/footer/footer.tsx';
 import CatalogFilms from '../../components/catalog/catalogFilms.tsx';
+import Tabs from '../../components/tabs/tabs.tsx';
 
 //import { ReviewType } from '../../types/filmReview.ts';
 
@@ -11,15 +12,18 @@ export interface MoviePagePros {
   //  reviews: ReviewType;
 }
 
-function MoviePage({ film /*reviews*/ }: MoviePagePros): JSX.Element {
-  const moreLikeFilms = films.filter(
-    ({ title }) => film.relatedMovies && film.relatedMovies.indexOf(title) + 1,
-  );
+function MoviePage({ film }: MoviePagePros): JSX.Element {
+  const moreLikeFilms = films
+    .filter(({ genre, id }) => film.genre && genre && film.id !== id)
+    .slice(0, 4);
   return (
     <>
-      <FilmCardFull film={film} />
+      <section className="film-card film-card--full">
+        <FilmCardFull film={film} />
+        <Tabs film={film} />
+      </section>
       <div className="page-content">
-        {film.relatedMovies && (
+        {moreLikeFilms && (
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
 
