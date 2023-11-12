@@ -1,6 +1,9 @@
 import { Genre } from '../../types/genre.ts';
-import { useAppDispatch } from '../hooks';
-import { changeGenre, getListFilmsByGenre } from '../../store/action.ts';
+import {useAppDispatch} from '../hooks';
+import {
+  changeGenre,
+  getListFilmsByGenre,
+} from '../../store/action.ts';
 
 const ItemListGenres = ({ title, isActive }: Genre) => {
   const dispatch = useAppDispatch();

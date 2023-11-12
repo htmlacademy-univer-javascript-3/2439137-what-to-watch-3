@@ -1,28 +1,12 @@
 import CatalogFilms from './catalogFilms.tsx';
-import { useEffect, useState } from 'react';
 import { useAppSelector } from '../hooks';
-import {
-  DEFAULT_FILM_AMOUNT,
-  initialStateCountFilms,
-} from './utils.ts';
 import ListGenres from '../listGenres/listGenres.tsx';
+import ShowMore from '../showMore/showMore.tsx';
 
 const Catalog = () => {
   const listFilmsGenre = useAppSelector((state) => state.listFilms);
-  const [countFilms, setCountFilms] = useState(
-    initialStateCountFilms(listFilmsGenre),
-  );
-  useEffect(
-    () => setCountFilms(initialStateCountFilms(listFilmsGenre)),
-    [listFilmsGenre],
-  );
-  const listCatalogFilms = listFilmsGenre.slice(0, countFilms);
-
-  const handleShowMore = () => {
-    setCountFilms((count) =>
-      Math.min(count + DEFAULT_FILM_AMOUNT, listFilmsGenre.length),
-    );
-  };
+  const countListGenres = useAppSelector((state) => state.countListGenres);
+  const listCatalogFilms = listFilmsGenre.slice(0, countListGenres);
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -31,17 +15,7 @@ const Catalog = () => {
 
       <CatalogFilms films={listCatalogFilms} />
 
-      {countFilms < listFilmsGenre.length && (
-        <div className="catalog__more">
-          <button
-            className="catalog__button"
-            type="button"
-            onClick={handleShowMore}
-          >
-            Show more
-          </button>
-        </div>
-      )}
+      <ShowMore />
     </section>
   );
 };
