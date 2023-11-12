@@ -6,6 +6,7 @@ import CatalogFilms from '../../components/catalog/catalogFilms.tsx';
 import Tabs from '../../components/tabs/tabs.tsx';
 
 //import { ReviewType } from '../../types/filmReview.ts';
+const COUNT_LIKE_FILMS = 4;
 
 export interface MoviePagePros {
   film: FilmType;
@@ -15,7 +16,7 @@ export interface MoviePagePros {
 function MoviePage({ film }: MoviePagePros): JSX.Element {
   const moreLikeFilms = films
     .filter(({ genre, id }) => film.genre && genre && film.id !== id)
-    .slice(0, 4);
+    .slice(0, COUNT_LIKE_FILMS);
   return (
     <>
       <section className="film-card film-card--full">

@@ -1,5 +1,5 @@
 import { FilmType } from '../../types/film.ts';
-import {runTimeSelector, starringToStringColumn} from '../filmCard/filmCardFunctions.ts';
+import {runTimeSelector, starringToStringColumn} from '../filmCard/utils.ts';
 
 interface OverviewProps {
   film: FilmType;

@@ -1,3 +1,5 @@
+const DEFAULT_COUNT_STARRING = 4;
+
 export const getNameRating = function (rating: string) {
   const ratingNumber = parseFloat(rating.replace(',', '.'));
   switch (true) {
@@ -19,9 +21,9 @@ export const ratingSelector = function (ratingCount: number) {
 
 export const starringToStringRow = function (starring: string[]) {
   return starring
-    .slice(0, Math.min(4, starring.length))
+    .slice(0, Math.min(DEFAULT_COUNT_STARRING, starring.length))
     .join(', ')
-    .concat(starring.length > 4 ? ' and other' : '');
+    .concat(starring.length > DEFAULT_COUNT_STARRING ? ' and other' : '');
 };
 
 export const starringToStringColumn = function (starring: string[]) {

@@ -1,4 +1,4 @@
-import { dateToString } from '../filmCard/filmCardFunctions.ts';
+import { dateToString } from '../filmCard/utils.ts';
 import { FilmType } from '../../types/film.ts';
 import { reviews } from '../../mocks/reviews.ts';
 import { ReviewType } from '../../types/filmReview.ts';
@@ -32,7 +32,7 @@ const ReviewItem = ({ author, date, text, rating }: ReviewType) => (
 );
 
 const Reviews = ({ film }: OverviewProps) => {
-  const reviewsList = reviews.filter(({ id }) => id === film.id)[0].reviews;
+  const reviewsList = reviews.find(({ id }) => id === film.id)?.reviews || [];
   const reviewsListFirstColumn = reviewsList.slice(0, reviewsList.length / 2);
   const reviewsListSecondColumn = reviewsList.slice(
     reviewsList.length / 2,

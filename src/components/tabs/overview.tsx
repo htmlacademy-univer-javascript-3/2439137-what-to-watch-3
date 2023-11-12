@@ -2,7 +2,7 @@ import {
   getNameRating,
   ratingSelector,
   starringToStringRow,
-} from '../filmCard/filmCardFunctions.ts';
+} from '../filmCard/utils.ts';
 import { FilmType } from '../../types/film.ts';
 
 interface OverviewProps {

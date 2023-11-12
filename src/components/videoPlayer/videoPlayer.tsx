@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { films } from '../../mocks/films.ts';
-import { players } from '../../mocks/players.ts';
 
 interface VideoPlayerProps {
-  filmId: string;
+  imgPath: string;
+  videoPath: string;
   isPlaying: boolean;
 }
 
-function VideoPlayer({ filmId, isPlaying }: VideoPlayerProps): JSX.Element {
+function VideoPlayer({
+  imgPath,
+  videoPath,
+  isPlaying,
+}: VideoPlayerProps): JSX.Element {
   const [isLoaded, setIsLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const film = films.filter(({ id }) => id === filmId)[0];
-  const player = players.filter(({ id }) => id === '1')[0];
 
   const handleDataLoaded = () => {
     setIsLoaded(true);
@@ -50,16 +51,13 @@ function VideoPlayer({ filmId, isPlaying }: VideoPlayerProps): JSX.Element {
   }, [isLoaded, isPlaying]);
 
   return (
-    film &&
-    player && (
-      <video
-        poster={film.imgPath}
-        src={player.videoPath}
-        ref={videoRef}
-        muted
-        style={{ width: 'inherit', height: 'inherit' }}
-      />
-    )
+    <video
+      poster={imgPath}
+      src={videoPath}
+      ref={videoRef}
+      muted
+      style={{ width: 'inherit', height: 'inherit' }}
+    />
   );
 }
 
