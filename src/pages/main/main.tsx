@@ -13,7 +13,7 @@ function Main({ film }: MainPros): JSX.Element {
       <FilmCard film={film} />
 
       <div className="page-content">
-        <Catalog film={film} />
+        <Catalog />
         <Footer />
       </div>
     </>
