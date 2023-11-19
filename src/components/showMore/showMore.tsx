@@ -1,25 +1,22 @@
-import {
-  DEFAULT_FILM_AMOUNT,
-} from '../catalog/utils.ts';
-import {useAppDispatch, useAppSelector} from '../hooks';
-import {changeCountListGenres} from '../../store/action.ts';
+import { DEFAULT_FILM_AMOUNT } from '../catalog/utils.ts';
+import { FilmType } from '../../types/film.ts';
 
-const ShowMore = () => {
-  const dispatch = useAppDispatch();
-  const countListGenres = useAppSelector((state) => state.countListGenres);
-  const listFilmsGenre = useAppSelector((state) => state.listFilms);
+interface ShowMoreProps {
+  filmsGenre: FilmType[];
+  lengthFilmsGenre: number;
+  setLengthFilmsGenre: (number: number) => void;
+}
 
+const ShowMore = ({
+  filmsGenre,
+  lengthFilmsGenre,
+  setLengthFilmsGenre,
+}: ShowMoreProps) => {
   const handleShowMore = () => {
-    dispatch(
-      changeCountListGenres({
-        countListGenres: Math.min(
-          countListGenres + DEFAULT_FILM_AMOUNT,
-          listFilmsGenre.length,
-        ),
-      }),
-    );
+    setLengthFilmsGenre(Math.min(lengthFilmsGenre + DEFAULT_FILM_AMOUNT));
   };
-  if (countListGenres >= listFilmsGenre.length) {
+
+  if (lengthFilmsGenre >= filmsGenre.length) {
     return null;
   }
   return (
@@ -34,5 +31,4 @@ const ShowMore = () => {
     </div>
   );
 };
-
 export default ShowMore;
