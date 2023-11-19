@@ -6,3 +6,6 @@ export const genreSelector = (state: InitialState) => state.genre;
 
 export const isFilmsDataLoadingSelector = (state: InitialState) =>
   state.isFilmsDataLoading;
+
+export const authorizationStatusSelector = (state: InitialState) =>
+  state.authorizationStatus;

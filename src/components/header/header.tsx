@@ -1,5 +1,7 @@
 import Logo from '../logo/logo.tsx';
 import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const.ts';
 
 export const HeaderType = {
   Error: 'error',
@@ -39,7 +41,9 @@ export const Header = ({
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
+            <Link className="user-block__link" to={AppRoute.SignIn}>
+              Sign out
+            </Link>
           </li>
         </ul>
       )}
