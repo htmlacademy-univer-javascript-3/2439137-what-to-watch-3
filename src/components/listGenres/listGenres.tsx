@@ -1,6 +1,6 @@
 import { useAppSelector } from '../hooks';
 import { genres } from '../catalog/utils.ts';
-import ItemListGenres from './Genre.tsx';
+import ItemListGenres from './genre.tsx';
 
 export const ListGenres = () => {
   const activeGenre = useAppSelector((state) => state.genre);
