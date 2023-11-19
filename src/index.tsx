@@ -6,12 +6,13 @@ import { reviews } from './mocks/reviews.ts';
 import { players } from './mocks/players.ts';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { fetchFilmsAction } from './store/api-actions.ts';
+import { checkAuthAction, fetchFilmsAction } from './store/api-actions.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 const film = films?.[0];
 
 root.render(

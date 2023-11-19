@@ -1,6 +1,6 @@
 import Main, { MainPros } from '../../pages/main/main.tsx';
 import Error404 from '../../pages/error/error404.tsx';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import MoviePage from '../../pages/film/moviePage.tsx';
 import SignIn from '../../pages/signIn/signIn.tsx';
@@ -12,8 +12,10 @@ import { FilmType } from '../../types/film.ts';
 import { PlayerType } from '../../types/filmPlayer.ts';
 import { ReviewsType } from '../../types/filmReview.ts';
 import { useAppSelector } from '../hooks';
-import { isFilmsDataLoadingSelector } from '../../store/selectors.ts';
 import LoadingScreen from '../../pages/loadingScreen/loadingScreen.tsx';
+import { isFilmsDataLoadingSelector } from '../../store/selectors.ts';
+import HistoryRouter from '../historyRoute/historyRoute.tsx';
+import browserHistory from '../../browserHistory.ts';
 
 interface AppProps {
   mainProps: MainPros;
@@ -33,7 +35,7 @@ function App({
     return <LoadingScreen />;
   }
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={<Main {...mainProps} />} />
         <Route path={AppRoute.SignIn} element={<SignIn />} />
@@ -63,7 +65,7 @@ function App({
         />
         <Route path={AppRoute.Error} element={<Error404 />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
