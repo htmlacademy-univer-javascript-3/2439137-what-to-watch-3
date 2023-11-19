@@ -1,0 +1,30 @@
+.loader {
+  position: relative;
+  width: 255px;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(#958c5b 500px, transparent 0),
+  linear-gradient(#958c5b 150px, transparent 0),
+  linear-gradient(#958c5b 150px, transparent 0),
+  linear-gradient(#958c5b 150px, transparent 0),
+  linear-gradient(#958c5b 150px, transparent 0),
+  linear-gradient(#958c5b 150px, transparent 0);
+  background-position: 0px center, 45px center, 90px center, 135px center, 180px center, 225px center, 270px center;
+  animation: rikSpikeRoll 2s linear infinite alternate;
+}
+@keyframes rikSpikeRoll {
+  0% { background-size: 20px 9px;}
+  16% { background-size: 20px 150px, 20px 9px, 20px 9px, 20px 9px, 20px 9px, 20px 9px}
+  33% { background-size: 20px 90px, 20px 150px, 20px 9px, 20px 9px, 20px 9px, 20px 9px}
+  50% { background-size: 20px 30px, 20px 90px, 20px 150px, 20px 9px, 20px 9px, 20px 9px}
+  66% { background-size: 20px 9px, 20px 30px, 20px 90px, 20px 150px, 20px 9px, 20px 9px}
+  83% { background-size: 20px 9px, 20px 9px,  20px 30px, 20px 90px, 20px 150px, 20px 9px}
+  100% { background-size: 20px 9px, 20px 9px, 20px 9px,  20px 20px, 20px 90px, 20px 150px}
+}
+
+
+.loader_container{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 150px;
+}

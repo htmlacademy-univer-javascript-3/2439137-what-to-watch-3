@@ -11,6 +11,9 @@ import PrivateRoute from '../privateRoute/privateRoute.tsx';
 import { FilmType } from '../../types/film.ts';
 import { PlayerType } from '../../types/filmPlayer.ts';
 import { ReviewsType } from '../../types/filmReview.ts';
+import { useAppSelector } from '../hooks';
+import { isFilmsDataLoadingSelector } from '../../store/selectors.ts';
+import LoadingScreen from '../../pages/loadingScreen/loadingScreen.tsx';
 
 interface AppProps {
   mainProps: MainPros;
@@ -22,9 +25,13 @@ interface AppProps {
 function App({
   mainProps,
   movieProps,
-  playerProps,
-  // reviewsProps,
+  playerProps, // reviewsProps,
 }: AppProps): JSX.Element {
+  const isFilmsDataLoading = useAppSelector(isFilmsDataLoadingSelector);
+
+  if (isFilmsDataLoading) {
+    return <LoadingScreen />;
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -40,7 +47,7 @@ function App({
         />
         <Route
           path={AppRoute.Film}
-          element={<MoviePage film={movieProps[0]}/>}
+          element={<MoviePage film={movieProps[0]} />}
         />
         <Route
           path={AppRoute.AddReview}

@@ -7,4 +7,4 @@ export const genres = [
   DEFAULT_GENRE,
   ...new Set(films.map(({ genre }) => genre)),
 ] as string[];
-export const initialStateCountFilms = (list: FilmType[]) => Math.min(DEFAULT_FILM_AMOUNT, list.length);
+export const initialStateLengthFilms = (list: FilmType[]) => Math.min(DEFAULT_FILM_AMOUNT, list.length);

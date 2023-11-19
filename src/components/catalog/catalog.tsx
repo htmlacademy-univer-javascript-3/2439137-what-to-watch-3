@@ -1,21 +1,42 @@
 import CatalogFilms from './catalogFilms.tsx';
 import { useAppSelector } from '../hooks';
-import ListGenres from '../listGenres/listGenres.tsx';
 import ShowMore from '../showMore/showMore.tsx';
+import { filmsSelector, genreSelector } from '../../store/selectors';
+import Genres from '../genres/genres.tsx';
+import { useEffect, useMemo, useState } from 'react';
+import { DEFAULT_GENRE, initialStateLengthFilms } from './utils.ts';
 
 const Catalog = () => {
-  const listFilmsGenre = useAppSelector((state) => state.listFilms);
-  const countListGenres = useAppSelector((state) => state.countListGenres);
-  const listCatalogFilms = listFilmsGenre.slice(0, countListGenres);
+  const films = useAppSelector(filmsSelector);
+  const currentGenre = useAppSelector(genreSelector);
+  const filmsGenre =
+    currentGenre === DEFAULT_GENRE
+      ? films
+      : films.filter(({ genre }) => genre === currentGenre);
+  const [lengthFilmsGenre, setLengthFilmsGenre] = useState<number>(
+    initialStateLengthFilms(filmsGenre),
+  );
+  useEffect(
+    () => setLengthFilmsGenre(initialStateLengthFilms(filmsGenre)),
+    [filmsGenre, currentGenre],
+  );
+  const catalogFilms = useMemo(
+    () => filmsGenre.slice(0, lengthFilmsGenre),
+    [filmsGenre, lengthFilmsGenre],
+  );
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-      <ListGenres />
+      <Genres />
 
-      <CatalogFilms films={listCatalogFilms} />
+      <CatalogFilms films={catalogFilms} />
 
-      <ShowMore />
+      <ShowMore
+        filmsGenre={filmsGenre}
+        lengthFilmsGenre={lengthFilmsGenre}
+        setLengthFilmsGenre={setLengthFilmsGenre}
+      />
     </section>
   );
 };
