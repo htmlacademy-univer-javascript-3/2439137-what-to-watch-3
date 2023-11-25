@@ -7,10 +7,10 @@ import {
   fetchFilms,
   fetchFilmsLoadingStatus,
   fetchFilmsError,
-  redirectToRoute,
   requireAuthorization,
+  requireAuthorizationError,
 } from './action.ts';
-import { AppRoute, AuthorizationStatus } from '../const.ts';
+import { AuthorizationStatus } from '../const.ts';
 import { AuthData } from '../types/authData.ts';
 import { dropToken, saveToken } from '../services/token.ts';
 import { UserData } from '../types/userData.ts';
@@ -64,12 +64,61 @@ export const loginAction = createAsyncThunk<
 >(
   'user/login',
   async ({ email: email, password: password }, { dispatch, extra: api }) => {
-    const {
-      data: { token },
-    } = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(redirectToRoute(AppRoute.Main));
+    try {
+      const {
+        data: { token },
+      } = await api.post<UserData>(APIRoute.Login, { email, password });
+      saveToken(token);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    } catch (error) {
+      try {
+        if (error instanceof AxiosError && error && error.response) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+          const result = error.response.data.details.reduce(
+            (
+              accumulator: {
+                property: string[];
+                messages: string[];
+              },
+              currentValue: {
+                property: string;
+                messages: string[];
+              },
+            ) => {
+              const property = currentValue.property;
+              const messages = currentValue.messages;
+              return {
+                property: [...accumulator.property, property],
+                messages: [...accumulator.messages, ...messages],
+              };
+            },
+            {
+              property: new Array<string>(),
+              messages: new Array<string>(),
+            } as {
+              property: string[];
+              messages: string[];
+            },
+          ) as {
+            property: string[];
+            messages: string[];
+          };
+          dispatch(
+            requireAuthorizationError({
+              property: result.property,
+              messages: result.messages,
+            }),
+          );
+        }
+      } catch (e) {
+        dispatch(
+          requireAuthorizationError({
+            property: [],
+            messages: [],
+          }),
+        );
+      }
+    }
   },
 );
 

@@ -4,7 +4,7 @@ import {
   fetchFilms,
   requireAuthorization,
   fetchFilmsLoadingStatus,
-  fetchFilmsError,
+  fetchFilmsError, requireAuthorizationError,
 } from './action';
 import { FilmType } from '../types/film.ts';
 import { AuthorizationStatus } from '../const.ts';
@@ -19,7 +19,13 @@ export type InitialState = {
     error: string | null;
     data: FilmType[];
   };
-  authorizationStatus: AuthorizationStatus;
+  authorizationStatus: {
+    error: {
+      property: string[];
+      messages: string[];
+    };
+    data: AuthorizationStatus;
+  };
   userData: UserData | null;
 };
 
@@ -30,7 +36,13 @@ const initialState: InitialState = {
     error: null,
     data: [],
   },
-  authorizationStatus: AuthorizationStatus.Unknown,
+  authorizationStatus: {
+    error: {
+      property: [],
+      messages: [],
+    },
+    data: AuthorizationStatus.Unknown,
+  },
   userData: null,
 };
 
@@ -58,7 +70,16 @@ const reducer = createReducer(initialState, (builder) => {
       };
     })
     .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
+      state.authorizationStatus = {
+        ...state.authorizationStatus,
+        data: action.payload,
+      };
+    })
+    .addCase(requireAuthorizationError, (state, action) => {
+      state.authorizationStatus = {
+        ...state.authorizationStatus,
+        error: action.payload,
+      };
     });
 });
 export { reducer };
