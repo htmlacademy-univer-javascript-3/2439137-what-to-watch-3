@@ -4,7 +4,8 @@ import FilmCard from '../../components/filmCard/filmCard.tsx';
 import Catalog from '../../components/catalog/catalog.tsx';
 import { useAppDispatch } from '../../components/hooks';
 import { useEffect } from 'react';
-import { resetCatalog } from '../../store/action.ts';
+import { setGenre } from '../../store/action.ts';
+import { DEFAULT_GENRE } from '../../components/catalog/utils.ts';
 
 export interface MainPros {
   film: FilmType;
@@ -13,7 +14,7 @@ export interface MainPros {
 function Main({ film }: MainPros): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(resetCatalog());
+    dispatch(setGenre(DEFAULT_GENRE));
   }, [dispatch]);
   return (
     <>

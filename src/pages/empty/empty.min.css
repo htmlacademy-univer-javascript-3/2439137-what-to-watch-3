@@ -1,0 +1,6 @@
+.empty {
+  min-height: 100vh;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#170202), to(#0c0101));;
+  color: #d9cd8d;
+  padding: 15px 15px 70px;
+}

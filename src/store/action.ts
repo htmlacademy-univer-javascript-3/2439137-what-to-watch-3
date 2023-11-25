@@ -3,11 +3,9 @@ import { FilmType } from '../types/film.ts';
 import {AppRoute, AuthorizationStatus} from '../const.ts';
 
 export const setGenre = createAction<string>('catalog/setGenre');
-export const resetCatalog = createAction('catalog/resetCatalog');
-export const loadFilms = createAction<FilmType[]>('data/loadFilms');
-export const setFilmsDataLoadingStatus = createAction<boolean>(
-  'data/setFilmsDataLoadingStatus',
-);
+export const fetchFilms = createAction<FilmType[]>('data/dataFilms');
+export const fetchFilmsLoadingStatus = createAction<boolean>('data/loadFilms');
+export const fetchFilmsError = createAction<string | null>('data/errorFilms');
 export const requireAuthorization = createAction<AuthorizationStatus>(
   'user/requireAuthorization',
 );

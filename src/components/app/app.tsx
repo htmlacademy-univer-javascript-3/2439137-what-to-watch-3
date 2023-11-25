@@ -1,5 +1,5 @@
 import Main, { MainPros } from '../../pages/main/main.tsx';
-import Error404 from '../../pages/error/error404.tsx';
+import Error404 from '../error/error404.tsx';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import MoviePage from '../../pages/film/moviePage.tsx';
@@ -12,10 +12,11 @@ import { FilmType } from '../../types/film.ts';
 import { PlayerType } from '../../types/filmPlayer.ts';
 import { ReviewsType } from '../../types/filmReview.ts';
 import { useAppSelector } from '../hooks';
-import LoadingScreen from '../../pages/loadingScreen/loadingScreen.tsx';
-import { isFilmsDataLoadingSelector } from '../../store/selectors.ts';
+import LoadingScreen from '../loadingScreen/loadingScreen.tsx';
+import { filmsSelectorLoadingStatue } from '../../store/selectors.ts';
 import HistoryRouter from '../historyRoute/historyRoute.tsx';
 import browserHistory from '../../browserHistory.ts';
+import Empty from '../../pages/empty/empty.tsx';
 
 interface AppProps {
   mainProps: MainPros;
@@ -29,10 +30,14 @@ function App({
   movieProps,
   playerProps, // reviewsProps,
 }: AppProps): JSX.Element {
-  const isFilmsDataLoading = useAppSelector(isFilmsDataLoadingSelector);
+  const isFilmsDataLoading = useAppSelector(filmsSelectorLoadingStatue);
 
   if (isFilmsDataLoading) {
-    return <LoadingScreen />;
+    return (
+      <Empty>
+        <LoadingScreen />
+      </Empty>
+    );
   }
   return (
     <HistoryRouter history={browserHistory}>
@@ -63,7 +68,14 @@ function App({
           path={AppRoute.Player}
           element={<Player player={playerProps[0]} />}
         />
-        <Route path={AppRoute.Error} element={<Error404 />} />
+        <Route
+          path={AppRoute.Error}
+          element={
+            <Empty>
+              <Error404 />
+            </Empty>
+          }
+        />
       </Routes>
     </HistoryRouter>
   );
