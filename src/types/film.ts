@@ -1,14 +1,36 @@
 export type FilmType = {
   id: string;
-  title: string;
-  imgPath: string;
-  backgroundImgPath?: string;
-  genre?: string;
-  releaseDate?: number;
-  rating?: [string, number];
-  runTime?: number;
-  annotation?: string[];
-  director?: string;
-  starring?: string[];
-  isMyList?: boolean;
+  name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  genre: string;
+};
+
+export type FilmPromoType = {
+  id: string;
+  name: string;
+  posterImage: string;
+  backgroundImage: string;
+  videoLink: string;
+  genre: string;
+  released: number;
+  isFavorite: boolean;
+};
+
+export type FilmFullType = {
+  id: string;
+  name: string;
+  posterImage: string;
+  backgroundImage: string;
+  backgroundColor: string;
+  videoLink: string;
+  description: string;
+  rating: number;
+  scoresCount: number;
+  director: string;
+  starring: [string];
+  runTime: number;
+  genre: string;
+  released: number;
+  isFavorite: boolean;
 };

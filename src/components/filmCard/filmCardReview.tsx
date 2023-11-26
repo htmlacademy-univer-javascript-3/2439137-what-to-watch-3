@@ -1,6 +1,6 @@
 import Header, { HeaderType } from '../header/header.tsx';
-import { FilmCardProps } from './filmCard.tsx';
 import { FormEvent, useState } from 'react';
+import { FilmFullType } from '../../types/film.ts';
 
 const MAX_RATING = 10;
 
@@ -11,7 +11,11 @@ type RatingType = {
   data: string;
 };
 
-const FilmCardReview = ({ film }: FilmCardProps) => {
+interface FilmCardReviewProps {
+  film: FilmFullType;
+}
+
+const FilmCardReview = ({ film }: FilmCardReviewProps) => {
   const [reviewData, setReviewData] = useState<RatingType>({
     review: '',
     rating: '',
@@ -31,14 +35,14 @@ const FilmCardReview = ({ film }: FilmCardProps) => {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={film.backgroundImgPath} alt={film.title} />
+          <img src={film.backgroundImage} alt={film.name} />
         </div>
 
         <Header headerType={HeaderType.Auth} />
 
         <div className="film-card__poster film-card__poster--small">
           <img
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src={film.posterImage}
             alt="The Grand Budapest Hotel poster"
             width="218"
             height="327"

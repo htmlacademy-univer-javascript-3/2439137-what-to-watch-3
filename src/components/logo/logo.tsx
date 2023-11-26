@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
 import { useAppSelector } from '../hooks';
-import { filmsSelectorLoadingStatue } from '../../store/selectors.ts';
+import { filmsLoadingStatusSelector } from '../../store/selectors.ts';
 
 interface LogoProps {
   isLight: boolean;
 }
 
 export const Logo = ({ isLight }: LogoProps) => {
-  const isFilmsDataLoading = useAppSelector(filmsSelectorLoadingStatue);
+  const isFilmsDataLoading = useAppSelector(filmsLoadingStatusSelector);
   if (isFilmsDataLoading) {
     return (
       <div className="logo">

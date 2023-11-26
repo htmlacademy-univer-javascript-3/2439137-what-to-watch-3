@@ -2,8 +2,10 @@ import Footer from '../../components/footer/footer.tsx';
 import Header, { HeaderType } from '../../components/header/header.tsx';
 import { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
-import { AuthData } from '../../types/authData.ts';
-import { loginAction } from '../../store/api-actions.ts';
+import { FetchData } from '../../types/fetchData.ts';
+import {
+  loginAction,
+} from '../../store/api-actions.ts';
 import * as classNames from 'classnames';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { authorizationStatusSelector } from '../../store/selectors.ts';
@@ -41,7 +43,7 @@ function SignIn(): JSX.Element {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       navigate(AppRoute.Main);
     }
-  }, [authorizationStatus]);
+  }, [authorizationStatus, navigate]);
 
   useEffect(() => {
     if (authorizationError.property.length) {
@@ -53,9 +55,9 @@ function SignIn(): JSX.Element {
       }
       setMessageError(authorizationError.messages);
     }
-  }, [authorizationError]);
+  }, [authorizationError, loginData]);
 
-  const onSubmit = (authData: AuthData) => {
+  const onSubmit = (authData: FetchData) => {
     dispatch(loginAction(authData));
   };
 

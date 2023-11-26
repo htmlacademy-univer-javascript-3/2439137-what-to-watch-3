@@ -1,49 +1,54 @@
 import Header, { HeaderType } from '../header/header.tsx';
-import { AppRoute } from '../../const.ts';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { Link } from 'react-router-dom';
-import { FilmType } from '../../types/film.ts';
+import { FilmFullType } from '../../types/film.ts';
+import ButtonMyLists from '../buttonMyLists/buttonMyLists.tsx';
+import { useAppSelector } from '../hooks';
+import { authorizationStatusSelector } from '../../store/selectors.ts';
 
 interface FullFilmCardProps {
-  film: FilmType;
+  film: FilmFullType;
 }
 
-const FilmCardFull = ({ film /*reviews*/ }: FullFilmCardProps) => (
-  <div className="film-card__hero">
-    <div className="film-card__bg">
-      <img src={film.backgroundImgPath} alt={film.title} />
-    </div>
+const FilmCardFull = ({ film }: FullFilmCardProps) => {
+  const authorizationStatus = useAppSelector(authorizationStatusSelector).data;
+  return (
+    <div className="film-card__hero">
+      <div className="film-card__bg">
+        <img src={film.backgroundImage} alt={film.name} />
+      </div>
 
-    <Header headerType={HeaderType.Auth} />
+      <Header headerType={HeaderType.Auth} />
 
-    <div className="film-card__wrap">
-      <div className="film-card__desc">
-        <h2 className="film-card__title">{film.title}</h2>
-        <p className="film-card__meta">
-          <span className="film-card__genre">{film.genre}</span>
-          <span className="film-card__year">{film.releaseDate}</span>
-        </p>
+      <div className="film-card__wrap">
+        <div className="film-card__desc">
+          <h2 className="film-card__title">{film.name}</h2>
+          <p className="film-card__meta">
+            <span className="film-card__genre">{film.genre}</span>
+            <span className="film-card__year">{film.released}</span>
+          </p>
 
-        <div className="film-card__buttons">
-          <button className="btn btn--play film-card__button" type="button">
-            <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
-            </svg>
-            <span>Play</span>
-          </button>
-          <button className="btn btn--list film-card__button" type="button">
-            <svg viewBox="0 0 19 20" width="19" height="20">
-              <use xlinkHref="#add"></use>
-            </svg>
-            <span>My list</span>
-            <span className="film-card__count">9</span>
-          </button>
-          <Link to={AppRoute.AddReview} className="btn film-card__button">
-            Add review
-          </Link>
+          <div className="film-card__buttons">
+            <button className="btn btn--play film-card__button" type="button">
+              <svg viewBox="0 0 19 19" width="19" height="19">
+                <use xlinkHref="#play-s"></use>
+              </svg>
+              <span>Play</span>
+            </button>
+            <ButtonMyLists />
+            {authorizationStatus === AuthorizationStatus.Auth && (
+              <Link
+                to={AppRoute.AddReview(film.id)}
+                className="btn film-card__button"
+              >
+                Add review
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default FilmCardFull;

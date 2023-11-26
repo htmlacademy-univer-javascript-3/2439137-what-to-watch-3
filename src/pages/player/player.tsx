@@ -1,16 +1,47 @@
 import { PlayerType } from '../../types/filmPlayer.ts';
+import { useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../components/hooks';
+import { useEffect } from 'react';
+import {
+  fetchCommentFilmAction,
+  fetchFilmAction,
+  fetchSimilarFilmsAction,
+} from '../../store/api-actions.ts';
+import {
+  filmLoadingStatusSelector,
+  filmSelector,
+} from '../../store/selectors.ts';
+import Empty from '../empty/empty.tsx';
+import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
 
 export interface PlayerPros {
   player: PlayerType;
 }
 
-function Player({ player }: PlayerPros): JSX.Element {
+function Player(): JSX.Element {
+  const location = useLocation();
+  const filmId = location.pathname.replace('/films/', '');
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchFilmAction({ filmId }));
+    dispatch(fetchCommentFilmAction({ filmId }));
+    dispatch(fetchSimilarFilmsAction({ filmId }));
+  }, [dispatch, filmId]);
+  const film = useAppSelector(filmSelector);
+  const filmLoadingStatus = useAppSelector(filmLoadingStatusSelector);
+  if (film === null || filmLoadingStatus) {
+    return (
+      <Empty>
+        <LoadingScreen />
+      </Empty>
+    );
+  }
   return (
     <div className="player">
       <video
         src="#"
         className="player__video"
-        poster={player.posterPath}
+        poster={film.posterImage}
       >
       </video>
 

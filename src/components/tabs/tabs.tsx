@@ -1,11 +1,13 @@
-import { FilmType } from '../../types/film.ts';
+import { FilmFullType } from '../../types/film.ts';
 import Overview from './overview.tsx';
 import { useState } from 'react';
 import Details from './details.tsx';
 import Reviews from './reviews.tsx';
+import { CommentType } from '../../types/filmReview.ts';
 
 interface TabsProps {
-  film: FilmType;
+  film: FilmFullType;
+  commentsFilms: CommentType[];
 }
 
 interface FilmNavProps {
@@ -13,7 +15,7 @@ interface FilmNavProps {
   view: JSX.Element;
 }
 
-const Tabs = ({ film }: TabsProps) => {
+const Tabs = ({ film, commentsFilms }: TabsProps) => {
   const [titleNav, setTitleNav] = useState('Overview');
   const filmNav: FilmNavProps[] = [
     {
@@ -26,7 +28,7 @@ const Tabs = ({ film }: TabsProps) => {
     },
     {
       title: 'Reviews',
-      view: <Reviews film={film} />,
+      view: <Reviews commentsFilm={commentsFilms} />,
     },
   ];
   const activeNav = filmNav.filter(({ title }) => title === titleNav)[0];
@@ -34,7 +36,12 @@ const Tabs = ({ film }: TabsProps) => {
     <div className="film-card__wrap film-card__translate-top">
       <div className="film-card__info">
         <div className="film-card__poster film-card__poster--big">
-          <img src={film.imgPath} alt={film.title} width="218" height="327" />
+          <img
+            src={film.posterImage}
+            alt={film.name}
+            width="218"
+            height="327"
+          />
         </div>
 
         <div className="film-card__desc">
