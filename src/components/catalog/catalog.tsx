@@ -1,13 +1,19 @@
 import CatalogFilms from './catalogFilms.tsx';
 import { useAppSelector } from '../hooks';
 import ShowMore from '../showMore/showMore.tsx';
-import { filmsSelector, genreSelector } from '../../store/selectors';
+import {
+  filmsSelector,
+  filmsLoadingStatusSelector,
+  genreSelector,
+} from '../../store/selectors';
 import Genres from '../genres/genres.tsx';
 import { useEffect, useMemo, useState } from 'react';
 import { DEFAULT_GENRE, initialStateLengthFilms } from './utils.ts';
+import LoadingScreen from '../loadingScreen/loadingScreen.tsx';
 
 const Catalog = () => {
   const films = useAppSelector(filmsSelector);
+  const filmsLoadingStatus = useAppSelector(filmsLoadingStatusSelector);
   const currentGenre = useAppSelector(genreSelector);
   const filmsGenre =
     currentGenre === DEFAULT_GENRE
@@ -27,16 +33,21 @@ const Catalog = () => {
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
+      {filmsLoadingStatus ? (
+        <LoadingScreen />
+      ) : (
+        <>
+          <Genres films={films}/>
 
-      <Genres />
+          <CatalogFilms films={catalogFilms} />
 
-      <CatalogFilms films={catalogFilms} />
-
-      <ShowMore
-        filmsGenre={filmsGenre}
-        lengthFilmsGenre={lengthFilmsGenre}
-        setLengthFilmsGenre={setLengthFilmsGenre}
-      />
+          <ShowMore
+            filmsGenre={filmsGenre}
+            lengthFilmsGenre={lengthFilmsGenre}
+            setLengthFilmsGenre={setLengthFilmsGenre}
+          />
+        </>
+      )}
     </section>
   );
 };

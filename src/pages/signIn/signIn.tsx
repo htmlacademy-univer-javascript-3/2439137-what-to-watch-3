@@ -1,68 +1,80 @@
 import Footer from '../../components/footer/footer.tsx';
 import Header, { HeaderType } from '../../components/header/header.tsx';
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
-import { AuthData } from '../../types/authData.ts';
-import { loginAction } from '../../store/api-actions.ts';
-import MessageError from './messageError.tsx';
+import { FetchData } from '../../types/fetchData.ts';
+import {
+  loginAction,
+} from '../../store/api-actions.ts';
 import * as classNames from 'classnames';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
-import { redirectToRoute } from '../../store/action.ts';
 import { authorizationStatusSelector } from '../../store/selectors.ts';
+import { useNavigate } from 'react-router-dom';
 
-const EMAIL_REGEXP =
-  /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-const PASSWORD_REGEXP = /^[0-9A-ZА-ЯЁ]+$/i;
+type LoginType = {
+  userEmail: string;
+  userPassword: string;
+  userEmailError: boolean;
+  userPasswordError: boolean;
+};
 
 function SignIn(): JSX.Element {
-  const authorizationStatus = useAppSelector(authorizationStatusSelector);
+  const authorizationStatus = useAppSelector(authorizationStatusSelector).data;
+  const authorizationError = useAppSelector(authorizationStatusSelector).error;
   const dispatch = useAppDispatch();
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-  const [errorLogin, setErrorLogin] = useState<boolean>(false);
-  const [errorPassword, setErrorPassword] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const [loginData, setLoginData] = useState<LoginType>({
+    userEmail: '',
+    userPassword: '',
+    userEmailError: false,
+    userPasswordError: false,
+  });
+  const [messageError, setMessageError] = useState<string[] | null>(null);
+  const loginChange = (
+    evt: FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>,
+  ) => {
+    if (evt.target) {
+      const { name, value } = evt.currentTarget;
+      setLoginData({ ...loginData, [name]: value, [`${name}Error`]: false });
+    }
+  };
 
-  if (authorizationStatus === AuthorizationStatus.Auth) {
-    dispatch(redirectToRoute(AppRoute.Main));
-  }
-  const onSubmit = (authData: AuthData) => {
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  }, [authorizationStatus, navigate]);
+
+  useEffect(() => {
+    if (authorizationError.property.length) {
+      if (authorizationError.property.includes('password')) {
+        setLoginData({ ...loginData, userPasswordError: true });
+      }
+      if (authorizationError.property.includes('email')) {
+        setLoginData({ ...loginData, userEmailError: true });
+      }
+      setMessageError(authorizationError.messages);
+    }
+  }, [authorizationError, loginData]);
+
+  const onSubmit = (authData: FetchData) => {
     dispatch(loginAction(authData));
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (
-      loginRef.current === null ||
-      loginRef.current.value === null ||
-      !EMAIL_REGEXP.test(loginRef.current?.value)
-    ) {
-      setErrorLogin(true);
+    if (loginData.userEmail === '') {
+      setLoginData({ ...loginData, userEmailError: true });
     }
-    if (
-      passwordRef.current === null ||
-      passwordRef.current.value === null ||
-      !PASSWORD_REGEXP.test(passwordRef.current?.value)
-    ) {
-      setErrorPassword(true);
+    if (loginData.userPassword === '') {
+      setLoginData({ ...loginData, userPasswordError: true });
     }
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (loginData.userEmail !== '' && loginData.userPassword !== '') {
       onSubmit({
-        email: loginRef.current.value,
-        password: passwordRef.current.value,
+        email: loginData.userEmail,
+        password: loginData.userPassword,
       });
-    }
-  };
-
-  const onChangeLogin = () => {
-    if (errorLogin) {
-      setErrorLogin(false);
-    }
-  };
-
-  const onChangePassword = () => {
-    if (errorPassword) {
-      setErrorPassword(false);
     }
   };
 
@@ -72,27 +84,27 @@ function SignIn(): JSX.Element {
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
-          {(errorPassword || errorLogin) && (
-            <MessageError
-              errorLogin={errorLogin}
-              errorPassword={errorPassword}
-            />
+          {messageError && (
+            <div className="sign-in__message">
+              {messageError.map((message) => (
+                <p key={`key_${message}`}>{message}</p>
+              ))}
+            </div>
           )}
           <div className="sign-in__fields">
             <div
               className={classNames(
                 'sign-in__field',
-                errorLogin ? 'sign-in__field--error' : '',
+                loginData.userEmailError ? 'sign-in__field--error' : '',
               )}
             >
               <input
                 className="sign-in__input"
                 type="email"
                 placeholder="Email address"
-                name="user-email"
+                name="userEmail"
                 id="user-email"
-                ref={loginRef}
-                onChange={onChangeLogin}
+                onChange={loginChange}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -104,17 +116,16 @@ function SignIn(): JSX.Element {
             <div
               className={classNames(
                 'sign-in__field',
-                errorPassword ? 'sign-in__field--error' : '',
+                loginData.userPasswordError ? 'sign-in__field--error' : '',
               )}
             >
               <input
                 className="sign-in__input"
                 type="password"
                 placeholder="Password"
-                name="user-password"
+                name="userPassword"
                 id="user-password"
-                ref={passwordRef}
-                onChange={onChangePassword}
+                onChange={loginChange}
               />
               <label
                 className="sign-in__label visually-hidden"

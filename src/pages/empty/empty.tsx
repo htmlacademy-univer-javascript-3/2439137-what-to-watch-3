@@ -1,17 +1,14 @@
 import Header, { HeaderType } from '../../components/header/header.tsx';
-
 import Footer from '../../components/footer/footer.tsx';
 
-function LoadingScreen(): JSX.Element {
+function Empty({ children }: { children: JSX.Element }): JSX.Element {
   return (
-    <div className="error">
+    <div className="empty">
       <Header headerType={HeaderType.Error} />
-      <div className="loader_container">
-        <span className="loader"></span>
-      </div>
+      {children}
       <Footer />
     </div>
   );
 }
 
-export default LoadingScreen;
+export default Empty;

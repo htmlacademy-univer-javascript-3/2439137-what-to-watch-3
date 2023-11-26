@@ -7,8 +7,8 @@ interface CatalogFilmsProps {
 
 const CatalogFilms = ({ films }: CatalogFilmsProps) => (
   <div className="catalog__films-list">
-    {films.map(({ id }) => (
-      <FilmCardSmall key={`key_${id}`} filmId={id} />
+    {films.map((film) => (
+      <FilmCardSmall key={`key_${film.id}`} film={film} />
     ))}
   </div>
 );

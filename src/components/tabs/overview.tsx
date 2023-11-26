@@ -3,48 +3,36 @@ import {
   ratingSelector,
   starringToStringRow,
 } from '../filmCard/utils.ts';
-import { FilmType } from '../../types/film.ts';
+import { FilmFullType } from '../../types/film.ts';
 
 interface OverviewProps {
-  film: FilmType;
+  film: FilmFullType;
 }
 
 const Overview = ({ film }: OverviewProps) => (
   <>
     <div className="film-rating">
-      <div className="film-rating__score">
-        {film.rating ? film.rating[0] : '0'}
-      </div>
+      <div className="film-rating__score">{film.rating}</div>
       <p className="film-rating__meta">
         <span className="film-rating__level">
-          {getNameRating(film.rating ? film.rating[0] : '0')}
+          {getNameRating(film.rating.toString())}
         </span>
         <span className="film-rating__count">
-          {`${film.rating ? film.rating[1] : 0} ${ratingSelector(
-            film.rating ? film.rating[1] : 0,
-          )}`}
+          {`${film.scoresCount} ${ratingSelector(film.scoresCount)}`}
         </span>
       </p>
     </div>
 
     <div className="film-card__text">
-      {film.annotation?.map((annotationItem, index) => (
-        <p key={`key_${film.title}_annotation_${index + 1}`}>
-          {annotationItem}
-        </p>
-      ))}
+      <p>{film.description}</p>
 
-      {film.director && (
-        <p className="film-card__director">
-          <strong>Director: {film.director}</strong>
-        </p>
-      )}
+      <p className="film-card__director">
+        <strong>Director: {film.director}</strong>
+      </p>
 
-      {film.starring && (
-        <p className="film-card__starring">
-          <strong>Starring: {starringToStringRow(film.starring)}</strong>
-        </p>
-      )}
+      <p className="film-card__starring">
+        <strong>Starring: {starringToStringRow(film.starring)}</strong>
+      </p>
     </div>
   </>
 );

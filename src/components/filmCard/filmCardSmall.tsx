@@ -2,18 +2,15 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
 import VideoPlayer from '../videoPlayer/videoPlayer.tsx';
 import { useState } from 'react';
-import { films } from '../../mocks/films.ts';
-import { players } from '../../mocks/players.ts';
+import { FilmType } from '../../types/film.ts';
 
 interface SmallFilmCardProps {
-  filmId: string;
+  film: FilmType;
 }
 
-export const FilmCardSmall = ({ filmId }: SmallFilmCardProps) => {
+export const FilmCardSmall = ({ film }: SmallFilmCardProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const film = films.find(({ id }) => id === filmId);
-  const player = players.find(({ id }) => id === '1');
-  return film && player ? (
+  return film ? (
     <article
       className="small-film-card catalog__films-card"
       onMouseOut={() => setIsPlaying(false)}
@@ -21,14 +18,16 @@ export const FilmCardSmall = ({ filmId }: SmallFilmCardProps) => {
     >
       <div className="small-film-card__image">
         <VideoPlayer
-          imgPath={film.imgPath}
-          videoPath={player.videoPath}
+          imgPath={film.previewImage}
+          videoPath={film.previewVideoLink}
           isPlaying={isPlaying}
         />
       </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={AppRoute.Film}>
-          {film.title}
+      <h3
+        className="small-film-card__title"
+      >
+        <Link className="small-film-card__link" to={AppRoute.Film(film.id)}>
+          {film.name}
         </Link>
       </h3>
     </article>
