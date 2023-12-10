@@ -5,26 +5,17 @@ import { FilmFullType, FilmPromoType, FilmType } from '../types/film.ts';
 import { APIRoute } from '../services/const.ts';
 import {
   fetchFilms,
-  setFilmsLoadingStatus,
-  setFilmsError,
   requireAuthorization,
   requireAuthorizationError,
-  setFilmPromoLoadingStatus,
   fetchFilmPromo,
   fetchFilmsFavorite,
-  setFilmsFavoriteLoadingStatus,
   setFilmPromoOperation,
-  setFilmLoadingStatus,
   fetchFilm,
-  setSimilarFilmsLoadingStatus,
   fetchSimilarFilms,
-  setCommentsFilmLoadingStatus,
   fetchCommentsFilm,
-  setCommentFilmLoadingStatus,
 } from './action.ts';
 import { AuthorizationStatus } from '../const.ts';
 import {
-  CommentFilmData,
   FetchData,
   FetchFilmData,
   FetchFilmsFavoriteData,
@@ -43,13 +34,12 @@ export const fetchFilmsAction = createAsyncThunk<
   }
 >('data/fetchFilms', async (_arg, { dispatch, extra: api }) => {
   try {
-    dispatch(setFilmsLoadingStatus(true));
+    dispatch(fetchFilms({ loading: true }));
     const { data } = await api.get<FilmType[]>(APIRoute.Films);
-    dispatch(setFilmsLoadingStatus(false));
-    dispatch(fetchFilms(data));
+    dispatch(fetchFilms({ data: data, loading: false }));
   } catch (error) {
     if (error instanceof AxiosError) {
-      dispatch(setFilmsError(error.message));
+      dispatch(fetchFilms({ error: error.message, loading: false }));
     }
   }
 });
@@ -64,18 +54,17 @@ export const fetchFilmAction = createAsyncThunk<
   }
 >('data/fetchFilms', async ({ filmId }, { dispatch, extra: api }) => {
   try {
-    dispatch(setFilmLoadingStatus(true));
+    dispatch(fetchFilm({ loading: true }));
     const { data } = await api.get<FilmFullType>(`${APIRoute.Films}/${filmId}`);
-    dispatch(setFilmLoadingStatus(false));
-    dispatch(fetchFilm(data));
+    dispatch(fetchFilm({ data: data, loading: false }));
   } catch (error) {
     if (error instanceof AxiosError) {
-      dispatch(setFilmsError(error.message));
+      dispatch(fetchFilm({ error: error.message, loading: false }));
     }
   }
 });
 
-export const fetchCommentFilmAction = createAsyncThunk<
+export const fetchCommentsFilmAction = createAsyncThunk<
   void,
   FetchFilmData,
   {
@@ -85,42 +74,17 @@ export const fetchCommentFilmAction = createAsyncThunk<
   }
 >('data/fetchCommentFilm', async ({ filmId }, { dispatch, extra: api }) => {
   try {
-    dispatch(setCommentsFilmLoadingStatus(true));
+    dispatch(fetchCommentsFilm({ loading: true }));
     const { data } = await api.get<CommentType[]>(
       `${APIRoute.FilmComments}/${filmId}`,
     );
-    dispatch(setCommentsFilmLoadingStatus(false));
-    dispatch(fetchCommentsFilm(data));
+    dispatch(fetchCommentsFilm({ data: data, loading: false }));
   } catch (error) {
     if (error instanceof AxiosError) {
-      dispatch(setFilmsError(error.message));
+      dispatch(fetchCommentsFilm({ error: error.message, loading: false }));
     }
   }
 });
-
-export const fetchAddCommentFilmAction = createAsyncThunk<
-  void,
-  CommentFilmData,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->(
-  'data/fetchAddCommentFilm',
-  async ({ filmId, comment, rating }, { dispatch, extra: api }) => {
-    try {
-      dispatch(setCommentFilmLoadingStatus(true));
-      await api.post(`${APIRoute.FilmComments}/${filmId}`, { comment, rating });
-      dispatch(setCommentFilmLoadingStatus(false));
-      dispatch(fetchCommentFilmAction({ filmId }));
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        dispatch(setFilmsError(error.message));
-      }
-    }
-  },
-);
 
 export const fetchSimilarFilmsAction = createAsyncThunk<
   void,
@@ -132,15 +96,14 @@ export const fetchSimilarFilmsAction = createAsyncThunk<
   }
 >('data/fetchSimilarFilms', async ({ filmId }, { dispatch, extra: api }) => {
   try {
-    dispatch(setSimilarFilmsLoadingStatus(true));
+    dispatch(fetchSimilarFilms({ loading: true }));
     const { data } = await api.get<FilmType[]>(
       `${APIRoute.Films}/${filmId}/similar`,
     );
-    dispatch(setSimilarFilmsLoadingStatus(false));
-    dispatch(fetchSimilarFilms(data));
+    dispatch(fetchSimilarFilms({ data: data, loading: false }));
   } catch (error) {
     if (error instanceof AxiosError) {
-      dispatch(setFilmsError(error.message));
+      dispatch(fetchSimilarFilms({ error: error.message, loading: false }));
     }
   }
 });
@@ -155,12 +118,13 @@ export const fetchFilmPromoAction = createAsyncThunk<
   }
 >('data/fetchFilmPromo', async (_arg, { dispatch, extra: api }) => {
   try {
-    dispatch(setFilmPromoLoadingStatus(true));
+    dispatch(fetchFilmPromo({ loading: true }));
     const { data } = await api.get<FilmPromoType>(APIRoute.FilmPromo);
-    dispatch(setFilmPromoLoadingStatus(false));
-    dispatch(fetchFilmPromo(data));
+    dispatch(fetchFilmPromo({ data: data, loading: false }));
   } catch (error) {
-    dispatch(setFilmPromoLoadingStatus(true));
+    if (error instanceof AxiosError) {
+      dispatch(fetchFilmPromo({ error: error.message, loading: false }));
+    }
   }
 });
 
@@ -174,12 +138,13 @@ export const fetchFilmsFavoriteAction = createAsyncThunk<
   }
 >('data/fetchFilmsFavorite', async (_arg, { dispatch, extra: api }) => {
   try {
-    dispatch(setFilmsFavoriteLoadingStatus(true));
+    dispatch(fetchFilmsFavorite({ loading: true }));
     const { data } = await api.get<FilmType[]>(APIRoute.FilmFavorite);
-    dispatch(setFilmsFavoriteLoadingStatus(false));
-    dispatch(fetchFilmsFavorite(data));
+    dispatch(fetchFilmsFavorite({ data: data, loading: false }));
   } catch (error) {
-    dispatch(setFilmsFavoriteLoadingStatus(true));
+    if (error instanceof AxiosError) {
+      dispatch(fetchFilmsFavorite({ error: error.message, loading: false }));
+    }
   }
 });
 

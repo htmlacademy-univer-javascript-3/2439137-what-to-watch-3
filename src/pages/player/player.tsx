@@ -1,9 +1,9 @@
 import { PlayerType } from '../../types/filmPlayer.ts';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { useEffect } from 'react';
 import {
-  fetchCommentFilmAction,
+  fetchCommentsFilmAction,
   fetchFilmAction,
   fetchSimilarFilmsAction,
 } from '../../store/api-actions.ts';
@@ -13,22 +13,27 @@ import {
 } from '../../store/selectors.ts';
 import Empty from '../empty/empty.tsx';
 import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
+import Error from '../../components/error/error.tsx';
 
 export interface PlayerPros {
   player: PlayerType;
 }
 
 function Player(): JSX.Element {
-  const location = useLocation();
-  const filmId = location.pathname.replace('/films/', '');
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchFilmAction({ filmId }));
-    dispatch(fetchCommentFilmAction({ filmId }));
-    dispatch(fetchSimilarFilmsAction({ filmId }));
-  }, [dispatch, filmId]);
+    if (id) {
+      dispatch(fetchFilmAction({ filmId: id }));
+      dispatch(fetchCommentsFilmAction({ filmId: id }));
+      dispatch(fetchSimilarFilmsAction({ filmId: id }));
+    }
+  }, [dispatch, id]);
   const film = useAppSelector(filmSelector);
   const filmLoadingStatus = useAppSelector(filmLoadingStatusSelector);
+  if (!id) {
+    return <Error />;
+  }
   if (film === null || filmLoadingStatus) {
     return (
       <Empty>
@@ -38,12 +43,7 @@ function Player(): JSX.Element {
   }
   return (
     <div className="player">
-      <video
-        src="#"
-        className="player__video"
-        poster={film.posterImage}
-      >
-      </video>
+      <video src="#" className="player__video" poster={film.posterImage} />
 
       <button type="button" className="player__exit">
         Exit
@@ -56,8 +56,7 @@ function Player(): JSX.Element {
               className="player__progress"
               value="30"
               max="100"
-            >
-            </progress>
+            />
             <div className="player__toggler" style={{ left: '30%' }}>
               Toggler
             </div>

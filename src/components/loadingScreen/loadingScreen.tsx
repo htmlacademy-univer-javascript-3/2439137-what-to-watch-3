@@ -1,8 +1,11 @@
+import Empty from '../../pages/empty/empty.tsx';
+import Loading from './loading.tsx';
+
 function LoadingScreen(): JSX.Element {
   return (
-    <div className="loader_container">
-      <span className="loader"></span>
-    </div>
+    <Empty>
+      <Loading />
+    </Empty>
   );
 }
 

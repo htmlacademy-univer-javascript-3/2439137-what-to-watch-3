@@ -1,23 +1,17 @@
+import { useMemo } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import {
   authorizationStatusSelector,
   filmPromoSelector,
   filmsFavoriteSelector,
 } from '../../store/selectors.ts';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { useMemo } from 'react';
 import { AuthorizationStatus, OperationFilmFavorite } from '../../const.ts';
 import { fetchFilmsFavoriteChangeStatusAction } from '../../store/api-actions.ts';
 
-const status = (isFavorite: boolean) => {
-  switch (isFavorite) {
-    case true:
-      return OperationFilmFavorite.DEL;
-    case false:
-      return OperationFilmFavorite.ADD;
-  }
-};
+const status = (isFavorite: null | boolean) =>
+  isFavorite ? OperationFilmFavorite.DEL : OperationFilmFavorite.ADD;
 
-const ButtonMyLists = () => {
+const FavoriteAction = () => {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(authorizationStatusSelector).data;
   const filmPromo = useAppSelector(filmPromoSelector);
@@ -28,15 +22,12 @@ const ButtonMyLists = () => {
     [filmPromo],
   );
 
-  if (
-    authorizationStatus !== AuthorizationStatus.Auth ||
-    !filmPromo
-  ) {
+  if (authorizationStatus !== AuthorizationStatus.Auth || !filmPromo) {
     return null;
   }
 
   const onClick = () => {
-    if (isFavorite !== null) {
+    if (filmPromo) {
       dispatch(
         fetchFilmsFavoriteChangeStatusAction({
           filmId: filmPromo.id,
@@ -64,4 +55,4 @@ const ButtonMyLists = () => {
     </button>
   );
 };
-export default ButtonMyLists;
+export default FavoriteAction;

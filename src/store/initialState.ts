@@ -31,6 +31,7 @@ export type InitialState = {
   };
   filmPromo: {
     loading: boolean;
+    error: string | null;
     data: FilmPromoType | null;
   };
   filmsFavorite: {
@@ -78,6 +79,7 @@ export const initialState: InitialState = {
   },
   filmPromo: {
     loading: false,
+    error: null,
     data: null,
   },
   filmsFavorite: {

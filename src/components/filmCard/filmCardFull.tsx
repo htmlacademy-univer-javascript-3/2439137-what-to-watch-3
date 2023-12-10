@@ -2,7 +2,7 @@ import Header, { HeaderType } from '../header/header.tsx';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { Link } from 'react-router-dom';
 import { FilmFullType } from '../../types/film.ts';
-import ButtonMyLists from '../buttonMyLists/buttonMyLists.tsx';
+import FavoriteAction from '../favoriteAction/favoriteAction.tsx';
 import { useAppSelector } from '../hooks';
 import { authorizationStatusSelector } from '../../store/selectors.ts';
 
@@ -35,7 +35,7 @@ const FilmCardFull = ({ film }: FullFilmCardProps) => {
               </svg>
               <span>Play</span>
             </button>
-            <ButtonMyLists />
+            <FavoriteAction />
             {authorizationStatus === AuthorizationStatus.Auth && (
               <Link
                 to={AppRoute.AddReview(film.id)}

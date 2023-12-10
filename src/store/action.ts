@@ -4,50 +4,37 @@ import { AuthorizationStatus } from '../const.ts';
 import { CommentType } from '../types/filmReview.ts';
 
 export const setGenre = createAction<string>('catalog/setGenre');
-export const fetchFilms = createAction<FilmType[]>('data/dataFilms');
-export const setFilmsLoadingStatus = createAction<boolean>('data/setLoadFilms');
-export const setFilmsError = createAction<string | null>('data/setErrorFilms');
-export const fetchFilm = createAction<FilmFullType>('data/dataFilm');
-export const setFilmLoadingStatus = createAction<boolean>('data/setLoadFilm');
-export const setFilmError = createAction<string | null>('data/setErrorFilm');
-export const fetchSimilarFilms = createAction<FilmType[]>(
-  'data/dataSimilarFilms',
-);
-export const setSimilarFilmsLoadingStatus = createAction<boolean>(
-  'data/setLoadSimilarFilms',
-);
-export const setSimilarFilmsError = createAction<string | null>(
-  'data/setErrorSimilarFilms',
-);
+export const fetchFilms = createAction<{
+  data?: FilmType[];
+  loading?: boolean;
+  error?: string | null;
+}>('data/dataFilms');
+export const fetchFilm = createAction<{
+  data?: FilmFullType;
+  loading?: boolean;
+  error?: string | null;
+}>('data/dataFilm');
+export const fetchSimilarFilms = createAction<{
+  data?: FilmType[];
+  loading?: boolean;
+  error?: string | null;
+}>('data/dataSimilarFilms');
 
-export const fetchCommentsFilm = createAction<CommentType[]>(
-  'data/dataCommentsFilm',
-);
-export const setCommentsFilmLoadingStatus = createAction<boolean>(
-  'data/setLoadCommentsFilm',
-);
-export const setCommentsFilmError = createAction<string | null>(
-  'data/setErrorCommentsFilm',
-);
-export const setCommentFilmLoadingStatus = createAction<boolean>(
-  'data/setLoadCommentFilm',
-);
-export const setCommentFilmError = createAction<string | null>(
-  'data/setErrorCommentFilm',
-);
-export const fetchFilmPromo = createAction<FilmPromoType>('data/dataFilmPromo');
-export const setFilmPromoLoadingStatus = createAction<boolean>(
-  'data/setLoadFilmPromo',
-);
-export const fetchFilmsFavorite = createAction<FilmType[]>(
-  'data/dataFilmsFavorite',
-);
-export const setFilmsFavoriteLoadingStatus = createAction<boolean>(
-  'data/setLoadFilmsFavorite',
-);
-export const setFilmsFavoriteErrorOperation = createAction<string | null>(
-  'data/setErrorOperationFilmsFavorite',
-);
+export const fetchCommentsFilm = createAction<{
+  data?: CommentType[];
+  loading?: boolean;
+  error?: string | null;
+}>('data/dataCommentsFilm');
+export const fetchFilmPromo = createAction<{
+  data?: FilmPromoType;
+  loading?: boolean;
+  error?: string | null;
+}>('data/dataFilmPromo');
+export const fetchFilmsFavorite = createAction<{
+  data?: FilmType[];
+  loading?: boolean;
+  error?: string | null;
+}>('data/dataFilmsFavorite');
 export const setFilmPromoOperation = createAction<boolean>(
   'data/setFilmPromoOperation',
 );

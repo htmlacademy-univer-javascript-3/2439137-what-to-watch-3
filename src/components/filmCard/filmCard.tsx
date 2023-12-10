@@ -6,7 +6,7 @@ import {
   filmPromoSelector,
 } from '../../store/selectors.ts';
 import { useEffect } from 'react';
-import ButtonMyLists from '../buttonMyLists/buttonMyLists.tsx';
+import FavoriteAction from '../favoriteAction/favoriteAction.tsx';
 
 const FilmCard = () => {
   const dispatch = useAppDispatch();
@@ -46,7 +46,7 @@ const FilmCard = () => {
                 </svg>
                 <span>Play</span>
               </button>
-              <ButtonMyLists />
+              <FavoriteAction />
             </div>
           </div>
         </div>

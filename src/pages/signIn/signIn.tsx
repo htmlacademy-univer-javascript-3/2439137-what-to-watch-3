@@ -3,9 +3,7 @@ import Header, { HeaderType } from '../../components/header/header.tsx';
 import { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { FetchData } from '../../types/fetchData.ts';
-import {
-  loginAction,
-} from '../../store/api-actions.ts';
+import { loginAction } from '../../store/api-actions.ts';
 import * as classNames from 'classnames';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { authorizationStatusSelector } from '../../store/selectors.ts';
@@ -64,13 +62,13 @@ function SignIn(): JSX.Element {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (loginData.userEmail === '') {
+    if (!loginData.userEmail) {
       setLoginData({ ...loginData, userEmailError: true });
     }
-    if (loginData.userPassword === '') {
+    if (!loginData.userPassword) {
       setLoginData({ ...loginData, userPasswordError: true });
     }
-    if (loginData.userEmail !== '' && loginData.userPassword !== '') {
+    if (loginData.userEmail && loginData.userPassword) {
       onSubmit({
         email: loginData.userEmail,
         password: loginData.userPassword,
