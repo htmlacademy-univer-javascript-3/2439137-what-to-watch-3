@@ -1,10 +1,10 @@
 import Footer from '../../components/footer/footer.tsx';
-import FilmCard from '../../components/filmCard/filmCard.tsx';
+import PromoFilmCard from '../../components/filmCard/promoFilmCard.tsx';
 import Catalog from '../../components/catalog/catalog.tsx';
 import { useAppDispatch } from '../../components/hooks';
 import { useEffect } from 'react';
-import { setGenre } from '../../store/action.ts';
 import { DEFAULT_GENRE } from '../../components/catalog/utils.ts';
+import { setGenre } from '../../store/filmsProcess/filmsProcess.ts';
 
 function Main(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ function Main(): JSX.Element {
   }, [dispatch]);
   return (
     <>
-      <FilmCard/>
+      <PromoFilmCard />
 
       <div className="page-content">
         <Catalog />

@@ -1,47 +1,50 @@
-import FilmCardFull from '../../components/filmCard/filmCardFull.tsx';
+import FilmCardFull from '../../components/filmCard/filmCard.tsx';
 import Footer from '../../components/footer/footer.tsx';
 import CatalogFilms from '../../components/catalog/catalogFilms.tsx';
 import Tabs from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
-import {
-  commentsFilmSelector,
-  filmLoadingStatusSelector,
-  filmSelector,
-  similarFilmsSelector,
-} from '../../store/selectors.ts';
-import Empty from '../empty/empty.tsx';
 import { useEffect } from 'react';
 import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
-import { useLocation } from 'react-router-dom';
-import {fetchCommentFilmAction, fetchFilmAction, fetchSimilarFilmsAction} from '../../store/api-actions.ts';
+import { useParams } from 'react-router-dom';
+import {
+  fetchCommentsFilmAction,
+  fetchFilmAction,
+  fetchSimilarFilmsFilmAction,
+} from '../../store/api-actions.ts';
+import Error from '../../components/error/error.tsx';
+import {
+  commentsSelector,
+  filmSelector,
+  loadingStatusFilmSelector,
+  similarFilmsSelector,
+} from '../../store/filmProcess/selectors.ts';
 
 function MoviePage(): JSX.Element {
-  const location = useLocation();
-  const filmId = location.pathname.replace('/films/', '');
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchFilmAction({ filmId }));
-    dispatch(fetchCommentFilmAction({ filmId }));
-    dispatch(fetchSimilarFilmsAction({ filmId }));
-  }, [dispatch, filmId]);
+    if (id) {
+      dispatch(fetchFilmAction({ filmId: id }));
+      dispatch(fetchCommentsFilmAction({ filmId: id }));
+      dispatch(fetchSimilarFilmsFilmAction({ filmId: id }));
+    }
+  }, [dispatch, id]);
   const film = useAppSelector(filmSelector);
-  const filmLoadingStatus = useAppSelector(filmLoadingStatusSelector);
+  const filmLoadingStatus = useAppSelector(loadingStatusFilmSelector);
   const similarFilms = useAppSelector(similarFilmsSelector);
-  const commentsFilms = useAppSelector(commentsFilmSelector);
-
+  const commentsFilms = useAppSelector(commentsSelector);
+  if (!id) {
+    return <Error />;
+  }
   if (film === null || filmLoadingStatus) {
-    return (
-      <Empty>
-        <LoadingScreen />
-      </Empty>
-    );
+    return <LoadingScreen />;
   }
 
   return (
     <>
       <section className="film-card film-card--full">
         <FilmCardFull film={film} />
-        <Tabs film={film} commentsFilms={commentsFilms}/>
+        <Tabs film={film} commentsFilms={commentsFilms} />
       </section>
       <div className="page-content">
         {similarFilms && (

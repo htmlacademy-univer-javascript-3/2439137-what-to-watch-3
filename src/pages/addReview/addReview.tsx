@@ -1,38 +1,38 @@
 import FilmCardReview from '../../components/filmCard/filmCardReview.tsx';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
 import { useEffect } from 'react';
 import {
-  fetchCommentFilmAction,
+  fetchCommentsFilmAction,
   fetchFilmAction,
-  fetchSimilarFilmsAction,
+  fetchSimilarFilmsFilmAction,
 } from '../../store/api-actions.ts';
-import {
-  filmLoadingStatusSelector,
-  filmSelector,
-} from '../../store/selectors.ts';
-import Empty from '../empty/empty.tsx';
 import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
+import Error from '../../components/error/error.tsx';
+import {
+  filmSelector,
+  loadingStatusFilmSelector,
+} from '../../store/filmProcess/selectors.ts';
 
 function AddReview(): JSX.Element {
-  const location = useLocation();
-  const filmId = location.pathname.replace('/films/', '').replace('/review', '');
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchFilmAction({ filmId }));
-    dispatch(fetchCommentFilmAction({ filmId }));
-    dispatch(fetchSimilarFilmsAction({ filmId }));
-  }, [dispatch, filmId]);
+    if (id) {
+      dispatch(fetchFilmAction({ filmId: id }));
+      dispatch(fetchCommentsFilmAction({ filmId: id }));
+      dispatch(fetchSimilarFilmsFilmAction({ filmId: id }));
+    }
+  }, [dispatch, id]);
   const film = useAppSelector(filmSelector);
-  const filmLoadingStatus = useAppSelector(filmLoadingStatusSelector);
-  if (film === null || filmLoadingStatus) {
-    return (
-      <Empty>
-        <LoadingScreen />
-      </Empty>
-    );
+  const filmLoadingStatus = useAppSelector(loadingStatusFilmSelector);
+  if (!id) {
+    return <Error />;
   }
-  return <FilmCardReview film={film}/>;
+  if (film === null || filmLoadingStatus) {
+    return <LoadingScreen />;
+  }
+  return <FilmCardReview film={film} />;
 }
 
 export default AddReview;

@@ -2,14 +2,15 @@ import Footer from '../../components/footer/footer.tsx';
 import Header, { HeaderType } from '../../components/header/header.tsx';
 import { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
-import { FetchData } from '../../types/fetchData.ts';
-import {
-  loginAction,
-} from '../../store/api-actions.ts';
+import { FetchUserData } from '../../types/fetchUserData.ts';
+import { loginAction } from '../../store/api-actions.ts';
 import * as classNames from 'classnames';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
-import { authorizationStatusSelector } from '../../store/selectors.ts';
 import { useNavigate } from 'react-router-dom';
+import {
+  authorizationStatusSelector,
+  errorUserDataSelector,
+} from '../../store/userProcess/selectors.ts';
 
 type LoginType = {
   userEmail: string;
@@ -19,8 +20,8 @@ type LoginType = {
 };
 
 function SignIn(): JSX.Element {
-  const authorizationStatus = useAppSelector(authorizationStatusSelector).data;
-  const authorizationError = useAppSelector(authorizationStatusSelector).error;
+  const authorizationStatus = useAppSelector(authorizationStatusSelector);
+  const authorizationError = useAppSelector(errorUserDataSelector);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState<LoginType>({
@@ -55,22 +56,22 @@ function SignIn(): JSX.Element {
       }
       setMessageError(authorizationError.messages);
     }
-  }, [authorizationError, loginData]);
+  }, [authorizationError.property.length]);
 
-  const onSubmit = (authData: FetchData) => {
+  const onSubmit = (authData: FetchUserData) => {
     dispatch(loginAction(authData));
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (loginData.userEmail === '') {
+    if (!loginData.userEmail) {
       setLoginData({ ...loginData, userEmailError: true });
     }
-    if (loginData.userPassword === '') {
+    if (!loginData.userPassword) {
       setLoginData({ ...loginData, userPasswordError: true });
     }
-    if (loginData.userEmail !== '' && loginData.userPassword !== '') {
+    if (loginData.userEmail && loginData.userPassword) {
       onSubmit({
         email: loginData.userEmail,
         password: loginData.userPassword,

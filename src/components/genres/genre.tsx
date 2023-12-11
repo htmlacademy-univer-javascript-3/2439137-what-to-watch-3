@@ -1,7 +1,7 @@
 import { Genre } from '../../types/genre.ts';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setGenre } from '../../store/action.ts';
-import { genreSelector } from '../../store/selectors.ts';
+import { genreSelector } from '../../store/filmsProcess/selectors.ts';
+import { setGenre } from '../../store/filmsProcess/filmsProcess.ts';
 
 const GenresItem = ({ title }: Genre) => {
   const dispatch = useAppDispatch();

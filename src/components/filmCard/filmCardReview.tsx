@@ -1,6 +1,13 @@
 import Header, { HeaderType } from '../header/header.tsx';
 import { FormEvent, useState } from 'react';
 import { FilmFullType } from '../../types/film.ts';
+import { APIRoute } from '../../services/const.ts';
+import { AxiosError } from 'axios';
+import { fetchCommentsFilmAction } from '../../store/api-actions.ts';
+import { api } from '../../store';
+import { useAppDispatch } from '../hooks';
+import LoadingScreen from '../loadingScreen/loadingScreen.tsx';
+import Error from '../error/error.tsx';
 
 const MAX_RATING = 10;
 
@@ -16,6 +23,9 @@ interface FilmCardReviewProps {
 }
 
 const FilmCardReview = ({ film }: FilmCardReviewProps) => {
+  const dispatch = useAppDispatch();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const [reviewData, setReviewData] = useState<RatingType>({
     review: '',
     rating: '',
@@ -30,6 +40,30 @@ const FilmCardReview = ({ film }: FilmCardReviewProps) => {
       setReviewData({ ...reviewData, [name]: value });
     }
   };
+
+  const onClick = async () => {
+    try {
+      setLoading(true);
+      await api.post(`${APIRoute.FilmComments}/${film.id}`, {
+        comment: reviewData.review,
+        rating: reviewData.rating,
+      });
+      setLoading(false);
+      dispatch(fetchCommentsFilmAction({ filmId: film.id }));
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setError(e.message);
+        setLoading(false);
+      }
+    }
+  };
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <section className="film-card film-card--full">
@@ -84,7 +118,11 @@ const FilmCardReview = ({ film }: FilmCardReviewProps) => {
               value={reviewData.review}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">
+              <button
+                className="add-review__btn"
+                type="button"
+                onClick={() => onClick}
+              >
                 Post
               </button>
             </div>

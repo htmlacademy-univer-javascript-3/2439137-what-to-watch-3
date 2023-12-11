@@ -1,6 +1,7 @@
 import { genres } from '../catalog/utils.ts';
 import GenresItem from './genre.tsx';
 import { FilmType } from '../../types/film.ts';
+import { memo } from 'react';
 
 interface GenresProps {
   films: FilmType[];
@@ -14,4 +15,8 @@ const Genres = ({ films }: GenresProps) => (
   </ul>
 );
 
-export default Genres;
+export default memo(
+  Genres,
+  (prevProps, nextProps) =>
+    genres(prevProps.films).length === genres(nextProps.films).length,
+);

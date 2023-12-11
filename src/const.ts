@@ -16,6 +16,14 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum NameSpace {
+  User = 'USER',
+  Film = 'FILM',
+  Films = 'FILMS',
+  PromoFilm = 'PROMO_FILM',
+  FavoriteFilms = 'FAVORITE_FILMS'
+}
+
 export enum OperationFilmFavorite {
   ADD = 1,
   DEL = 0,

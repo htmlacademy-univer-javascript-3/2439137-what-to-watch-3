@@ -1,5 +1,5 @@
 import Logo from '../logo/logo.tsx';
-import { ReactNode } from 'react';
+import {memo, ReactNode} from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
 
@@ -54,4 +54,4 @@ export const Header = ({
   </>
 );
 
-export default Header;
+export default memo(Header);

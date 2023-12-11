@@ -1,19 +1,19 @@
 import CatalogFilms from './catalogFilms.tsx';
 import { useAppSelector } from '../hooks';
 import ShowMore from '../showMore/showMore.tsx';
-import {
-  filmsSelector,
-  filmsLoadingStatusSelector,
-  genreSelector,
-} from '../../store/selectors';
 import Genres from '../genres/genres.tsx';
-import { useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { DEFAULT_GENRE, initialStateLengthFilms } from './utils.ts';
 import LoadingScreen from '../loadingScreen/loadingScreen.tsx';
+import {
+  filmsSelector,
+  genreSelector,
+  loadingStatusFilmsSelector,
+} from '../../store/filmsProcess/selectors.ts';
 
 const Catalog = () => {
   const films = useAppSelector(filmsSelector);
-  const filmsLoadingStatus = useAppSelector(filmsLoadingStatusSelector);
+  const filmsLoadingStatus = useAppSelector(loadingStatusFilmsSelector);
   const currentGenre = useAppSelector(genreSelector);
   const filmsGenre =
     currentGenre === DEFAULT_GENRE
@@ -37,7 +37,7 @@ const Catalog = () => {
         <LoadingScreen />
       ) : (
         <>
-          <Genres films={films}/>
+          <Genres films={films} />
 
           <CatalogFilms films={catalogFilms} />
 
@@ -51,4 +51,4 @@ const Catalog = () => {
     </section>
   );
 };
-export default Catalog;
+export default memo(Catalog);
