@@ -5,15 +5,15 @@ import { useEffect } from 'react';
 import {
   fetchCommentsFilmAction,
   fetchFilmAction,
-  fetchSimilarFilmsAction,
+  fetchSimilarFilmsFilmAction,
 } from '../../store/api-actions.ts';
-import {
-  filmLoadingStatusSelector,
-  filmSelector,
-} from '../../store/selectors.ts';
 import Empty from '../empty/empty.tsx';
 import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
 import Error from '../../components/error/error.tsx';
+import {
+  filmSelector,
+  loadingStatusFilmSelector,
+} from '../../store/filmProcess/selectors.ts';
 
 export interface PlayerPros {
   player: PlayerType;
@@ -26,11 +26,11 @@ function Player(): JSX.Element {
     if (id) {
       dispatch(fetchFilmAction({ filmId: id }));
       dispatch(fetchCommentsFilmAction({ filmId: id }));
-      dispatch(fetchSimilarFilmsAction({ filmId: id }));
+      dispatch(fetchSimilarFilmsFilmAction({ filmId: id }));
     }
   }, [dispatch, id]);
   const film = useAppSelector(filmSelector);
-  const filmLoadingStatus = useAppSelector(filmLoadingStatusSelector);
+  const filmLoadingStatus = useAppSelector(loadingStatusFilmSelector);
   if (!id) {
     return <Error />;
   }
@@ -52,11 +52,7 @@ function Player(): JSX.Element {
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress
-              className="player__progress"
-              value="30"
-              max="100"
-            />
+            <progress className="player__progress" value="30" max="100" />
             <div className="player__toggler" style={{ left: '30%' }}>
               Toggler
             </div>

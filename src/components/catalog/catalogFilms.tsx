@@ -1,5 +1,6 @@
 import { FilmType } from '../../types/film.ts';
 import FilmCardSmall from '../filmCard/filmCardSmall.tsx';
+import { memo } from 'react';
 
 interface CatalogFilmsProps {
   films: FilmType[];
@@ -12,4 +13,7 @@ const CatalogFilms = ({ films }: CatalogFilmsProps) => (
     ))}
   </div>
 );
-export default CatalogFilms;
+export default memo(
+  CatalogFilms,
+  (prevProps, nextProps) => prevProps.films.length === nextProps.films.length,
+);

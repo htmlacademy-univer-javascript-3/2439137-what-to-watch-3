@@ -1,23 +1,23 @@
-import FilmCardFull from '../../components/filmCard/filmCardFull.tsx';
+import FilmCardFull from '../../components/filmCard/filmCard.tsx';
 import Footer from '../../components/footer/footer.tsx';
 import CatalogFilms from '../../components/catalog/catalogFilms.tsx';
 import Tabs from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../components/hooks';
-import {
-  commentsFilmSelector,
-  filmLoadingStatusSelector,
-  filmSelector,
-  similarFilmsSelector,
-} from '../../store/selectors.ts';
 import { useEffect } from 'react';
 import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
 import { useParams } from 'react-router-dom';
 import {
   fetchCommentsFilmAction,
   fetchFilmAction,
-  fetchSimilarFilmsAction,
+  fetchSimilarFilmsFilmAction,
 } from '../../store/api-actions.ts';
 import Error from '../../components/error/error.tsx';
+import {
+  commentsSelector,
+  filmSelector,
+  loadingStatusFilmSelector,
+  similarFilmsSelector,
+} from '../../store/filmProcess/selectors.ts';
 
 function MoviePage(): JSX.Element {
   const { id } = useParams();
@@ -26,13 +26,13 @@ function MoviePage(): JSX.Element {
     if (id) {
       dispatch(fetchFilmAction({ filmId: id }));
       dispatch(fetchCommentsFilmAction({ filmId: id }));
-      dispatch(fetchSimilarFilmsAction({ filmId: id }));
+      dispatch(fetchSimilarFilmsFilmAction({ filmId: id }));
     }
   }, [dispatch, id]);
   const film = useAppSelector(filmSelector);
-  const filmLoadingStatus = useAppSelector(filmLoadingStatusSelector);
+  const filmLoadingStatus = useAppSelector(loadingStatusFilmSelector);
   const similarFilms = useAppSelector(similarFilmsSelector);
-  const commentsFilms = useAppSelector(commentsFilmSelector);
+  const commentsFilms = useAppSelector(commentsSelector);
   if (!id) {
     return <Error />;
   }

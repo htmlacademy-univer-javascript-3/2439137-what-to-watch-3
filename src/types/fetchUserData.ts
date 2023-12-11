@@ -1,6 +1,6 @@
 import { OperationFilmFavorite } from '../const.ts';
 
-export type FetchData = {
+export type FetchUserData = {
   email: string;
   password: string;
 };

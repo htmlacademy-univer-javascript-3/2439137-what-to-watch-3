@@ -5,14 +5,14 @@ import { useEffect } from 'react';
 import {
   fetchCommentsFilmAction,
   fetchFilmAction,
-  fetchSimilarFilmsAction,
+  fetchSimilarFilmsFilmAction,
 } from '../../store/api-actions.ts';
-import {
-  filmLoadingStatusSelector,
-  filmSelector,
-} from '../../store/selectors.ts';
 import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
 import Error from '../../components/error/error.tsx';
+import {
+  filmSelector,
+  loadingStatusFilmSelector,
+} from '../../store/filmProcess/selectors.ts';
 
 function AddReview(): JSX.Element {
   const { id } = useParams();
@@ -21,11 +21,11 @@ function AddReview(): JSX.Element {
     if (id) {
       dispatch(fetchFilmAction({ filmId: id }));
       dispatch(fetchCommentsFilmAction({ filmId: id }));
-      dispatch(fetchSimilarFilmsAction({ filmId: id }));
+      dispatch(fetchSimilarFilmsFilmAction({ filmId: id }));
     }
   }, [dispatch, id]);
   const film = useAppSelector(filmSelector);
-  const filmLoadingStatus = useAppSelector(filmLoadingStatusSelector);
+  const filmLoadingStatus = useAppSelector(loadingStatusFilmSelector);
   if (!id) {
     return <Error />;
   }

@@ -7,20 +7,20 @@ import PrivateRoute from '../privateRoute/privateRoute.tsx';
 import HistoryRouter from '../historyRoute/historyRoute.tsx';
 import browserHistory from '../../browserHistory.ts';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { authorizationStatusSelector } from '../../store/selectors.ts';
 import { useEffect } from 'react';
-import { fetchFilmsFavoriteAction } from '../../store/api-actions.ts';
 import MoviePage from '../../pages/film/moviePage.tsx';
 import AddReview from '../../pages/addReview/addReview.tsx';
 import Player from '../../pages/player/player.tsx';
 import Error from '../error/error.tsx';
+import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
+import { fetchFavoriteFilmsAction } from '../../store/api-actions.ts';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(authorizationStatusSelector).data;
+  const authorizationStatus = useAppSelector(authorizationStatusSelector);
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(fetchFilmsFavoriteAction());
+      dispatch(fetchFavoriteFilmsAction());
     }
   }, [authorizationStatus, dispatch]);
   return (

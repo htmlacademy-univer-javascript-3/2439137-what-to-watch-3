@@ -1,10 +1,11 @@
 import { DEFAULT_FILM_AMOUNT } from '../catalog/utils.ts';
 import { FilmType } from '../../types/film.ts';
+import { useCallback } from 'react';
 
 interface ShowMoreProps {
   filmsGenre: FilmType[];
   lengthFilmsGenre: number;
-  setLengthFilmsGenre: (number: number) => void;
+  setLengthFilmsGenre: (number: (previousLength: number) => number) => void;
 }
 
 const ShowMore = ({
@@ -12,9 +13,11 @@ const ShowMore = ({
   lengthFilmsGenre,
   setLengthFilmsGenre,
 }: ShowMoreProps) => {
-  const handleShowMore = () => {
-    setLengthFilmsGenre(Math.min(lengthFilmsGenre + DEFAULT_FILM_AMOUNT));
-  };
+  const handleShowMore = useCallback(() => {
+    setLengthFilmsGenre((previousLength) =>
+      Math.min(previousLength + DEFAULT_FILM_AMOUNT, filmsGenre.length),
+    );
+  }, [filmsGenre.length, setLengthFilmsGenre]);
 
   if (lengthFilmsGenre >= filmsGenre.length) {
     return null;
