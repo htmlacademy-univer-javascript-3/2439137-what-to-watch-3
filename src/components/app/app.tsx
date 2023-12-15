@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { useEffect } from 'react';
 import MoviePage from '../../pages/film/moviePage.tsx';
 import AddReview from '../../pages/addReview/addReview.tsx';
-import Player from '../../pages/player/player.tsx';
+import Player from '../../pages/player';
 import Error from '../error/error.tsx';
 import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
 import { fetchFavoriteFilmsAction } from '../../store/api-actions.ts';

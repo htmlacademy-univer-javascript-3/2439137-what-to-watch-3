@@ -1,5 +1,6 @@
 import { dateToString } from '../filmCard/utils.ts';
 import { CommentType } from '../../types/filmReview.ts';
+import { memo } from 'react';
 
 interface OverviewProps {
   commentsFilm: CommentType[];
@@ -40,20 +41,14 @@ const Reviews = ({ commentsFilm }: OverviewProps) => {
       {commentsFilmFirstColumn && (
         <div className="film-card__reviews-col">
           {commentsFilmFirstColumn.map((comment) => (
-            <ReviewItem
-              key={`review_${comment.id}`}
-              {...comment}
-            />
+            <ReviewItem key={`review_${comment.id}`} {...comment} />
           ))}
         </div>
       )}
       {commentFilmSecondColumn && (
         <div className="film-card__reviews-col">
           {commentFilmSecondColumn.map((comment) => (
-            <ReviewItem
-              key={`review_${comment.id}`}
-              {...comment}
-            />
+            <ReviewItem key={`review_${comment.id}`} {...comment} />
           ))}
         </div>
       )}
@@ -61,4 +56,4 @@ const Reviews = ({ commentsFilm }: OverviewProps) => {
   );
 };
 
-export default Reviews;
+export default memo(Reviews);

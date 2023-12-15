@@ -33,7 +33,7 @@ export const fetchFilmAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/fetchFilms', async ({ filmId }, { extra: api }) => {
+>('data/fetchFilm', async ({ filmId }, { extra: api }) => {
   const { data } = await api.get<FilmFullType>(`${APIRoute.Films}/${filmId}`);
   return data;
 });
