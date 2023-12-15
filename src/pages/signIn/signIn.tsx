@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer.tsx';
 import Header, { HeaderType } from '../../components/header/header.tsx';
 import { FormEvent, useEffect, useState } from 'react';
@@ -6,7 +7,6 @@ import { FetchUserData } from '../../types/fetchUserData.ts';
 import { loginAction } from '../../store/api-actions.ts';
 import * as classNames from 'classnames';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
-import { useNavigate } from 'react-router-dom';
 import {
   authorizationStatusSelector,
   errorUserDataSelector,
