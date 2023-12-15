@@ -1,4 +1,6 @@
 const DEFAULT_COUNT_STARRING = 4;
+const MINUTES_IN_HOUR = 60;
+const SECONDS_IN_MINUTE = 60;
 
 export const getNameRating = function (rating: string) {
   const ratingNumber = parseFloat(rating.replace(',', '.'));
@@ -41,4 +43,17 @@ export const dateToString = function (date: Date) {
 
 export const runTimeSelector = function (runTime: number) {
   return `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
+};
+
+export const runTimeSelectorMergedFormat = function (runTime: number) {
+  const hours = Math.floor(runTime / SECONDS_IN_MINUTE / MINUTES_IN_HOUR);
+  const minutes = Math.floor(
+    (runTime - hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE) / SECONDS_IN_MINUTE,
+  );
+  const seconds =
+    runTime -
+    hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE -
+    minutes * SECONDS_IN_MINUTE;
+
+  return `-${hours ? `${hours}:` : ''}${minutes}:${seconds}`;
 };

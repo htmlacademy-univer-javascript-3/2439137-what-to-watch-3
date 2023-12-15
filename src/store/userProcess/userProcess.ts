@@ -47,14 +47,12 @@ export const userProcess = createSlice({
         };
       })
       .addCase(loginAction.pending, (state) => {
-        console.log('1');
         state.userData = {
           ...state.userData,
           loading: true,
         };
       })
       .addCase(loginAction.fulfilled, (state, action) => {
-        console.log('2');
         state.userData = {
           ...state.userData,
           loading: false,
