@@ -1,10 +1,21 @@
-import { FilmFullType, FilmType, PromoFilmType } from '../../types/film.ts';
-import { UserData } from '../../types/userData.ts';
-import { CommentType } from '../../types/filmReview.ts';
+import { FilmFullType, FilmType, PromoFilmType } from '../types/film.ts';
+import { UserData } from '../types/userData.ts';
+import { CommentType } from '../types/filmReview.ts';
 import { Action } from '@reduxjs/toolkit';
+import { State } from '../types/state.ts';
+import { AuthorizationStatus } from '../const.ts';
+import { DEFAULT_GENRE } from '../components/catalog/utils.ts';
+import { ThunkDispatch } from 'redux-thunk';
+import { createAPI } from '../services/api.ts';
 
 export const extractActionsTypes = (actions: Action<string>[]) =>
   actions.map(({ type }) => type);
+
+export type AppThunkDispatch = ThunkDispatch<
+  State,
+  ReturnType<typeof createAPI>,
+  Action
+>;
 
 export const testUser: UserData = {
   name: 'TestName',
@@ -116,3 +127,59 @@ export const testPromoFilm: PromoFilmType = {
   released: 0,
   isFavorite: true,
 };
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  USER: {
+    authorizationStatus: {
+      error: null,
+      data: AuthorizationStatus.NoAuth,
+      loading: false,
+    },
+    userData: {
+      error: {
+        property: [],
+        messages: [],
+      },
+      data: testUser,
+      loading: false,
+    },
+  },
+  FILM: {
+    film: {
+      loading: false,
+      error: null,
+      data: testFilm,
+    },
+    similarFilms: {
+      loading: false,
+      error: null,
+      data: testSimilarFilms,
+    },
+    comments: {
+      loading: false,
+      error: null,
+      data: testCommentsFilm,
+    },
+    operation: {
+      error: null,
+      loading: false,
+    },
+  },
+  FILMS: {
+    loading: false,
+    error: null,
+    data: testFilms,
+    currentGenre: DEFAULT_GENRE,
+  },
+  PROMO_FILM: {
+    loading: false,
+    error: null,
+    data: testPromoFilm,
+  },
+  FAVORITE_FILMS: {
+    loading: false,
+    error: null,
+    data: testFavoriteFilms,
+  },
+  ...(initialState ?? {}),
+});

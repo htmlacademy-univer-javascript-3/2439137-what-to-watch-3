@@ -4,8 +4,6 @@ import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import SignIn from '../../pages/signIn/signIn.tsx';
 import MyList from '../../pages/myList/myList.tsx';
 import PrivateRoute from '../privateRoute/privateRoute.tsx';
-import HistoryRouter from '../historyRoute/historyRoute.tsx';
-import browserHistory from '../../browserHistory.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import MoviePage from '../../pages/film/moviePage.tsx';
@@ -14,6 +12,7 @@ import Player from '../../pages/player';
 import Error from '../error/error.tsx';
 import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
 import { fetchFavoriteFilmsAction } from '../../store/api-actions.ts';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,7 +23,7 @@ function App(): JSX.Element {
     }
   }, [authorizationStatus, dispatch]);
   return (
-    <HistoryRouter history={browserHistory}>
+    <HelmetProvider>
       <Routes>
         <Route path={AppRoute.Main} element={<Main />} />
         <Route path={AppRoute.SignIn} element={<SignIn />} />
@@ -48,7 +47,7 @@ function App(): JSX.Element {
         <Route path={AppRoute.Player(':id')} element={<Player />} />
         <Route path={AppRoute.Error} element={<Error />} />
       </Routes>
-    </HistoryRouter>
+    </HelmetProvider>
   );
 }
 

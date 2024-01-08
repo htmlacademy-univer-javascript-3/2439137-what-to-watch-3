@@ -1,7 +1,7 @@
 import { PromoFilmProcess } from '../../types/state.ts';
 import { fetchPromoFilmAction } from '../api-actions.ts';
 import { promoFilmProcess } from './promoFilmProcess.ts';
-import { testPromoFilm } from '../utils/mocks.ts';
+import { testPromoFilm } from '../../utils/mocks.ts';
 
 describe('promoFilmProcess', () => {
   let state: PromoFilmProcess;

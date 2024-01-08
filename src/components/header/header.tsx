@@ -1,5 +1,5 @@
 import Logo from '../logo/logo.tsx';
-import {memo, ReactNode} from 'react';
+import { memo, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
 
@@ -48,7 +48,12 @@ export const Header = ({
         </ul>
       )}
       {headerType === HeaderType.NoAuth && (
-        <h1 className="page-title user-page__title">Sign in</h1>
+        <h1
+          className="page-title user-page__title"
+          data-testid={'user-block__header__sign-in'}
+        >
+          Sign in
+        </h1>
       )}
     </header>
   </>

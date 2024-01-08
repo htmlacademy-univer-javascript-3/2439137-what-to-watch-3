@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import Details from './details.tsx';
-import { testCommentsFilm, testFilm } from '../../store/utils/mocks.ts';
+import { testCommentsFilm, testFilm } from '../../utils/mocks.ts';
 import {
   runTimeSelector,
   starringToStringColumn,

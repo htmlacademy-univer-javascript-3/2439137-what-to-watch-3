@@ -2,7 +2,7 @@ import { FilmsProcess } from '../../types/state.ts';
 import { fetchFilmsAction } from '../api-actions.ts';
 import { filmsProcess, setGenre } from './filmsProcess.ts';
 import { DEFAULT_GENRE } from '../../components/catalog/utils.ts';
-import { testFilms } from '../utils/mocks.ts';
+import { testFilms } from '../../utils/mocks.ts';
 
 describe('filmsProcess', () => {
   let state: FilmsProcess;

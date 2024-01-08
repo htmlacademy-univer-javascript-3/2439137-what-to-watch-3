@@ -115,7 +115,7 @@ const EntityPlayer = ({ film }: PlayerPros) => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">{film.name}</div>
+          <div className="player__name" data-testid={'player__name'}>{film.name}</div>
 
           <button
             type="button"

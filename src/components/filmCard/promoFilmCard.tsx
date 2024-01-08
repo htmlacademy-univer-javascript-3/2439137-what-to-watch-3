@@ -33,7 +33,7 @@ const PromoFilmCard = () => {
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">{filmPromo.name}</h2>
+            <h2 className="film-card__title" data-testid={'promo_film-card__title'}>{filmPromo.name}</h2>
             <p className="film-card__meta">
               <span className="film-card__genre">{filmPromo.genre}</span>
               <span className="film-card__year">{filmPromo.released}</span>

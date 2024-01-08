@@ -10,7 +10,7 @@ import {
   testCommentsFilm,
   testFilm,
   testSimilarFilms,
-} from '../utils/mocks.ts';
+} from '../../utils/mocks.ts';
 
 describe('filmProcess', () => {
   let state: FilmProcess;

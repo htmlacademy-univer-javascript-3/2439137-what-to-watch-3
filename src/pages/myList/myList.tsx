@@ -3,14 +3,13 @@ import Header, { HeaderType } from '../../components/header/header.tsx';
 import CatalogFilms from '../../components/catalog/catalogFilms.tsx';
 import { useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const.ts';
-import Empty from '../empty/empty.tsx';
-import Error404 from '../../components/error/error404.tsx';
 import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
 import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
 import {
   favoriteFilmsSelector,
   loadingStatusFavoriteFilmsSelector,
 } from '../../store/favoriteFilmsProcess/selectors.ts';
+import SignIn from '../signIn/signIn.tsx';
 
 function MyList(): JSX.Element {
   const authorizationStatus = useAppSelector(authorizationStatusSelector);
@@ -20,11 +19,7 @@ function MyList(): JSX.Element {
   );
 
   if (authorizationStatus !== AuthorizationStatus.Auth) {
-    return (
-      <Empty>
-        <Error404 />
-      </Empty>
-    );
+    return <SignIn />;
   }
   return (
     <div className="user-page">
@@ -39,7 +34,9 @@ function MyList(): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <CatalogFilms films={filmFavorite} />
+          <CatalogFilms
+            films={filmFavorite}
+          />
         </section>
       )}
       <Footer />

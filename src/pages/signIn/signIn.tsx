@@ -5,7 +5,6 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FetchUserData } from '../../types/fetchUserData.ts';
 import { loginAction } from '../../store/api-actions.ts';
-import * as classNames from 'classnames';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import {
   authorizationStatusSelector,
@@ -94,10 +93,7 @@ function SignIn(): JSX.Element {
           )}
           <div className="sign-in__fields">
             <div
-              className={classNames(
-                'sign-in__field',
-                loginData.userEmailError ? 'sign-in__field--error' : '',
-              )}
+              className={`sign-in__field ${loginData.userEmailError ? 'sign-in__field--error' : ''}`}
             >
               <input
                 className="sign-in__input"
@@ -115,10 +111,7 @@ function SignIn(): JSX.Element {
               </label>
             </div>
             <div
-              className={classNames(
-                'sign-in__field',
-                loginData.userPasswordError ? 'sign-in__field--error' : '',
-              )}
+              className={`sign-in__field ${loginData.userPasswordError ? 'sign-in__field--error' : ''}`}
             >
               <input
                 className="sign-in__input"

@@ -24,7 +24,7 @@ import {
   testFilms,
   testPromoFilm,
   testSimilarFilms,
-} from './utils/mocks.ts';
+} from '../utils/mocks.ts';
 import { APIRoute } from '../services/const.ts';
 import { FetchUserData } from '../types/fetchUserData.ts';
 import * as tokenStorage from '../services/token';

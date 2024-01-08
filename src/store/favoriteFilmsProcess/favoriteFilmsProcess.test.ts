@@ -1,7 +1,7 @@
 import { FavoriteFilmsProcess } from '../../types/state.ts';
 import { fetchFavoriteFilmsAction } from '../api-actions.ts';
 import { favoriteFilmsProcess } from './favoriteFilmsProcess.ts';
-import { testFavoriteFilms } from '../utils/mocks.ts';
+import { testFavoriteFilms } from '../../utils/mocks.ts';
 
 describe('favoriteFilmsProcess', () => {
   let state: FavoriteFilmsProcess;
