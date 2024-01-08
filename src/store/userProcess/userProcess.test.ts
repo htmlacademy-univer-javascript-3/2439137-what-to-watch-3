@@ -2,14 +2,7 @@ import { AuthorizationStatus } from '../../const.ts';
 import { UserProcess } from '../../types/state.ts';
 import { userProcess } from './userProcess.ts';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions.ts';
-import { UserData } from '../../types/userData.ts';
-
-const testUser: UserData = {
-  name: 'TestName',
-  avatarUrl: 'test/avatar',
-  email: 'test@test.com',
-  token: 'testToken',
-};
+import { testUser } from '../utils/mocks.ts';
 
 describe('userProcess', () => {
   let state: UserProcess;

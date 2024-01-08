@@ -1,18 +1,7 @@
 import { PromoFilmProcess } from '../../types/state.ts';
 import { fetchPromoFilmAction } from '../api-actions.ts';
-import { PromoFilmType } from '../../types/film.ts';
 import { promoFilmProcess } from './promoFilmProcess.ts';
-
-const testPromoFilm: PromoFilmType = {
-  id: 'testId',
-  name: 'TestName',
-  posterImage: 'test/posterImage',
-  backgroundImage: 'test/backgroundImage',
-  videoLink: 'test/videoLink',
-  genre: 'testGenre',
-  released: 0,
-  isFavorite: true,
-};
+import { testPromoFilm } from '../utils/mocks.ts';
 
 describe('promoFilmProcess', () => {
   let state: PromoFilmProcess;

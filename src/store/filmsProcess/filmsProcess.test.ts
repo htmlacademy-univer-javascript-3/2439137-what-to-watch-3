@@ -1,18 +1,8 @@
 import { FilmsProcess } from '../../types/state.ts';
 import { fetchFilmsAction } from '../api-actions.ts';
-import { FilmType } from '../../types/film.ts';
 import { filmsProcess, setGenre } from './filmsProcess.ts';
 import { DEFAULT_GENRE } from '../../components/catalog/utils.ts';
-
-const testFilms: FilmType[] = [
-  {
-    id: 'testId',
-    name: 'TestName',
-    previewImage: 'test/previewImage',
-    previewVideoLink: 'test/previewVideoLink',
-    genre: 'testGenre',
-  },
-];
+import { testFilms } from '../utils/mocks.ts';
 
 describe('filmsProcess', () => {
   let state: FilmsProcess;

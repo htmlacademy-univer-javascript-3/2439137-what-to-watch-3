@@ -1,31 +1,7 @@
 import { FavoriteFilmsProcess } from '../../types/state.ts';
 import { fetchFavoriteFilmsAction } from '../api-actions.ts';
-import { FilmType } from '../../types/film.ts';
 import { favoriteFilmsProcess } from './favoriteFilmsProcess.ts';
-
-const testFavoriteFilms: FilmType[] = [
-  {
-    id: 'testId',
-    name: 'TestName',
-    previewImage: 'test/previewImage',
-    previewVideoLink: 'test/previewVideoLink',
-    genre: 'testGenre',
-  },
-  {
-    id: 'testId2',
-    name: 'TestName2',
-    previewImage: 'test/previewImage2',
-    previewVideoLink: 'test/previewVideoLink2',
-    genre: 'testGenre2',
-  },
-  {
-    id: 'testId3',
-    name: 'TestName3',
-    previewImage: 'test/previewImage3',
-    previewVideoLink: 'test/previewVideoLink3',
-    genre: 'testGenre3',
-  },
-];
+import { testFavoriteFilms } from '../utils/mocks.ts';
 
 describe('favoriteFilmsProcess', () => {
   let state: FavoriteFilmsProcess;

@@ -5,61 +5,12 @@ import {
   fetchFilmAction,
   fetchSimilarFilmsFilmAction,
 } from '../api-actions.ts';
-import { FilmFullType, FilmType } from '../../types/film.ts';
 import { filmProcess } from './filmProcess.ts';
-import { CommentType } from '../../types/filmReview.ts';
-
-const testFilm: FilmFullType = {
-  id: 'testId',
-  name: 'TestName',
-  posterImage: 'test/posterImage',
-  backgroundImage: 'test/backgroundImage',
-  backgroundColor: 'testBackgroundColor',
-  videoLink: 'test/videoLink',
-  description: 'testDescription',
-  rating: 0,
-  scoresCount: 0,
-  director: 'testDirector',
-  starring: ['testStarring'],
-  runTime: 0,
-  genre: 'testGenre',
-  released: 0,
-  isFavorite: false,
-};
-
-const testCommentsFilm: CommentType[] = [
-  {
-    id: 'testId',
-    date: 'dateName',
-    user: 'testUser',
-    comment: 'testComment',
-    rating: 0,
-  },
-];
-
-const testSimilarFilms: FilmType[] = [
-  {
-    id: 'testId',
-    name: 'TestName',
-    previewImage: 'test/previewImage',
-    previewVideoLink: 'test/previewVideoLink',
-    genre: 'testGenre',
-  },
-  {
-    id: 'testId2',
-    name: 'TestName2',
-    previewImage: 'test/previewImage2',
-    previewVideoLink: 'test/previewVideoLink2',
-    genre: 'testGenre2',
-  },
-  {
-    id: 'testId3',
-    name: 'TestName3',
-    previewImage: 'test/previewImage3',
-    previewVideoLink: 'test/previewVideoLink3',
-    genre: 'testGenre3',
-  },
-];
+import {
+  testCommentsFilm,
+  testFilm,
+  testSimilarFilms,
+} from '../utils/mocks.ts';
 
 describe('filmProcess', () => {
   let state: FilmProcess;
@@ -221,7 +172,7 @@ describe('filmProcess', () => {
         similarFilms: {
           loading: false,
           error: null,
-          data: testSimilarFilms
+          data: testSimilarFilms,
         },
         comments: {
           loading: false,
