@@ -15,7 +15,6 @@ const ReviewItem = ({ user, date, comment, rating }: CommentType) => (
         <cite className="review__author">{user}</cite>
         <time
           className="review__date"
-          dateTime={new Date(date).toISOString().split('T')[0]}
         >
           {dateToString(new Date(date))}
         </time>
@@ -39,14 +38,20 @@ const Reviews = ({ commentsFilm }: OverviewProps) => {
   return (
     <div className="film-card__reviews film-card__row">
       {commentsFilmFirstColumn && (
-        <div className="film-card__reviews-col">
+        <div
+          className="film-card__reviews-col"
+          data-testid={'film-card__reviews-col__first'}
+        >
           {commentsFilmFirstColumn.map((comment) => (
             <ReviewItem key={`review_${comment.id}`} {...comment} />
           ))}
         </div>
       )}
       {commentFilmSecondColumn && (
-        <div className="film-card__reviews-col">
+        <div
+          className="film-card__reviews-col"
+          data-testid={'film-card__reviews-col__second'}
+        >
           {commentFilmSecondColumn.map((comment) => (
             <ReviewItem key={`review_${comment.id}`} {...comment} />
           ))}

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus, OperationFilmFavorite } from '../../const.ts';
 import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
 import LoadingScreen from '../loadingScreen/loadingScreen.tsx';

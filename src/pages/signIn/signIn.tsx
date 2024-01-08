@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer.tsx';
 import Header, { HeaderType } from '../../components/header/header.tsx';
 import { FormEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../components/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FetchUserData } from '../../types/fetchUserData.ts';
 import { loginAction } from '../../store/api-actions.ts';
 import * as classNames from 'classnames';

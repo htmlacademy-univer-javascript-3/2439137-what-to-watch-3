@@ -6,7 +6,7 @@ import MyList from '../../pages/myList/myList.tsx';
 import PrivateRoute from '../privateRoute/privateRoute.tsx';
 import HistoryRouter from '../historyRoute/historyRoute.tsx';
 import browserHistory from '../../browserHistory.ts';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import MoviePage from '../../pages/film/moviePage.tsx';
 import AddReview from '../../pages/addReview/addReview.tsx';

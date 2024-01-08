@@ -2,7 +2,7 @@ import FilmCardFull from '../../components/filmCard/filmCard.tsx';
 import Footer from '../../components/footer/footer.tsx';
 import CatalogFilms from '../../components/catalog/catalogFilms.tsx';
 import Tabs from '../../components/tabs/tabs.tsx';
-import { useAppDispatch, useAppSelector } from '../../components/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
 import { useParams } from 'react-router-dom';

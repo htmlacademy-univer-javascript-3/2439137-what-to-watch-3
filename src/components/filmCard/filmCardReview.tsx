@@ -5,7 +5,7 @@ import { APIRoute } from '../../services/const.ts';
 import { AxiosError } from 'axios';
 import { fetchCommentsFilmAction } from '../../store/api-actions.ts';
 import { api } from '../../store';
-import { useAppDispatch } from '../hooks';
+import { useAppDispatch } from '../../hooks';
 import LoadingScreen from '../loadingScreen/loadingScreen.tsx';
 import Error from '../error/error.tsx';
 

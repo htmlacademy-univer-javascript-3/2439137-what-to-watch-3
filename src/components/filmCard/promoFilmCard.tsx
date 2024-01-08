@@ -1,6 +1,6 @@
 import Header, { HeaderType } from '../header/header.tsx';
 import { fetchPromoFilmAction } from '../../store/api-actions.ts';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import FavoriteAction from '../favoriteAction/favoriteAction.tsx';
 import {

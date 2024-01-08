@@ -51,7 +51,7 @@ export const testFilm: FilmFullType = {
   starring: ['testStarring'],
   runTime: 0,
   genre: 'testGenre',
-  released: 0,
+  released: 2020,
   isFavorite: false,
 };
 

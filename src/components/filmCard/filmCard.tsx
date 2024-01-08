@@ -3,7 +3,7 @@ import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { Link } from 'react-router-dom';
 import { FilmFullType } from '../../types/film.ts';
 import FavoriteAction from '../favoriteAction/favoriteAction.tsx';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../../hooks';
 import { memo } from 'react';
 import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
 

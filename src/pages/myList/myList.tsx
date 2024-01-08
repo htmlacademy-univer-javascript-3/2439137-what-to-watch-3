@@ -1,7 +1,7 @@
 import Footer from '../../components/footer/footer.tsx';
 import Header, { HeaderType } from '../../components/header/header.tsx';
 import CatalogFilms from '../../components/catalog/catalogFilms.tsx';
-import { useAppSelector } from '../../components/hooks';
+import { useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const.ts';
 import Empty from '../empty/empty.tsx';
 import Error404 from '../../components/error/error404.tsx';

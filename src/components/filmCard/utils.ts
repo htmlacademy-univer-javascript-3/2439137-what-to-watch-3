@@ -29,7 +29,7 @@ export const starringToStringRow = function (starring: string[]) {
 };
 
 export const starringToStringColumn = function (starring: string[]) {
-  return starring.map((value) => `${value}, \n`);
+  return starring.join(', \n');
 };
 
 export const dateToString = function (date: Date) {
