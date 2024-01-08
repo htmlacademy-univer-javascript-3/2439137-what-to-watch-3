@@ -43,18 +43,16 @@ export const userProcess = createSlice({
         state.authorizationStatus = {
           data: AuthorizationStatus.Unknown,
           loading: false,
-          error: value.error.message ?? null,
+          error: value.error && value.error.message ? value.error.message : null,
         };
       })
       .addCase(loginAction.pending, (state) => {
-        console.log('1');
         state.userData = {
           ...state.userData,
           loading: true,
         };
       })
       .addCase(loginAction.fulfilled, (state, action) => {
-        console.log('2');
         state.userData = {
           ...state.userData,
           loading: false,
@@ -71,6 +69,11 @@ export const userProcess = createSlice({
           ...state.userData,
           loading: false,
           error: errorFormat(value.payload),
+        };
+        state.authorizationStatus = {
+          loading: false,
+          error: null,
+          data: AuthorizationStatus.NoAuth,
         };
       })
       .addCase(logoutAction.pending, (state) => {

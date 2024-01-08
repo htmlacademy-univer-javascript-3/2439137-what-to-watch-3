@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../../hooks';
 import { memo } from 'react';
 import { loadingStatusFilmsSelector } from '../../store/filmsProcess/selectors.ts';
 

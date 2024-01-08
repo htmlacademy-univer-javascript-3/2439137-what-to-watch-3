@@ -1,5 +1,5 @@
 import { Genre } from '../../types/genre.ts';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { genreSelector } from '../../store/filmsProcess/selectors.ts';
 import { setGenre } from '../../store/filmsProcess/filmsProcess.ts';
 

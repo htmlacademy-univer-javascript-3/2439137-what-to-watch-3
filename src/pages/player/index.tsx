@@ -1,4 +1,3 @@
-import FilmCardReview from '../../components/filmCard/filmCardReview.tsx';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
@@ -13,8 +12,9 @@ import {
   filmSelector,
   loadingStatusFilmSelector,
 } from '../../store/filmProcess/selectors.ts';
+import EntityPlayer from './player.tsx';
 
-function AddReview(): JSX.Element {
+function Player(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -26,13 +26,14 @@ function AddReview(): JSX.Element {
   }, [dispatch, id]);
   const film = useAppSelector(filmSelector);
   const filmLoadingStatus = useAppSelector(loadingStatusFilmSelector);
+
   if (!id) {
     return <Error />;
   }
   if (film === null || filmLoadingStatus) {
     return <LoadingScreen />;
   }
-  return <FilmCardReview film={film} />;
+  return <EntityPlayer film={film} />;
 }
 
-export default AddReview;
+export default Player;

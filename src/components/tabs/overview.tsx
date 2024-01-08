@@ -4,6 +4,7 @@ import {
   starringToStringRow,
 } from '../filmCard/utils.ts';
 import { FilmFullType } from '../../types/film.ts';
+import { memo } from 'react';
 
 interface OverviewProps {
   film: FilmFullType;
@@ -37,4 +38,4 @@ const Overview = ({ film }: OverviewProps) => (
   </>
 );
 
-export default Overview;
+export default memo(Overview);

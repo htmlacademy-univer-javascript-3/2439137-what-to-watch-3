@@ -3,7 +3,7 @@ import { AppRoute } from '../../const.ts';
 
 function Error404(): JSX.Element {
   return (
-    <>
+    <div >
       <p className="error__emoji">(⊙_⊙)</p>
       <p className="error__number">404</p>
       <p className="error__text">
@@ -12,7 +12,7 @@ function Error404(): JSX.Element {
           Уходи.
         </Link>
       </p>
-    </>
+    </div>
   );
 }
 

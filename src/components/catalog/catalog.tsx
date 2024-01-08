@@ -1,5 +1,5 @@
 import CatalogFilms from './catalogFilms.tsx';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../../hooks';
 import ShowMore from '../showMore/showMore.tsx';
 import Genres from '../genres/genres.tsx';
 import { memo, useEffect, useMemo, useState } from 'react';

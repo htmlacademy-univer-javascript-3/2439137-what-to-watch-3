@@ -1,6 +1,6 @@
 import Header, { HeaderType } from '../header/header.tsx';
 import { fetchPromoFilmAction } from '../../store/api-actions.ts';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import FavoriteAction from '../favoriteAction/favoriteAction.tsx';
 import {
@@ -33,7 +33,7 @@ const PromoFilmCard = () => {
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">{filmPromo.name}</h2>
+            <h2 className="film-card__title" data-testid={'promo_film-card__title'}>{filmPromo.name}</h2>
             <p className="film-card__meta">
               <span className="film-card__genre">{filmPromo.genre}</span>
               <span className="film-card__year">{filmPromo.released}</span>

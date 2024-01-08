@@ -4,6 +4,8 @@ import App from './components/app/app.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { checkAuthAction, fetchFilmsAction } from './store/api-actions.ts';
+import HistoryRouter from './components/historyRoute/historyRoute.tsx';
+import browserHistory from './browserHistory.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -14,7 +16,9 @@ store.dispatch(checkAuthAction());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <HistoryRouter history={browserHistory}>
+        <App />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );

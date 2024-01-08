@@ -3,7 +3,7 @@ import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { Link } from 'react-router-dom';
 import { FilmFullType } from '../../types/film.ts';
 import FavoriteAction from '../favoriteAction/favoriteAction.tsx';
-import { useAppSelector } from '../hooks';
+import { useAppSelector } from '../../hooks';
 import { memo } from 'react';
 import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
 
@@ -30,12 +30,15 @@ const FilmCard = ({ film }: FullFilmCardProps) => {
           </p>
 
           <div className="film-card__buttons">
-            <button className="btn btn--play film-card__button" type="button">
+            <Link
+              className="btn btn--play film-card__button"
+              to={AppRoute.Player(film.id)}
+            >
               <svg viewBox="0 0 19 19" width="19" height="19">
                 <use xlinkHref="#play-s"></use>
               </svg>
-              <span>Play</span>
-            </button>
+              Play
+            </Link>
             <FavoriteAction />
             {authorizationStatus === AuthorizationStatus.Auth && (
               <Link
