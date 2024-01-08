@@ -59,7 +59,12 @@ function SignIn(): JSX.Element {
   }, [authorizationError.property.length]);
 
   const onSubmit = (authData: FetchUserData) => {
-    dispatch(loginAction(authData));
+    try {
+      dispatch(loginAction(authData));
+    }
+    catch (e){
+      console.log(e)
+    }
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
