@@ -1,11 +1,10 @@
 import { FilmFullType, FilmType, PromoFilmType } from '../../types/film.ts';
 import { UserData } from '../../types/userData.ts';
 import { CommentType } from '../../types/filmReview.ts';
-import {Action} from "@reduxjs/toolkit";
+import { Action } from '@reduxjs/toolkit';
 
-
-export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
-
+export const extractActionsTypes = (actions: Action<string>[]) =>
+  actions.map(({ type }) => type);
 
 export const testUser: UserData = {
   name: 'TestName',
