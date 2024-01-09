@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
 import { useAppSelector } from '../../hooks';
-import { memo } from 'react';
-import { loadingStatusFilmsSelector } from '../../store/filmsProcess/selectors.ts';
+import { loadingStatusFilmsSelector } from '../../store/films-process/selectors.ts';
 
 interface LogoProps {
   isLight: boolean;
 }
 
 export const Logo = ({ isLight }: LogoProps) => {
-  const isFilmsDataLoading = useAppSelector(loadingStatusFilmsSelector);
-  if (isFilmsDataLoading) {
+  const filmsLoadingStatus = useAppSelector(loadingStatusFilmsSelector);
+  if (filmsLoadingStatus) {
     return (
       <div className="logo">
         <span className={`logo__link ${isLight ? 'logo__link--light' : ''}`}>
@@ -34,5 +33,3 @@ export const Logo = ({ isLight }: LogoProps) => {
     </div>
   );
 };
-
-export default memo(Logo);

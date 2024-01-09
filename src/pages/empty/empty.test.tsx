@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import { createMemoryHistory, MemoryHistory } from 'history';
 import {makeFakeStore} from '../../utils/mocks.ts';
 import { withHistory, withStore } from '../../utils/mocks-component.tsx';
-import App from '../../components/app/app.tsx';
-import { createMemoryHistory, MemoryHistory } from 'history';
+import { App } from '../../components/app/app.tsx';
 import {AuthorizationStatus} from '../../const.ts';
 
 describe('Component: Empty list', () => {

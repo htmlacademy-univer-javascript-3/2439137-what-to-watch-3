@@ -1,9 +1,9 @@
 import { FilmFullType } from '../../types/film.ts';
 import { useState } from 'react';
-import { CommentType } from '../../types/filmReview.ts';
-import { OverviewWrap } from './overview.index.tsx';
-import { DetailsWrap } from './details.index.tsx';
-import { ReviewsWrap } from './reviews.index.tsx';
+import { CommentType } from '../../types/film-review.ts';
+import { WrapOverview } from './overview.index.tsx';
+import { WrapDetails } from './details.index.tsx';
+import { WrapReviews } from './reviews.index.tsx';
 
 interface TabsProps {
   film: FilmFullType;
@@ -17,7 +17,7 @@ interface FilmNavProps {
   view: JSX.Element;
 }
 
-const Tabs = ({
+export const Tabs = ({
   film,
   commentsFilms,
   commentsFilmsError,
@@ -27,16 +27,16 @@ const Tabs = ({
   const filmNav: FilmNavProps[] = [
     {
       title: 'Overview',
-      view: <OverviewWrap film={film} />,
+      view: <WrapOverview film={film} />,
     },
     {
       title: 'Details',
-      view: <DetailsWrap film={film} />,
+      view: <WrapDetails film={film} />,
     },
     {
       title: 'Reviews',
       view: (
-        <ReviewsWrap
+        <WrapReviews
           commentsFilm={commentsFilms}
           commentsFilmsError={commentsFilmsError}
           commentsFilmsLoadingStatus={commentsFilmsLoadingStatus}
@@ -69,7 +69,6 @@ const Tabs = ({
                   onClick={() => setTitleNav(nav.title)}
                 >
                   <a
-                    /*href={`#${nav.title.toLowerCase().replace(' ', '_')}`}*/
                     className="film-nav__link"
                   >
                     {nav.title}
@@ -84,5 +83,3 @@ const Tabs = ({
     </div>
   );
 };
-
-export default Tabs;

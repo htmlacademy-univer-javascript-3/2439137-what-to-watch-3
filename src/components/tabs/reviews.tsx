@@ -1,26 +1,11 @@
-import { dateToString } from '../filmCard/utils.ts';
-import { CommentType } from '../../types/filmReview.ts';
+import { CommentType } from '../../types/film-review.ts';
+import { ReviewItem } from './review-item.tsx';
 
 interface OverviewProps {
   commentsFilm: CommentType[];
   commentsFilmsError: string | null;
   commentsFilmsLoadingStatus: boolean;
 }
-
-const ReviewItem = ({ user, date, comment, rating }: CommentType) => (
-  <div className="review">
-    <blockquote className="review__quote">
-      <p className="review__text">{comment}</p>
-
-      <footer className="review__details">
-        <cite className="review__author">{user}</cite>
-        <time className="review__date">{dateToString(new Date(date))}</time>
-      </footer>
-    </blockquote>
-
-    {rating && <div className="review__rating">{rating}</div>}
-  </div>
-);
 
 export const Reviews = ({
   commentsFilm,

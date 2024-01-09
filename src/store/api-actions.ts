@@ -7,10 +7,10 @@ import {
   FetchUserData,
   FetchFilmData,
   FetchFilmsFavoriteData,
-} from '../types/fetchUserData.ts';
+} from '../types/fetch-user-data.ts';
 import { dropToken, saveToken } from '../services/token.ts';
 import { UserData } from '../types/userData.ts';
-import { CommentType } from '../types/filmReview.ts';
+import { CommentType } from '../types/film-review.ts';
 
 export const fetchFilmsAction = createAsyncThunk<
   FilmType[],

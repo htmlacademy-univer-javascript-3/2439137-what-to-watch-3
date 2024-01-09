@@ -1,4 +1,4 @@
-import Logo from '../logo/logo.tsx';
+import { WrapLogo as Logo} from '../logo';
 
 export const Footer = () => (
   <footer className="page-footer" data-testid={'footer'}>
@@ -9,5 +9,3 @@ export const Footer = () => (
     </div>
   </footer>
 );
-
-export default Footer;

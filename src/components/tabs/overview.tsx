@@ -1,8 +1,8 @@
 import {
   getNameRating,
-  ratingSelector,
-  starringToStringRow,
-} from '../filmCard/utils.ts';
+  getRatingCorrectEnding,
+  getStarringShortList,
+} from '../film-card/utils.ts';
 import { FilmFullType } from '../../types/film.ts';
 
 interface OverviewProps {
@@ -18,7 +18,7 @@ export const Overview = ({ film }: OverviewProps) => (
           {getNameRating(film.rating.toString())}
         </span>
         <span className="film-rating__count">
-          {`${film.scoresCount} ${ratingSelector(film.scoresCount)}`}
+          {`${film.scoresCount} ${getRatingCorrectEnding(film.scoresCount)}`}
         </span>
       </p>
     </div>
@@ -31,7 +31,7 @@ export const Overview = ({ film }: OverviewProps) => (
       </p>
 
       <p className="film-card__starring">
-        <strong>Starring: {starringToStringRow(film.starring)}</strong>
+        <strong>Starring: {getStarringShortList(film.starring)}</strong>
       </p>
     </div>
   </>

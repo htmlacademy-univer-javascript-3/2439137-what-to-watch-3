@@ -1,5 +1,3 @@
-import { FilmNav } from './types/filmNav.ts';
-
 export const AppRoute = {
   Main: '/',
   SignIn: '/login',
@@ -21,28 +19,10 @@ export enum NameSpace {
   Film = 'FILM',
   Films = 'FILMS',
   PromoFilm = 'PROMO_FILM',
-  FavoriteFilms = 'FAVORITE_FILMS'
+  FavoriteFilms = 'FAVORITE_FILMS',
 }
 
 export enum OperationFilmFavorite {
-  ADD = 1,
-  DEL = 0,
+  Add = 1,
+  Del = 0,
 }
-
-export const filmNav: FilmNav[] = [
-  {
-    title: 'Overview',
-    href: '#',
-    isActive: true,
-  },
-  {
-    title: 'Details',
-    href: '#',
-    isActive: false,
-  },
-  {
-    title: 'Reviews',
-    href: '#',
-    isActive: false,
-  },
-];

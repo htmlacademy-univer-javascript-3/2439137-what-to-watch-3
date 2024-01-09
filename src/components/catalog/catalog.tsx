@@ -1,17 +1,17 @@
-import CatalogFilms from './catalogFilms.tsx';
-import { useAppSelector } from '../../hooks';
-import ShowMore from '../showMore/showMore.tsx';
-import Genres from '../genres/genres.tsx';
 import { useEffect, useMemo, useState } from 'react';
-import { DEFAULT_GENRE, initialStateLengthFilms } from './utils.ts';
+import { WrapCatalogFilms as CatalogFilms } from './catalog-films.index.tsx';
+import { useAppSelector } from '../../hooks';
+import { ShowMore } from '../show-more/show-more.tsx';
+import { WrapGenres as Genres } from '../genres';
+import { DEFAULT_GENRE, getInitialStateLengthFilms } from './utils.ts';
 import {
   errorFilmsSelector,
   filmsSelector,
   genreSelector,
   loadingStatusFilmsSelector,
-} from '../../store/filmsProcess/selectors.ts';
-import LoadingBlock from '../loadingScreen/loadingBlock.tsx';
-import ErrorBlock from '../error/errorBlock.tsx';
+} from '../../store/films-process/selectors.ts';
+import { LoadingBlock } from '../loading-screen/loading-block.tsx';
+import { ErrorBlock } from '../error/error-block.tsx';
 
 export const Catalog = () => {
   const films = useAppSelector(filmsSelector);
@@ -23,10 +23,10 @@ export const Catalog = () => {
       ? films
       : films.filter(({ genre }) => genre === currentGenre);
   const [lengthFilmsGenre, setLengthFilmsGenre] = useState<number>(
-    initialStateLengthFilms(filmsGenre),
+    getInitialStateLengthFilms(filmsGenre),
   );
   useEffect(
-    () => setLengthFilmsGenre(initialStateLengthFilms(filmsGenre)),
+    () => setLengthFilmsGenre(getInitialStateLengthFilms(filmsGenre)),
     [filmsGenre, currentGenre],
   );
   const catalogFilms = useMemo(

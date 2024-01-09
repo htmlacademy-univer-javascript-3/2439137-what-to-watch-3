@@ -1,5 +1,5 @@
 import { createMemoryHistory, MemoryHistory } from 'history';
-import HistoryRouter from '../components/historyRoute/historyRoute.tsx';
+import { HistoryRouter } from '../components/history-route/history-route.tsx';
 import { State } from '../types/state.ts';
 import { configureMockStore, MockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';

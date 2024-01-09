@@ -1,5 +1,5 @@
 import { FilmFullType } from '../../types/film.ts';
-import { runTimeSelector, starringToStringColumn } from '../filmCard/utils.ts';
+import { formatRunTimeFull, getStarringFullList } from '../film-card/utils.ts';
 
 interface OverviewProps {
   film: FilmFullType;
@@ -15,7 +15,7 @@ export const Details = ({ film }: OverviewProps) => (
       <p className="film-card__details-item">
         <strong className="film-card__details-name">Starring</strong>
         <span className="film-card__details-value">
-          {starringToStringColumn(film.starring)}
+          {getStarringFullList(film.starring)}
         </span>
       </p>
     </div>
@@ -24,7 +24,7 @@ export const Details = ({ film }: OverviewProps) => (
       <p className="film-card__details-item">
         <strong className="film-card__details-name">Run Time</strong>
         <span className="film-card__details-value">
-          {runTimeSelector(film.runTime)}
+          {formatRunTimeFull(film.runTime)}
         </span>
       </p>
       <p className="film-card__details-item">

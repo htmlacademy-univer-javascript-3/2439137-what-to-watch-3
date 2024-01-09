@@ -1,24 +1,24 @@
-import Footer from '../../components/footer/footer.tsx';
-import PromoFilmCard from '../../components/filmCard/promoFilmCard.tsx';
-import { CatalogWrap as Catalog } from '../../components/catalog';
+import { Footer } from '../../components/footer/footer.tsx';
+import { PromoFilmCard } from '../../components/film-card/promo-film-card.tsx';
+import { WrapCatalog as Catalog } from '../../components/catalog';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { DEFAULT_GENRE } from '../../components/catalog/utils.ts';
-import { setGenre } from '../../store/filmsProcess/filmsProcess.ts';
+import { setGenre } from '../../store/films-process/films-process.ts';
 import {
   errorPromoFilmSelector,
   loadingStatusPromoFilmSelector,
   promoFilmSelector,
-} from '../../store/promoFilmProcess/selectors.ts';
-import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
+} from '../../store/promo-film-process/selectors.ts';
+import { LoadingScreen } from '../../components/loading-screen/loading-screen.tsx';
 import { fetchPromoFilmAction } from '../../store/api-actions.ts';
 import {
   errorFilmsSelector,
   loadingStatusFilmsSelector,
-} from '../../store/filmsProcess/selectors.ts';
-import Error from '../../components/error/error.tsx';
+} from '../../store/films-process/selectors.ts';
+import { Error } from '../../components/error/error.tsx';
 
-function Main(): JSX.Element {
+export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const filmPromo = useAppSelector(promoFilmSelector);
   const filmPromoLoadingStatus = useAppSelector(loadingStatusPromoFilmSelector);
@@ -51,5 +51,3 @@ function Main(): JSX.Element {
     </>
   );
 }
-
-export default Main;

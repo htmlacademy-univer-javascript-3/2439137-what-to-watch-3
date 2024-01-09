@@ -1,7 +1,7 @@
+import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { HeaderType } from './header.tsx';
-import { Link } from 'react-router-dom';
-import { AuthHeader } from './authHeader.tsx';
+import { AuthHeader } from './auth-header.tsx';
 
 export const getClassHeader = (headerType: string, auth: string) => {
   switch (headerType) {

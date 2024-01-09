@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
 
-function Error404({ message }: { message?: string }): JSX.Element {
+export function Error404({ message }: { message?: string }): JSX.Element {
   return (
     <div >
       <p className="error__emoji">(⊙_⊙)</p>
@@ -15,5 +15,3 @@ function Error404({ message }: { message?: string }): JSX.Element {
     </div>
   );
 }
-
-export default Error404;

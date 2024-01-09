@@ -1,7 +1,7 @@
-import Logo from '../logo/logo.tsx';
+import { WrapLogo as Logo } from '../logo';
 import { ReactNode, useMemo } from 'react';
 import { useAppSelector } from '../../hooks';
-import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
+import { authorizationStatusSelector } from '../../store/user-process/selectors.ts';
 import { getClassHeader } from './utils.tsx';
 import { getContentHeader } from './utils.tsx';
 
