@@ -1,18 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import Details from './details.tsx';
 import { testCommentsFilm, testFilm } from '../../utils/mocks.ts';
-import {
-  runTimeSelector,
-  starringToStringColumn,
-} from '../filmCard/utils.ts';
-import Reviews from './reviews.tsx';
+import { formatRunTimeFull, getStarringFullList } from '../film-card/utils.ts';
+import { WrapDetails } from './details.index.tsx';
+import { WrapReviews } from './reviews.index.tsx';
 
 describe('Component: tabs', () => {
   const film = testFilm;
   const commentsFilm = testCommentsFilm;
   describe('Component: details', () => {
     it('should render correct', () => {
-      render(<Details film={film} />);
+      render(<WrapDetails film={film} />);
 
       const directorContainer = screen.getByText('Director').parentElement;
       const starringContainer = screen.getByText('Starring').parentElement;
@@ -25,12 +22,12 @@ describe('Component: tabs', () => {
 
       expect(starringContainer).toBeInTheDocument();
       expect(starringContainer?.children[1].textContent).toBe(
-        starringToStringColumn(film.starring),
+        getStarringFullList(film.starring),
       );
 
       expect(runTimeContainer).toBeInTheDocument();
       expect(runTimeContainer?.children[1].textContent).toBe(
-        runTimeSelector(film.runTime),
+        formatRunTimeFull(film.runTime),
       );
 
       expect(genreContainer).toBeInTheDocument();
@@ -45,7 +42,13 @@ describe('Component: tabs', () => {
 
   describe('Component: reviews', () => {
     it('should render correct', () => {
-      render(<Reviews commentsFilm={commentsFilm} />);
+      render(
+        <WrapReviews
+          commentsFilm={commentsFilm}
+          commentsFilmsError={null}
+          commentsFilmsLoadingStatus={false}
+        />,
+      );
 
       const commentsFilmFirstColumn = screen.getByTestId(
         'film-card__reviews-col__first',

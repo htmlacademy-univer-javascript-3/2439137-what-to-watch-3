@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app/app.tsx';
+import { App } from './components/app/app.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { checkAuthAction, fetchFilmsAction } from './store/api-actions.ts';
-import HistoryRouter from './components/historyRoute/historyRoute.tsx';
+import { HistoryRouter } from './components/history-route/history-route.tsx';
 import browserHistory from './browserHistory.ts';
 
 const root = ReactDOM.createRoot(

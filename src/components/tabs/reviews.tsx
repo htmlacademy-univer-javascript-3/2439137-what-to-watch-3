@@ -1,39 +1,26 @@
-import { dateToString } from '../filmCard/utils.ts';
-import { CommentType } from '../../types/filmReview.ts';
-import { memo } from 'react';
+import { CommentType } from '../../types/film-review.ts';
+import { ReviewItem } from './review-item.tsx';
 
 interface OverviewProps {
   commentsFilm: CommentType[];
+  commentsFilmsError: string | null;
+  commentsFilmsLoadingStatus: boolean;
 }
 
-const ReviewItem = ({ user, date, comment, rating }: CommentType) => (
-  <div className="review">
-    <blockquote className="review__quote">
-      <p className="review__text">{comment}</p>
-
-      <footer className="review__details">
-        <cite className="review__author">{user}</cite>
-        <time
-          className="review__date"
-        >
-          {dateToString(new Date(date))}
-        </time>
-      </footer>
-    </blockquote>
-
-    {rating && <div className="review__rating">{rating}</div>}
-  </div>
-);
-
-const Reviews = ({ commentsFilm }: OverviewProps) => {
-  const commentsFilmFirstColumn = commentsFilm.slice(
-    0,
-    commentsFilm.length / 2,
-  );
+export const Reviews = ({
+  commentsFilm,
+  commentsFilmsLoadingStatus,
+  commentsFilmsError,
+}: OverviewProps) => {
+  const middleNumber = Math.ceil(commentsFilm.length / 2);
+  const commentsFilmFirstColumn = commentsFilm.slice(0, middleNumber);
   const commentFilmSecondColumn = commentsFilm.slice(
-    commentsFilm.length / 2,
+    middleNumber,
     commentsFilm.length,
   );
+  if (commentsFilmsLoadingStatus || commentsFilmsError) {
+    return null;
+  }
 
   return (
     <div className="film-card__reviews film-card__row">
@@ -60,5 +47,3 @@ const Reviews = ({ commentsFilm }: OverviewProps) => {
     </div>
   );
 };
-
-export default memo(Reviews);

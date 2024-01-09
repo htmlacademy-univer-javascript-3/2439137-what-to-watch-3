@@ -8,8 +8,8 @@ import {
   useState,
 } from 'react';
 import {
-  runTimeSelectorMergedFormat,
-} from '../../components/filmCard/utils.ts';
+  formatRunTimeLeft,
+} from '../../components/film-card/utils.ts';
 
 export interface PlayerPros {
   film: FilmFullType;
@@ -17,7 +17,7 @@ export interface PlayerPros {
 
 const PROGRESS_PADDING = 25;
 
-const EntityPlayer = ({ film }: PlayerPros) => {
+export const EntityPlayer = ({ film }: PlayerPros) => {
   const [progressTime, setProgressTime] = useState<number>(0);
   const [progressBarTime, setProgressBarTime] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -32,7 +32,7 @@ const EntityPlayer = ({ film }: PlayerPros) => {
     }
   }, [isPlaying]);
 
-  const onFullScreen = () => {
+  const handleFullscreenModeEnter = () => {
     const video = videoRef.current;
 
     if (video) {
@@ -100,7 +100,7 @@ const EntityPlayer = ({ film }: PlayerPros) => {
             </div>
           </div>
           <div className="player__time-value">
-            {runTimeSelectorMergedFormat(film.runTime * 60 - progressTime)}
+            {formatRunTimeLeft(film.runTime * 60 - progressTime)}
           </div>
         </div>
 
@@ -120,7 +120,7 @@ const EntityPlayer = ({ film }: PlayerPros) => {
           <button
             type="button"
             className="player__full-screen"
-            onClick={onFullScreen}
+            onClick={handleFullscreenModeEnter}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
@@ -132,5 +132,3 @@ const EntityPlayer = ({ film }: PlayerPros) => {
     </div>
   );
 };
-
-export default EntityPlayer;

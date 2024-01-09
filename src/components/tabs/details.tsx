@@ -1,12 +1,11 @@
 import { FilmFullType } from '../../types/film.ts';
-import { runTimeSelector, starringToStringColumn } from '../filmCard/utils.ts';
-import { memo } from 'react';
+import { formatRunTimeFull, getStarringFullList } from '../film-card/utils.ts';
 
 interface OverviewProps {
   film: FilmFullType;
 }
 
-const Details = ({ film }: OverviewProps) => (
+export const Details = ({ film }: OverviewProps) => (
   <div className="film-card__text film-card__row">
     <div className="film-card__text-col">
       <p className="film-card__details-item">
@@ -16,7 +15,7 @@ const Details = ({ film }: OverviewProps) => (
       <p className="film-card__details-item">
         <strong className="film-card__details-name">Starring</strong>
         <span className="film-card__details-value">
-          {starringToStringColumn(film.starring)}
+          {getStarringFullList(film.starring)}
         </span>
       </p>
     </div>
@@ -25,7 +24,7 @@ const Details = ({ film }: OverviewProps) => (
       <p className="film-card__details-item">
         <strong className="film-card__details-name">Run Time</strong>
         <span className="film-card__details-value">
-          {runTimeSelector(film.runTime)}
+          {formatRunTimeFull(film.runTime)}
         </span>
       </p>
       <p className="film-card__details-item">
@@ -39,5 +38,3 @@ const Details = ({ film }: OverviewProps) => (
     </div>
   </div>
 );
-
-export default memo(Details);

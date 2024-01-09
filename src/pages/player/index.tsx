@@ -6,15 +6,15 @@ import {
   fetchFilmAction,
   fetchSimilarFilmsFilmAction,
 } from '../../store/api-actions.ts';
-import LoadingScreen from '../../components/loadingScreen/loadingScreen.tsx';
-import Error from '../../components/error/error.tsx';
+import { LoadingScreen } from '../../components/loading-screen/loading-screen.tsx';
+import { Error } from '../../components/error/error.tsx';
 import {
   filmSelector,
   loadingStatusFilmSelector,
-} from '../../store/filmProcess/selectors.ts';
-import EntityPlayer from './player.tsx';
+} from '../../store/film-process/selectors.ts';
+import { EntityPlayer } from './player.tsx';
 
-function Player(): JSX.Element {
+export function Player(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -35,5 +35,3 @@ function Player(): JSX.Element {
   }
   return <EntityPlayer film={film} />;
 }
-
-export default Player;

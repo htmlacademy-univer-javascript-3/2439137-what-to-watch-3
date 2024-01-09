@@ -7,10 +7,10 @@ import {
   FetchUserData,
   FetchFilmData,
   FetchFilmsFavoriteData,
-} from '../types/fetchUserData.ts';
+} from '../types/fetch-user-data.ts';
 import { dropToken, saveToken } from '../services/token.ts';
 import { UserData } from '../types/userData.ts';
-import { CommentType } from '../types/filmReview.ts';
+import { CommentType } from '../types/film-review.ts';
 
 export const fetchFilmsAction = createAsyncThunk<
   FilmType[],
@@ -114,7 +114,7 @@ export const fetchChangeStatusFilmFavoriteAction = createAsyncThunk<
 );
 
 export const checkAuthAction = createAsyncThunk<
-  void,
+  UserData,
   undefined,
   {
     dispatch: AppDispatch;
@@ -122,7 +122,8 @@ export const checkAuthAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/checkAuth', async (_arg, { extra: api }) => {
-  await api.get(APIRoute.Login);
+  const { data } = await api.get<UserData>(APIRoute.Login);
+  return data;
 });
 
 export const loginAction = createAsyncThunk<

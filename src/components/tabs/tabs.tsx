@@ -1,13 +1,15 @@
 import { FilmFullType } from '../../types/film.ts';
-import Overview from './overview.tsx';
 import { useState } from 'react';
-import Details from './details.tsx';
-import Reviews from './reviews.tsx';
-import { CommentType } from '../../types/filmReview.ts';
+import { CommentType } from '../../types/film-review.ts';
+import { WrapOverview } from './overview.index.tsx';
+import { WrapDetails } from './details.index.tsx';
+import { WrapReviews } from './reviews.index.tsx';
 
 interface TabsProps {
   film: FilmFullType;
   commentsFilms: CommentType[];
+  commentsFilmsError: string | null;
+  commentsFilmsLoadingStatus: boolean;
 }
 
 interface FilmNavProps {
@@ -15,20 +17,31 @@ interface FilmNavProps {
   view: JSX.Element;
 }
 
-const Tabs = ({ film, commentsFilms }: TabsProps) => {
+export const Tabs = ({
+  film,
+  commentsFilms,
+  commentsFilmsError,
+  commentsFilmsLoadingStatus,
+}: TabsProps) => {
   const [titleNav, setTitleNav] = useState('Overview');
   const filmNav: FilmNavProps[] = [
     {
       title: 'Overview',
-      view: <Overview film={film} />,
+      view: <WrapOverview film={film} />,
     },
     {
       title: 'Details',
-      view: <Details film={film} />,
+      view: <WrapDetails film={film} />,
     },
     {
       title: 'Reviews',
-      view: <Reviews commentsFilm={commentsFilms} />,
+      view: (
+        <WrapReviews
+          commentsFilm={commentsFilms}
+          commentsFilmsError={commentsFilmsError}
+          commentsFilmsLoadingStatus={commentsFilmsLoadingStatus}
+        />
+      ),
     },
   ];
   const activeNav = filmNav.filter(({ title }) => title === titleNav)[0];
@@ -56,7 +69,6 @@ const Tabs = ({ film, commentsFilms }: TabsProps) => {
                   onClick={() => setTitleNav(nav.title)}
                 >
                   <a
-                    /*href={`#${nav.title.toLowerCase().replace(' ', '_')}`}*/
                     className="film-nav__link"
                   >
                     {nav.title}
@@ -71,5 +83,3 @@ const Tabs = ({ film, commentsFilms }: TabsProps) => {
     </div>
   );
 };
-
-export default Tabs;

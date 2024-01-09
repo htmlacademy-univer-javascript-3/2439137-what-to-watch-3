@@ -1,11 +1,11 @@
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from '@reduxjs/toolkit';
 import { FilmFullType, FilmType, PromoFilmType } from '../types/film.ts';
 import { UserData } from '../types/userData.ts';
-import { CommentType } from '../types/filmReview.ts';
-import { Action } from '@reduxjs/toolkit';
+import { CommentType } from '../types/film-review.ts';
 import { State } from '../types/state.ts';
 import { AuthorizationStatus } from '../const.ts';
 import { DEFAULT_GENRE } from '../components/catalog/utils.ts';
-import { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '../services/api.ts';
 
 export const extractActionsTypes = (actions: Action<string>[]) =>

@@ -2,7 +2,7 @@ import { store } from '../store';
 import { AuthorizationStatus } from '../const.ts';
 import { UserData } from './userData.ts';
 import { FilmFullType, PromoFilmType, FilmType } from './film.ts';
-import { CommentType } from './filmReview.ts';
+import { CommentType } from './film-review.ts';
 
 export type AppDispatch = typeof store.dispatch;
 

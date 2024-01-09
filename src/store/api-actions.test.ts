@@ -26,7 +26,7 @@ import {
   testSimilarFilms,
 } from '../utils/mocks.ts';
 import { APIRoute } from '../services/const.ts';
-import { FetchUserData } from '../types/fetchUserData.ts';
+import { FetchUserData } from '../types/fetch-user-data.ts';
 import * as tokenStorage from '../services/token';
 
 describe('async actions', () => {
