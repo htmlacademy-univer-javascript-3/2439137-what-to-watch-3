@@ -114,7 +114,7 @@ export const fetchChangeStatusFilmFavoriteAction = createAsyncThunk<
 );
 
 export const checkAuthAction = createAsyncThunk<
-  void,
+  UserData,
   undefined,
   {
     dispatch: AppDispatch;
@@ -122,7 +122,8 @@ export const checkAuthAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/checkAuth', async (_arg, { extra: api }) => {
-  await api.get(APIRoute.Login);
+  const { data } = await api.get<UserData>(APIRoute.Login);
+  return data;
 });
 
 export const loginAction = createAsyncThunk<

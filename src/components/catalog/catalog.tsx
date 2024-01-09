@@ -2,18 +2,21 @@ import CatalogFilms from './catalogFilms.tsx';
 import { useAppSelector } from '../../hooks';
 import ShowMore from '../showMore/showMore.tsx';
 import Genres from '../genres/genres.tsx';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DEFAULT_GENRE, initialStateLengthFilms } from './utils.ts';
-import LoadingScreen from '../loadingScreen/loadingScreen.tsx';
 import {
+  errorFilmsSelector,
   filmsSelector,
   genreSelector,
   loadingStatusFilmsSelector,
 } from '../../store/filmsProcess/selectors.ts';
+import LoadingBlock from '../loadingScreen/loadingBlock.tsx';
+import ErrorBlock from '../error/errorBlock.tsx';
 
-const Catalog = () => {
+export const Catalog = () => {
   const films = useAppSelector(filmsSelector);
   const filmsLoadingStatus = useAppSelector(loadingStatusFilmsSelector);
+  const filmsError = useAppSelector(errorFilmsSelector);
   const currentGenre = useAppSelector(genreSelector);
   const filmsGenre =
     currentGenre === DEFAULT_GENRE
@@ -30,11 +33,15 @@ const Catalog = () => {
     () => filmsGenre.slice(0, lengthFilmsGenre),
     [filmsGenre, lengthFilmsGenre],
   );
+  if (filmsError) {
+    return <ErrorBlock message={filmsError} />;
+  }
+
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
       {filmsLoadingStatus ? (
-        <LoadingScreen />
+        <LoadingBlock />
       ) : (
         <>
           <Genres films={films} />
@@ -51,4 +58,3 @@ const Catalog = () => {
     </section>
   );
 };
-export default memo(Catalog);

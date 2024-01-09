@@ -4,16 +4,15 @@ import {
   starringToStringRow,
 } from '../filmCard/utils.ts';
 import { FilmFullType } from '../../types/film.ts';
-import { memo } from 'react';
 
 interface OverviewProps {
   film: FilmFullType;
 }
 
-const Overview = ({ film }: OverviewProps) => (
+export const Overview = ({ film }: OverviewProps) => (
   <>
     <div className="film-rating">
-      <div className="film-rating__score">{film.rating}</div>
+      <div className="film-rating__score">{film.rating.toFixed(1)}</div>
       <p className="film-rating__meta">
         <span className="film-rating__level">
           {getNameRating(film.rating.toString())}
@@ -37,5 +36,3 @@ const Overview = ({ film }: OverviewProps) => (
     </div>
   </>
 );
-
-export default memo(Overview);

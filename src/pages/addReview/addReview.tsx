@@ -26,11 +26,11 @@ function AddReview(): JSX.Element {
   }, [dispatch, id]);
   const film = useAppSelector(filmSelector);
   const filmLoadingStatus = useAppSelector(loadingStatusFilmSelector);
-  if (!id) {
-    return <Error />;
-  }
-  if (film === null || filmLoadingStatus) {
+  if (filmLoadingStatus) {
     return <LoadingScreen />;
+  }
+  if (!film) {
+    return <Error />;
   }
   return <FilmCardReview film={film} />;
 }

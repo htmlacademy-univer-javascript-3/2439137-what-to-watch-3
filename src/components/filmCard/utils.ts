@@ -5,8 +5,16 @@ const SECONDS_IN_MINUTE = 60;
 export const getNameRating = function (rating: string) {
   const ratingNumber = parseFloat(rating.replace(',', '.'));
   switch (true) {
+    case ratingNumber === 10:
+      return 'Awesome';
     case ratingNumber > 8:
       return 'Very good';
+    case ratingNumber > 5:
+      return 'Good';
+    case ratingNumber > 3:
+      return 'Normal';
+    case ratingNumber > 0:
+      return 'Bad';
     default:
       return '';
   }

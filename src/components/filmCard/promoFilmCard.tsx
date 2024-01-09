@@ -1,52 +1,58 @@
-import Header, { HeaderType } from '../header/header.tsx';
-import { fetchPromoFilmAction } from '../../store/api-actions.ts';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import { HeaderWrap as Header } from '../header';
+import { useAppSelector } from '../../hooks';
 import FavoriteAction from '../favoriteAction/favoriteAction.tsx';
-import {
-  loadingStatusPromoFilmSelector,
-  promoFilmSelector,
-} from '../../store/promoFilmProcess/selectors.ts';
+import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
+import { FilmFullType, PromoFilmType } from '../../types/film.ts';
+import { AppRoute } from '../../const.ts';
+import { Link } from 'react-router-dom';
 
-const PromoFilmCard = () => {
-  const dispatch = useAppDispatch();
-  const filmPromo = useAppSelector(promoFilmSelector);
-  const filmPromoLoadingStatus = useAppSelector(loadingStatusPromoFilmSelector);
-  useEffect(() => {
-    dispatch(fetchPromoFilmAction());
-  }, [dispatch]);
-  if (filmPromoLoadingStatus || !filmPromo) {
-    return null;
-  }
+export interface FullFilmCardProps {
+  film: FilmFullType | PromoFilmType;
+}
+
+const PromoFilmCard = ({ film }: FullFilmCardProps) => {
+  const authorizationStatus = useAppSelector(authorizationStatusSelector);
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={filmPromo.backgroundImage} alt={filmPromo.name} />
+        <img src={film.backgroundImage} alt={film.name} />
       </div>
 
-      <Header headerType={HeaderType.Auth} />
+      <Header />
 
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src={filmPromo.posterImage} alt={filmPromo.name} />
+            <img src={film.posterImage} alt={film.name} />
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title" data-testid={'promo_film-card__title'}>{filmPromo.name}</h2>
+            <h2
+              className="film-card__title"
+              data-testid={'promo_film-card__title'}
+            >
+              {film.name}
+            </h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{filmPromo.genre}</span>
-              <span className="film-card__year">{filmPromo.released}</span>
+              <span className="film-card__genre">{film.genre}</span>
+              <span className="film-card__year">{film.released}</span>
             </p>
 
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+              <Link
+                className="btn btn--play film-card__button"
+                to={AppRoute.Player(film.id)}
+              >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
-                <span>Play</span>
-              </button>
-              <FavoriteAction />
+                Play
+              </Link>
+              <FavoriteAction
+                authorizationStatus={authorizationStatus}
+                film={film}
+              />
             </div>
           </div>
         </div>

@@ -1,12 +1,11 @@
 import { FilmFullType } from '../../types/film.ts';
 import { runTimeSelector, starringToStringColumn } from '../filmCard/utils.ts';
-import { memo } from 'react';
 
 interface OverviewProps {
   film: FilmFullType;
 }
 
-const Details = ({ film }: OverviewProps) => (
+export const Details = ({ film }: OverviewProps) => (
   <div className="film-card__text film-card__row">
     <div className="film-card__text-col">
       <p className="film-card__details-item">
@@ -39,5 +38,3 @@ const Details = ({ film }: OverviewProps) => (
     </div>
   </div>
 );
-
-export default memo(Details);

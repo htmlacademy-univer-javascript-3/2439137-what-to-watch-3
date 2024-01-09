@@ -1,13 +1,15 @@
 import { FilmFullType } from '../../types/film.ts';
-import Overview from './overview.tsx';
 import { useState } from 'react';
-import Details from './details.tsx';
-import Reviews from './reviews.tsx';
 import { CommentType } from '../../types/filmReview.ts';
+import { OverviewWrap } from './overview.index.tsx';
+import { DetailsWrap } from './details.index.tsx';
+import { ReviewsWrap } from './reviews.index.tsx';
 
 interface TabsProps {
   film: FilmFullType;
   commentsFilms: CommentType[];
+  commentsFilmsError: string | null;
+  commentsFilmsLoadingStatus: boolean;
 }
 
 interface FilmNavProps {
@@ -15,20 +17,31 @@ interface FilmNavProps {
   view: JSX.Element;
 }
 
-const Tabs = ({ film, commentsFilms }: TabsProps) => {
+const Tabs = ({
+  film,
+  commentsFilms,
+  commentsFilmsError,
+  commentsFilmsLoadingStatus,
+}: TabsProps) => {
   const [titleNav, setTitleNav] = useState('Overview');
   const filmNav: FilmNavProps[] = [
     {
       title: 'Overview',
-      view: <Overview film={film} />,
+      view: <OverviewWrap film={film} />,
     },
     {
       title: 'Details',
-      view: <Details film={film} />,
+      view: <DetailsWrap film={film} />,
     },
     {
       title: 'Reviews',
-      view: <Reviews commentsFilm={commentsFilms} />,
+      view: (
+        <ReviewsWrap
+          commentsFilm={commentsFilms}
+          commentsFilmsError={commentsFilmsError}
+          commentsFilmsLoadingStatus={commentsFilmsLoadingStatus}
+        />
+      ),
     },
   ];
   const activeNav = filmNav.filter(({ title }) => title === titleNav)[0];

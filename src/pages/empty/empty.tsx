@@ -1,10 +1,10 @@
-import Header, { HeaderType } from '../../components/header/header.tsx';
+import { HeaderWrap as Header, HeaderType } from '../../components/header';
 import Footer from '../../components/footer/footer.tsx';
 
 function Empty({ children }: { children: JSX.Element | null }): JSX.Element {
   return (
     <div className="empty">
-      <Header headerType={HeaderType.Error} />
+      <Header headerType={HeaderType.Empty} />
       {children}
       <Footer />
     </div>

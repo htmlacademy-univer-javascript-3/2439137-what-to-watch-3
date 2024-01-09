@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer.tsx';
-import Header, { HeaderType } from '../../components/header/header.tsx';
+import { HeaderWrap as Header, HeaderType } from '../../components/header';
 import { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FetchUserData } from '../../types/fetchUserData.ts';
@@ -55,7 +55,7 @@ function SignIn(): JSX.Element {
       }
       setMessageError(authorizationError.messages);
     }
-  }, [authorizationError.property.length]);
+  }, [authorizationError.messages, authorizationError.property, authorizationError.property.length, loginData]);
 
   const onSubmit = (authData: FetchUserData) => {
     dispatch(loginAction(authData));
@@ -80,7 +80,14 @@ function SignIn(): JSX.Element {
 
   return (
     <div className="user-page">
-      <Header headerType={HeaderType.NoAuth} />
+      <Header headerType={HeaderType.SignIn}>
+        <h1
+          className="page-title user-page__title"
+          data-testid={'user-block__header__sign-in'}
+        >
+          Sign in
+        </h1>
+      </Header>
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
@@ -93,11 +100,12 @@ function SignIn(): JSX.Element {
           )}
           <div className="sign-in__fields">
             <div
-              className={`sign-in__field ${loginData.userEmailError ? 'sign-in__field--error' : ''}`}
+              className={`sign-in__field ${
+                loginData.userEmailError ? 'sign-in__field--error' : ''
+              }`}
             >
               <input
                 className="sign-in__input"
-                type="email"
                 placeholder="Email address"
                 name="userEmail"
                 id="user-email"
@@ -112,7 +120,9 @@ function SignIn(): JSX.Element {
               </label>
             </div>
             <div
-              className={`sign-in__field ${loginData.userPasswordError ? 'sign-in__field--error' : ''}`}
+              className={`sign-in__field ${
+                loginData.userPasswordError ? 'sign-in__field--error' : ''
+              }`}
             >
               <input
                 className="sign-in__input"
@@ -132,7 +142,11 @@ function SignIn(): JSX.Element {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit" data-testid={'buttonElement'}>
+            <button
+              className="sign-in__btn"
+              type="submit"
+              data-testid={'buttonElement'}
+            >
               Sign in
             </button>
           </div>

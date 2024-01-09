@@ -1,63 +1,47 @@
 import Logo from '../logo/logo.tsx';
-import { memo, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const.ts';
+import { ReactNode, useMemo } from 'react';
+import { useAppSelector } from '../../hooks';
+import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
+import { getClassHeader } from './utils.tsx';
+import { getContentHeader } from './utils.tsx';
 
 export const HeaderType = {
-  Error: 'error',
+  Empty: 'empty',
   MyList: 'myList',
-  Auth: 'auth',
-  NoAuth: 'noAuth',
+  SignIn: 'signIn',
+  AddReview: 'addReview',
+  Main: 'main',
 };
 
 interface propTypes {
   children?: ReactNode;
-  headerType: string;
+  headerType?: string;
 }
 
 export const Header = ({
   children,
-  headerType = HeaderType.Auth,
-}: propTypes) => (
-  <>
-    {headerType === HeaderType.Auth && <h1 className="visually-hidden">WTW</h1>}
-    <header
-      className={`page-header ${
-        headerType === HeaderType.Auth ? 'film-card__head' : 'user-page__head'
-      }`}
-      data-testid={'header'}
-    >
-      <Logo isLight={false} />
-      {children}
-      {headerType === HeaderType.Auth && (
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img
-                src="img/avatar.jpg"
-                alt="User avatar"
-                width="63"
-                height="63"
-              />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <Link className="user-block__link" to={AppRoute.SignIn}>
-              Sign out
-            </Link>
-          </li>
-        </ul>
+  headerType = HeaderType.Main,
+}: propTypes) => {
+  const authorizationStatus = useAppSelector(authorizationStatusSelector);
+  const contentHeader = useMemo(
+    () => getContentHeader(headerType, authorizationStatus),
+    [headerType, authorizationStatus],
+  );
+  const classHeader = useMemo(
+    () => getClassHeader(headerType, authorizationStatus),
+    [headerType, authorizationStatus],
+  );
+  return (
+    <>
+      {(headerType === HeaderType.Main ||
+        headerType === HeaderType.AddReview) && (
+        <h1 className="visually-hidden">WTW</h1>
       )}
-      {headerType === HeaderType.NoAuth && (
-        <h1
-          className="page-title user-page__title"
-          data-testid={'user-block__header__sign-in'}
-        >
-          Sign in
-        </h1>
-      )}
-    </header>
-  </>
-);
-
-export default memo(Header);
+      <header className={`page-header ${classHeader}`} data-testid={'header'}>
+        <Logo isLight={false} />
+        {children}
+        {contentHeader}
+      </header>
+    </>
+  );
+};

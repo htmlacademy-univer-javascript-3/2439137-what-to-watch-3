@@ -33,7 +33,13 @@ const initialState: FilmProcess = {
 export const filmProcess = createSlice({
   name: NameSpace.Film,
   initialState,
-  reducers: {},
+  reducers: {
+    clear: (state) => {
+      state.film.error = null;
+      state.similarFilms.error = null;
+      state.comments.error = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFilmAction.pending, (state) => {
@@ -44,9 +50,9 @@ export const filmProcess = createSlice({
       })
       .addCase(fetchFilmAction.fulfilled, (state, action) => {
         state.film = {
-          ...state.film,
           loading: false,
           data: action.payload,
+          error: null,
         };
       })
       .addCase(fetchFilmAction.rejected, (state, value) => {
@@ -64,7 +70,7 @@ export const filmProcess = createSlice({
       })
       .addCase(fetchCommentsFilmAction.fulfilled, (state, action) => {
         state.comments = {
-          ...state.comments,
+          error: null,
           loading: false,
           data: action.payload,
         };
@@ -84,7 +90,7 @@ export const filmProcess = createSlice({
       })
       .addCase(fetchSimilarFilmsFilmAction.fulfilled, (state, action) => {
         state.similarFilms = {
-          ...state.similarFilms,
+          error: null,
           loading: false,
           data: action.payload,
         };
@@ -123,3 +129,5 @@ export const filmProcess = createSlice({
       });
   },
 });
+
+export const { clear } = filmProcess.actions;

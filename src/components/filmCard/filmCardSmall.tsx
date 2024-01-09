@@ -11,10 +11,11 @@ interface SmallFilmCardProps {
 export const FilmCardSmall = ({ film }: SmallFilmCardProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   return film ? (
-    <article
-      className="small-film-card catalog__films-card"
+    <Link
+      className="small-film-card catalog__films-card small-film-card__link"
       onMouseOut={() => setIsPlaying(false)}
       onMouseOver={() => setIsPlaying(true)}
+      to={AppRoute.Film(film.id)}
     >
       <div className="small-film-card__image">
         <VideoPlayer
@@ -23,14 +24,12 @@ export const FilmCardSmall = ({ film }: SmallFilmCardProps) => {
           isPlaying={isPlaying}
         />
       </div>
-      <h3
-        className="small-film-card__title"
-      >
-        <Link className="small-film-card__link" to={AppRoute.Film(film.id)}>
+      <h3 className="small-film-card__title">
+        <p className="small-film-card__link" style={{ margin: 0 }}>
           {film.name}
-        </Link>
+        </p>
       </h3>
-    </article>
+    </Link>
   ) : null;
 };
 

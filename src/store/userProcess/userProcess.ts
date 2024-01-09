@@ -32,11 +32,15 @@ export const userProcess = createSlice({
           loading: true,
         };
       })
-      .addCase(checkAuthAction.fulfilled, (state) => {
+      .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.authorizationStatus = {
           ...state.authorizationStatus,
           loading: false,
           data: AuthorizationStatus.Auth,
+        };
+        state.userData = {
+          ...state.userData,
+          data: action.payload
         };
       })
       .addCase(checkAuthAction.rejected, (state, value) => {

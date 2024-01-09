@@ -1,18 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import Details from './details.tsx';
 import { testCommentsFilm, testFilm } from '../../utils/mocks.ts';
-import {
-  runTimeSelector,
-  starringToStringColumn,
-} from '../filmCard/utils.ts';
-import Reviews from './reviews.tsx';
+import { runTimeSelector, starringToStringColumn } from '../filmCard/utils.ts';
+import { DetailsWrap } from './details.index.tsx';
+import { ReviewsWrap } from './reviews.index.tsx';
 
 describe('Component: tabs', () => {
   const film = testFilm;
   const commentsFilm = testCommentsFilm;
   describe('Component: details', () => {
     it('should render correct', () => {
-      render(<Details film={film} />);
+      render(<DetailsWrap film={film} />);
 
       const directorContainer = screen.getByText('Director').parentElement;
       const starringContainer = screen.getByText('Starring').parentElement;
@@ -45,7 +42,13 @@ describe('Component: tabs', () => {
 
   describe('Component: reviews', () => {
     it('should render correct', () => {
-      render(<Reviews commentsFilm={commentsFilm} />);
+      render(
+        <ReviewsWrap
+          commentsFilm={commentsFilm}
+          commentsFilmsError={null}
+          commentsFilmsLoadingStatus={false}
+        />,
+      );
 
       const commentsFilmFirstColumn = screen.getByTestId(
         'film-card__reviews-col__first',

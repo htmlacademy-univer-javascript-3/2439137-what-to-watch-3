@@ -1,17 +1,16 @@
-import Header, { HeaderType } from '../header/header.tsx';
+import { HeaderWrap as Header } from '../header';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { Link } from 'react-router-dom';
 import { FilmFullType } from '../../types/film.ts';
 import FavoriteAction from '../favoriteAction/favoriteAction.tsx';
 import { useAppSelector } from '../../hooks';
-import { memo } from 'react';
 import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
 
-interface FullFilmCardProps {
+export interface FullFilmCardProps {
   film: FilmFullType;
 }
 
-const FilmCard = ({ film }: FullFilmCardProps) => {
+export const FilmCard = ({ film }: FullFilmCardProps) => {
   const authorizationStatus = useAppSelector(authorizationStatusSelector);
   return (
     <div className="film-card__hero">
@@ -19,7 +18,7 @@ const FilmCard = ({ film }: FullFilmCardProps) => {
         <img src={film.backgroundImage} alt={film.name} />
       </div>
 
-      <Header headerType={HeaderType.Auth} />
+      <Header />
 
       <div className="film-card__wrap">
         <div className="film-card__desc">
@@ -39,7 +38,10 @@ const FilmCard = ({ film }: FullFilmCardProps) => {
               </svg>
               Play
             </Link>
-            <FavoriteAction />
+            <FavoriteAction
+              authorizationStatus={authorizationStatus}
+              film={film}
+            />
             {authorizationStatus === AuthorizationStatus.Auth && (
               <Link
                 to={AppRoute.AddReview(film.id)}
@@ -54,8 +56,3 @@ const FilmCard = ({ film }: FullFilmCardProps) => {
     </div>
   );
 };
-
-export default memo(
-  FilmCard,
-  (prevProps, nextProps) => prevProps.film.id === nextProps.film.id,
-);

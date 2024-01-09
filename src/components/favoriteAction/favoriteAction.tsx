@@ -1,29 +1,29 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AuthorizationStatus, OperationFilmFavorite } from '../../const.ts';
-import { authorizationStatusSelector } from '../../store/userProcess/selectors.ts';
-import LoadingScreen from '../loadingScreen/loadingScreen.tsx';
+import { AuthorizationStatus } from '../../const.ts';
 import { favoriteFilmsSelector } from '../../store/favoriteFilmsProcess/selectors.ts';
-import { filmSelector } from '../../store/filmProcess/selectors.ts';
-import { fetchChangeStatusFilmFavoriteAction } from '../../store/api-actions.ts';
+import {
+  fetchChangeStatusFilmFavoriteAction,
+  fetchFavoriteFilmsAction,
+} from '../../store/api-actions.ts';
+import { status } from './utils.ts';
+import { FilmFullType, PromoFilmType } from '../../types/film.ts';
 
-const status = (isFavorite: null | boolean) =>
-  isFavorite ? OperationFilmFavorite.DEL : OperationFilmFavorite.ADD;
+interface FavoriteActionProps {
+  authorizationStatus: AuthorizationStatus;
+  film: FilmFullType | PromoFilmType;
+}
 
-const FavoriteAction = () => {
+const FavoriteAction = ({ authorizationStatus, film }: FavoriteActionProps) => {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(authorizationStatusSelector);
-  const film = useAppSelector(filmSelector);
-  const filmFavorite = useAppSelector(favoriteFilmsSelector);
-  const lengthFilmFavorite = useMemo(() => filmFavorite.length, [filmFavorite]);
-  const isFavorite = useMemo(() => (film ? film.isFavorite : null), [film]);
-
+  const filmsFavorite = useAppSelector(favoriteFilmsSelector);
+  const lengthFilmFavorite = useMemo(
+    () => filmsFavorite.length,
+    [filmsFavorite],
+  );
+  const [isFavorite, setIsFavorite] = useState(film ? film.isFavorite : false);
   if (authorizationStatus !== AuthorizationStatus.Auth || !film) {
     return null;
-  }
-
-  if (!film) {
-    <LoadingScreen />;
   }
 
   const onClick = () => {
@@ -33,7 +33,10 @@ const FavoriteAction = () => {
           filmId: film.id,
           status: status(isFavorite),
         }),
-      );
+      ).then(() => {
+        dispatch(fetchFavoriteFilmsAction());
+        setIsFavorite(!isFavorite);
+      });
     }
   };
 
