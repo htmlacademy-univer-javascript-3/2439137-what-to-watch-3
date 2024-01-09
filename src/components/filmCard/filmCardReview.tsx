@@ -26,6 +26,8 @@ const FilmCardReview = ({ film }: FilmCardReviewProps) => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [postDisabledRating, setPostDisabledRating] = useState(true);
+  const [postDisabledText, setPostDisabledText] = useState(true);
   const [reviewData, setReviewData] = useState<RatingType>({
     review: '',
     rating: '',
@@ -58,6 +60,27 @@ const FilmCardReview = ({ film }: FilmCardReviewProps) => {
     }
   };
 
+  const onChangeRating = (
+    evt: FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>,
+  ) => {
+    reviewChange(evt);
+
+    setPostDisabledRating(!(evt.target as HTMLButtonElement).value);
+  };
+
+  const onChangeText = (
+    evt: FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>,
+  ) => {
+    reviewChange(evt);
+    if (
+      (evt.target as HTMLButtonElement).value.length >= 50 &&
+      (evt.target as HTMLButtonElement).value.length <= 400
+    ) {
+      setPostDisabledText(false);
+    } else {
+      setPostDisabledText(true);
+    }
+  };
   if (loading) {
     return <LoadingScreen />;
   }
@@ -93,12 +116,13 @@ const FilmCardReview = ({ film }: FilmCardReviewProps) => {
                 .map((number) => (
                   <>
                     <input
-                      onChange={reviewChange}
+                      onChange={onChangeRating}
                       className="rating__input"
                       id={`star-${number}`}
                       type="radio"
                       name="rating"
                       value={number}
+                      data-testid={`star-${number}`}
                     />
                     <label className="rating__label" htmlFor={`star-${number}`}>
                       Rating {number}
@@ -114,14 +138,18 @@ const FilmCardReview = ({ film }: FilmCardReviewProps) => {
               name="review"
               id="review-text"
               placeholder="Review text"
-              onChange={reviewChange}
+              onChange={onChangeText}
               value={reviewData.review}
+              data-testid={'review-text'}
+              maxLength={400}
+              minLength={50}
             />
             <div className="add-review__submit">
               <button
                 className="add-review__btn"
                 type="button"
                 onClick={() => onClick}
+                disabled={postDisabledText || postDisabledRating}
               >
                 Post
               </button>

@@ -85,7 +85,7 @@ function SignIn(): JSX.Element {
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           {messageError && (
-            <div className="sign-in__message">
+            <div className="sign-in__message" data-testid={'errorContainer'}>
               {messageError.map((message) => (
                 <p key={`key_${message}`}>{message}</p>
               ))}
@@ -101,6 +101,7 @@ function SignIn(): JSX.Element {
                 placeholder="Email address"
                 name="userEmail"
                 id="user-email"
+                data-testid={'loginElement'}
                 onChange={loginChange}
               />
               <label
@@ -119,6 +120,7 @@ function SignIn(): JSX.Element {
                 placeholder="Password"
                 name="userPassword"
                 id="user-password"
+                data-testid={'passwordElement'}
                 onChange={loginChange}
               />
               <label
@@ -130,7 +132,7 @@ function SignIn(): JSX.Element {
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">
+            <button className="sign-in__btn" type="submit" data-testid={'buttonElement'}>
               Sign in
             </button>
           </div>

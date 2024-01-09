@@ -25,6 +25,7 @@ export const Header = ({
       className={`page-header ${
         headerType === HeaderType.Auth ? 'film-card__head' : 'user-page__head'
       }`}
+      data-testid={'header'}
     >
       <Logo isLight={false} />
       {children}

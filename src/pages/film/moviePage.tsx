@@ -11,7 +11,6 @@ import {
   fetchFilmAction,
   fetchSimilarFilmsFilmAction,
 } from '../../store/api-actions.ts';
-import Error from '../../components/error/error.tsx';
 import {
   commentsSelector,
   filmSelector,
@@ -33,9 +32,6 @@ function MoviePage(): JSX.Element {
   const filmLoadingStatus = useAppSelector(loadingStatusFilmSelector);
   const similarFilms = useAppSelector(similarFilmsSelector);
   const commentsFilms = useAppSelector(commentsSelector);
-  if (!id) {
-    return <Error />;
-  }
   if (film === null || filmLoadingStatus) {
     return <LoadingScreen />;
   }

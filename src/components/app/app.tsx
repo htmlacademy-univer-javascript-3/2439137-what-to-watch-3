@@ -30,7 +30,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <MyList />
             </PrivateRoute>
           }
@@ -39,7 +39,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.AddReview(':id')}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute>
               <AddReview />
             </PrivateRoute>
           }

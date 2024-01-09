@@ -1,7 +1,7 @@
 import Logo from '../logo/logo.tsx';
 
 export const Footer = () => (
-  <footer className="page-footer">
+  <footer className="page-footer" data-testid={'footer'}>
     <Logo isLight/>
 
     <div className="copyright">
