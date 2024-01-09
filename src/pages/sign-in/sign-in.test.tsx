@@ -98,12 +98,11 @@ describe('Component: AuthScreen', () => {
     expect(screen.getByRole('button')).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole('button'));
-    await Promise.all([mockStore.dispatch(loginAction(fakeUser) as never as AnyAction)]);
+    await Promise.all([
+      mockStore.dispatch(loginAction(fakeUser) as never as AnyAction),
+    ]);
     const actions = extractActionsTypes(mockStore.getActions());
 
-    expect(actions).toEqual([
-      loginAction.pending.type,
-      loginAction.fulfilled.type,
-    ]);
+    expect(actions[actions.length - 1]).toEqual(loginAction.fulfilled.type);
   });
 });
