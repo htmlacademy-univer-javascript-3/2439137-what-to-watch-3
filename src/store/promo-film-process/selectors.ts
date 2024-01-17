@@ -3,7 +3,7 @@ import { State } from '../../types/state.ts';
 import { PromoFilmType } from '../../types/film.ts';
 
 export const promoFilmSelector = (state: State): PromoFilmType | null =>
-  state[NameSpace.PromoFilm].data;
+  state[NameSpace.PromoFilm].film;
 
 export const errorPromoFilmSelector = (state: State): string | null =>
   state[NameSpace.PromoFilm].error;

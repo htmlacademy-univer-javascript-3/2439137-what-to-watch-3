@@ -7,7 +7,7 @@ import { DEFAULT_GENRE } from '../../components/catalog/utils.ts';
 const initialState: FilmsProcess = {
   loading: false,
   error: null,
-  data: [],
+  films: [],
   currentGenre: DEFAULT_GENRE,
 };
 
@@ -26,10 +26,10 @@ export const filmsProcess = createSlice({
       })
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.films = action.payload;
       })
       .addCase(fetchFilmsAction.rejected, (state, value) => {
-        state.data = [];
+        state.films = [];
         state.loading = false;
         state.error = value.error.message ?? null;
       });

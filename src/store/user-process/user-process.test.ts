@@ -10,7 +10,7 @@ describe('userProcess', () => {
     state = {
       authorizationStatus: {
         error: null,
-        data: AuthorizationStatus.Unknown,
+        status: AuthorizationStatus.Unknown,
         loading: false,
       },
       userData: {
@@ -138,7 +138,7 @@ describe('userProcess', () => {
 
   describe('logout', () => {
     it('should update authorization status to "NO_AUTH" and user data if logoutAction fulfilled', () => {
-      state.authorizationStatus.data = AuthorizationStatus.Auth;
+      state.authorizationStatus.status = AuthorizationStatus.Auth;
       state.userData.data = testUser;
       expect(
         userProcess.reducer(state, {
@@ -161,7 +161,7 @@ describe('userProcess', () => {
       });
     });
     it('should add error if logoutAction rejected', () => {
-      state.authorizationStatus.data = AuthorizationStatus.Auth;
+      state.authorizationStatus.status = AuthorizationStatus.Auth;
       state.userData.data = testUser;
       expect(
         userProcess.reducer(state, {

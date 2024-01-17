@@ -19,17 +19,17 @@ describe('filmProcess', () => {
       film: {
         loading: false,
         error: null,
-        data: null,
+        film: null,
       },
       similarFilms: {
         loading: false,
         error: null,
-        data: [],
+        films: [],
       },
       comments: {
         loading: false,
         error: null,
-        data: [],
+        comments: [],
       },
       operation: {
         loading: false,
@@ -277,7 +277,7 @@ describe('filmProcess', () => {
       });
     });
     it('should add error if fetchChangeStatusFilmFavoriteAction rejected', () => {
-      state.film.data = testFilm;
+      state.film.film = testFilm;
       expect(
         filmProcess.reducer(state, {
           type: fetchChangeStatusFilmFavoriteAction.rejected.type,

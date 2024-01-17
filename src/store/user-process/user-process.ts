@@ -7,7 +7,7 @@ import { errorFormat } from './utils.ts';
 const initialState: UserProcess = {
   authorizationStatus: {
     error: null,
-    data: AuthorizationStatus.Unknown,
+    status: AuthorizationStatus.Unknown,
     loading: false,
   },
   userData: {
@@ -43,7 +43,7 @@ export const userProcess = createSlice({
         state.authorizationStatus = {
           ...state.authorizationStatus,
           loading: false,
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
         };
         state.userData = {
           ...state.userData,
@@ -52,7 +52,7 @@ export const userProcess = createSlice({
       })
       .addCase(checkAuthAction.rejected, (state, value) => {
         state.authorizationStatus = {
-          data: AuthorizationStatus.Unknown,
+          status: AuthorizationStatus.Unknown,
           loading: false,
           error:
             value.error && value.error.message ? value.error.message : null,
@@ -73,7 +73,7 @@ export const userProcess = createSlice({
         state.authorizationStatus = {
           loading: false,
           error: null,
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
         };
       })
       .addCase(loginAction.rejected, (state, value) => {
@@ -85,7 +85,7 @@ export const userProcess = createSlice({
         state.authorizationStatus = {
           loading: false,
           error: null,
-          data: AuthorizationStatus.NoAuth,
+          status: AuthorizationStatus.NoAuth,
         };
       })
       .addCase(logoutAction.pending, (state) => {
@@ -98,7 +98,7 @@ export const userProcess = createSlice({
         state.authorizationStatus = {
           ...state.authorizationStatus,
           loading: false,
-          data: AuthorizationStatus.NoAuth,
+          status: AuthorizationStatus.NoAuth,
         };
         state.userData = {
           ...state.userData,

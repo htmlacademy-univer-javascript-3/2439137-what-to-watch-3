@@ -9,7 +9,7 @@ describe('promoFilmProcess', () => {
     state = {
       loading: false,
       error: null,
-      data: null,
+      film: null,
     };
   });
 

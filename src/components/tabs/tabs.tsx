@@ -12,7 +12,7 @@ interface TabsProps {
   commentsFilmsLoadingStatus: boolean;
 }
 
-interface FilmNavProps {
+interface FilmTabProps {
   title: string;
   view: JSX.Element;
 }
@@ -23,8 +23,8 @@ export const Tabs = ({
   commentsFilmsError,
   commentsFilmsLoadingStatus,
 }: TabsProps) => {
-  const [titleNav, setTitleNav] = useState('Overview');
-  const filmNav: FilmNavProps[] = [
+  const [titleTab, setTitleTab] = useState('Overview');
+  const tabs: FilmTabProps[] = [
     {
       title: 'Overview',
       view: <WrapOverview film={film} />,
@@ -44,7 +44,7 @@ export const Tabs = ({
       ),
     },
   ];
-  const activeNav = filmNav.filter(({ title }) => title === titleNav)[0];
+  const activeTab = tabs.filter(({ title }) => title === titleTab)[0];
   return (
     <div className="film-card__wrap film-card__translate-top">
       <div className="film-card__info">
@@ -60,24 +60,24 @@ export const Tabs = ({
         <div className="film-card__desc">
           <nav className="film-nav film-card__nav">
             <ul className="film-nav__list">
-              {filmNav.map((nav) => (
+              {tabs.map((tab) => (
                 <li
-                  key={`key_${nav.title}`}
+                  key={`key_${tab.title}`}
                   className={`film-nav__item ${
-                    nav.title === titleNav ? 'film-nav__item--active' : ''
+                    tab.title === titleTab ? 'film-nav__item--active' : ''
                   }`}
-                  onClick={() => setTitleNav(nav.title)}
+                  onClick={() => setTitleTab(tab.title)}
                 >
                   <a
                     className="film-nav__link"
                   >
-                    {nav.title}
+                    {tab.title}
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
-          {activeNav.view}
+          {activeTab.view}
         </div>
       </div>
     </div>

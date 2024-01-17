@@ -16,7 +16,7 @@ describe('Component: Empty list', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },

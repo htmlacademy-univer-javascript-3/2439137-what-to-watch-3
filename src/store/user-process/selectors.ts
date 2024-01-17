@@ -4,7 +4,7 @@ import { UserData } from '../../types/userData.ts';
 
 export const authorizationStatusSelector = (
   state: State,
-): AuthorizationStatus => state[NameSpace.User].authorizationStatus.data;
+): AuthorizationStatus => state[NameSpace.User].authorizationStatus.status;
 
 export const userDataSelector = (state: State): UserData | null =>
   state[NameSpace.User].userData.data;

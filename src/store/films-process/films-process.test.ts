@@ -10,7 +10,7 @@ describe('filmsProcess', () => {
     state = {
       loading: false,
       error: null,
-      data: [],
+      films: [],
       currentGenre: DEFAULT_GENRE,
     };
   });
@@ -45,7 +45,7 @@ describe('filmsProcess', () => {
   });
 
   it('should update genre', () => {
-    state.data = testFilms;
+    state.films = testFilms;
     expect(
       filmsProcess.reducer(state, {
         type: setGenre,

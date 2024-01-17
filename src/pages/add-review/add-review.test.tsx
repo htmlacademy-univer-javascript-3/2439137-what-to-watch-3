@@ -21,7 +21,7 @@ describe('Component: AddReview', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -36,7 +36,7 @@ describe('Component: AddReview', () => {
       },
     });
     const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
-    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
     expect(screen.getByText(/Post/i)).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe('Component: AddReview', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -62,7 +62,7 @@ describe('Component: AddReview', () => {
       },
     });
     const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
-    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
     const postButton = screen.getByRole('button');
@@ -78,7 +78,7 @@ describe('Component: AddReview', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -93,7 +93,7 @@ describe('Component: AddReview', () => {
       },
     });
     const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
-    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
     const postButton = screen.getByRole('button');
@@ -107,7 +107,7 @@ describe('Component: AddReview', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -122,7 +122,7 @@ describe('Component: AddReview', () => {
       },
     });
     const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
-    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
     const postButton = screen.getByRole('button');

@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { AxiosError } from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { WrapHeader as Header, HeaderType } from '../header';
 import { FilmFullType } from '../../types/film.ts';
 import { APIRoute } from '../../services/const.ts';
@@ -26,6 +26,7 @@ interface FilmCardReviewProps {
 
 export const FilmCardReview = ({ film }: FilmCardReviewProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [postDisabledRating, setPostDisabledRating] = useState(true);
@@ -54,6 +55,7 @@ export const FilmCardReview = ({ film }: FilmCardReviewProps) => {
       });
       setLoading(false);
       dispatch(fetchCommentsFilmAction({ filmId: film.id }));
+      navigate(-1);
     } catch (e) {
       if (e instanceof AxiosError) {
         setError(e.message);

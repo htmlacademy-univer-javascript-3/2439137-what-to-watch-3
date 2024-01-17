@@ -9,7 +9,7 @@ describe('favoriteFilmsProcess', () => {
     state = {
       loading: false,
       error: null,
-      data: [],
+      films: [],
     };
   });
 

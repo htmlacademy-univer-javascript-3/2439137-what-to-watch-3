@@ -9,7 +9,7 @@ export type AppDispatch = typeof store.dispatch;
 export type UserProcess = {
   authorizationStatus: {
     error: string | null;
-    data: AuthorizationStatus;
+    status: AuthorizationStatus;
     loading: boolean;
   };
   userData: {
@@ -26,17 +26,17 @@ export type FilmProcess = {
   film: {
     loading: boolean;
     error: string | null;
-    data: FilmFullType | null;
+    film: FilmFullType | null;
   };
   similarFilms: {
     loading: boolean;
     error: string | null;
-    data: FilmType[];
+    films: FilmType[];
   };
   comments: {
     loading: boolean;
     error: string | null;
-    data: CommentType[];
+    comments: CommentType[];
   };
   operation: {
     error: string | null;
@@ -46,20 +46,20 @@ export type FilmProcess = {
 export type FilmsProcess = {
   loading: boolean;
   error: string | null;
-  data: FilmType[];
+  films: FilmType[];
   currentGenre: string;
 };
 
 export type PromoFilmProcess = {
   loading: boolean;
   error: string | null;
-  data: PromoFilmType | null;
+  film: PromoFilmType | null;
 };
 
 export type FavoriteFilmsProcess = {
   loading: boolean;
   error: string | null;
-  data: FilmType[];
+  films: FilmType[];
 };
 
 export type State = ReturnType<typeof store.getState>;
