@@ -1,4 +1,4 @@
-interface Details {
+export interface Details {
   messages: string[];
   property: string;
   value: string;

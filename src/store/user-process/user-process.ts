@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from '../../const.ts';
 import { UserProcess } from '../../types/state.ts';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions.ts';
-import { errorFormat } from './utils.ts';
+import {Details, errorFormat} from './utils.ts';
 
 const initialState: UserProcess = {
   authorizationStatus: {
@@ -80,7 +80,7 @@ export const userProcess = createSlice({
         state.userData = {
           ...state.userData,
           loading: false,
-          error: errorFormat(value.payload),
+          error: errorFormat(value.payload as Details[]),
         };
         state.authorizationStatus = {
           loading: false,
