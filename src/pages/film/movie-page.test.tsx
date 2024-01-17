@@ -20,7 +20,7 @@ describe('Component: MoviePage', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -35,7 +35,7 @@ describe('Component: MoviePage', () => {
       },
     });
     const { withStoreComponent } = withStore(withHistoryComponent, fakeStore);
-    mockHistory.push(AppRoute.Film(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.Film(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
 
@@ -52,7 +52,7 @@ describe('Component: MoviePage', () => {
     const store = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -67,7 +67,7 @@ describe('Component: MoviePage', () => {
       },
     });
     const withHistoryComponent = withHistory(<App />, mockHistory);
-    mockHistory.push(AppRoute.Film(store.FILM.film.data?.id));
+    mockHistory.push(AppRoute.Film(store.FILM.film.film?.id));
 
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
       withHistoryComponent,
@@ -76,7 +76,7 @@ describe('Component: MoviePage', () => {
     render(withStoreComponent);
     mockAxiosAdapter
       .onPost(
-        `${APIRoute.FilmFavorite}/${store.FILM.film.data?.id || '0'}/${1}`,
+        `${APIRoute.FilmFavorite}/${store.FILM.film.film?.id || '0'}/${1}`,
       )
       .reply(200, store);
     expect(screen.getByRole('button')).toBeInTheDocument();

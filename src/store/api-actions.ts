@@ -145,7 +145,10 @@ export const loginAction = createAsyncThunk<
       saveToken(data.token);
       return data;
     } catch (e) {
-      return rejectWithValue(e);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      return rejectWithValue(e.response.data.details);
     }
   },
 );

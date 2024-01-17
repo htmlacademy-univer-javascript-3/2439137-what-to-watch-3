@@ -10,7 +10,7 @@ describe('filmsProcess', () => {
     state = {
       loading: false,
       error: null,
-      data: [],
+      films: [],
       currentGenre: DEFAULT_GENRE,
     };
   });
@@ -25,7 +25,7 @@ describe('filmsProcess', () => {
       ).toMatchObject({
         loading: false,
         error: null,
-        data: testFilms,
+        films: testFilms,
         currentGenre: DEFAULT_GENRE,
       });
     });
@@ -38,14 +38,14 @@ describe('filmsProcess', () => {
       ).toMatchObject({
         loading: false,
         error: 'error',
-        data: [],
+        films: [],
         currentGenre: DEFAULT_GENRE,
       });
     });
   });
 
   it('should update genre', () => {
-    state.data = testFilms;
+    state.films = testFilms;
     expect(
       filmsProcess.reducer(state, {
         type: setGenre,
@@ -54,7 +54,7 @@ describe('filmsProcess', () => {
     ).toMatchObject({
       loading: false,
       error: null,
-      data: testFilms,
+      films: testFilms,
       currentGenre: 'newGenre',
     });
   });

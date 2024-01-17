@@ -12,17 +12,17 @@ const initialState: FilmProcess = {
   film: {
     loading: false,
     error: null,
-    data: null,
+    film: null,
   },
   similarFilms: {
     loading: false,
     error: null,
-    data: [],
+    films: [],
   },
   comments: {
     loading: false,
     error: null,
-    data: [],
+    comments: [],
   },
   operation: {
     loading: false,
@@ -51,13 +51,13 @@ export const filmProcess = createSlice({
       .addCase(fetchFilmAction.fulfilled, (state, action) => {
         state.film = {
           loading: false,
-          data: action.payload,
+          film: action.payload,
           error: null,
         };
       })
       .addCase(fetchFilmAction.rejected, (state, value) => {
         state.film = {
-          data: null,
+          film: null,
           loading: false,
           error: value.error.message ?? null,
         };
@@ -72,7 +72,7 @@ export const filmProcess = createSlice({
         state.comments = {
           error: null,
           loading: false,
-          data: action.payload,
+          comments: action.payload,
         };
       })
       .addCase(fetchCommentsFilmAction.rejected, (state, value) => {
@@ -92,7 +92,7 @@ export const filmProcess = createSlice({
         state.similarFilms = {
           error: null,
           loading: false,
-          data: action.payload,
+          films: action.payload,
         };
       })
       .addCase(fetchSimilarFilmsFilmAction.rejected, (state, value) => {
@@ -117,7 +117,7 @@ export const filmProcess = createSlice({
           };
           state.film = {
             ...state.film,
-            data: action.payload,
+            film: action.payload,
           };
         },
       )

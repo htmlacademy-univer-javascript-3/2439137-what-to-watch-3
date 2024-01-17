@@ -19,17 +19,17 @@ describe('filmProcess', () => {
       film: {
         loading: false,
         error: null,
-        data: null,
+        film: null,
       },
       similarFilms: {
         loading: false,
         error: null,
-        data: [],
+        films: [],
       },
       comments: {
         loading: false,
         error: null,
-        data: [],
+        comments: [],
       },
       operation: {
         loading: false,
@@ -49,17 +49,17 @@ describe('filmProcess', () => {
         film: {
           loading: false,
           error: null,
-          data: testFilm,
+          film: testFilm,
         },
         similarFilms: {
           loading: false,
           error: null,
-          data: [],
+          films: [],
         },
         comments: {
           loading: false,
           error: null,
-          data: [],
+          comments: [],
         },
         operation: {
           loading: false,
@@ -77,17 +77,17 @@ describe('filmProcess', () => {
         film: {
           loading: false,
           error: 'error',
-          data: null,
+          film: null,
         },
         similarFilms: {
           loading: false,
           error: null,
-          data: [],
+          films: [],
         },
         comments: {
           loading: false,
           error: null,
-          data: [],
+          comments: [],
         },
         operation: {
           loading: false,
@@ -108,17 +108,17 @@ describe('filmProcess', () => {
         film: {
           loading: false,
           error: null,
-          data: testCommentsFilm,
+          film: testCommentsFilm,
         },
         similarFilms: {
           loading: false,
           error: null,
-          data: [],
+          films: [],
         },
         comments: {
           loading: false,
           error: null,
-          data: [],
+          comments: [],
         },
         operation: {
           loading: false,
@@ -136,17 +136,17 @@ describe('filmProcess', () => {
         film: {
           loading: false,
           error: null,
-          data: null,
+          film: null,
         },
         similarFilms: {
           loading: false,
           error: null,
-          data: [],
+          films: [],
         },
         comments: {
           loading: false,
           error: 'error',
-          data: [],
+          comments: [],
         },
         operation: {
           loading: false,
@@ -167,17 +167,17 @@ describe('filmProcess', () => {
         film: {
           loading: false,
           error: null,
-          data: null,
+          film: null,
         },
         similarFilms: {
           loading: false,
           error: null,
-          data: testSimilarFilms,
+          films: testSimilarFilms,
         },
         comments: {
           loading: false,
           error: null,
-          data: [],
+          comments: [],
         },
         operation: {
           loading: false,
@@ -195,17 +195,17 @@ describe('filmProcess', () => {
         film: {
           loading: false,
           error: null,
-          data: null,
+          film: null,
         },
         similarFilms: {
           loading: false,
           error: 'error',
-          data: [],
+          films: [],
         },
         comments: {
           loading: false,
           error: null,
-          data: [],
+          comments: [],
         },
         operation: {
           loading: false,
@@ -242,7 +242,7 @@ describe('filmProcess', () => {
         film: {
           loading: false,
           error: null,
-          data: {
+          film: {
             id: 'testId',
             name: 'TestName',
             posterImage: 'test/posterImage',
@@ -263,12 +263,12 @@ describe('filmProcess', () => {
         similarFilms: {
           loading: false,
           error: null,
-          data: [],
+          films: [],
         },
         comments: {
           loading: false,
           error: null,
-          data: [],
+          comments: [],
         },
         operation: {
           loading: false,
@@ -277,7 +277,7 @@ describe('filmProcess', () => {
       });
     });
     it('should add error if fetchChangeStatusFilmFavoriteAction rejected', () => {
-      state.film.data = testFilm;
+      state.film.film = testFilm;
       expect(
         filmProcess.reducer(state, {
           type: fetchChangeStatusFilmFavoriteAction.rejected.type,
@@ -287,17 +287,17 @@ describe('filmProcess', () => {
         film: {
           loading: false,
           error: null,
-          data: testFilm,
+          film: testFilm,
         },
         similarFilms: {
           loading: false,
           error: null,
-          data: [],
+          films: [],
         },
         comments: {
           loading: false,
           error: null,
-          data: [],
+          comments: [],
         },
         operation: {
           loading: false,

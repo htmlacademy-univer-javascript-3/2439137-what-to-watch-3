@@ -57,10 +57,12 @@ export function SignIn(): JSX.Element {
       setMessageError(authorizationError.messages);
     }
   }, [
-    authorizationError.messages,
-    authorizationError.property,
+    authorizationError.messages.length,
     authorizationError.property.length,
-    loginData,
+    loginData.userEmail,
+    loginData.userPassword,
+    loginData.userEmailError,
+    loginData.userPasswordError,
   ]);
 
   useEffect(

@@ -6,7 +6,7 @@ import { fetchFavoriteFilmsAction } from '../api-actions.ts';
 const initialState: FavoriteFilmsProcess = {
   loading: false,
   error: null,
-  data: [],
+  films: [],
 };
 
 export const favoriteFilmsProcess = createSlice({
@@ -24,10 +24,10 @@ export const favoriteFilmsProcess = createSlice({
       })
       .addCase(fetchFavoriteFilmsAction.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.films = action.payload;
       })
       .addCase(fetchFavoriteFilmsAction.rejected, (state, value) => {
-        state.data = [];
+        state.films = [];
         state.loading = false;
         state.error = value.error.message ?? null;
       });

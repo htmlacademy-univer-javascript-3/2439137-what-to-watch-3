@@ -22,7 +22,7 @@ describe('Application Routing', () => {
 
     expect(screen.getByTestId('promo_film-card__title')).toBeInTheDocument();
     expect(screen.getByTestId('promo_film-card__title').textContent).toBe(
-      fakeStore.PROMO_FILM.data?.name,
+      fakeStore.PROMO_FILM.film?.name,
     );
   });
 
@@ -65,7 +65,7 @@ describe('Application Routing', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -85,7 +85,7 @@ describe('Application Routing', () => {
     render(withStoreComponent);
 
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
-    expect(screen.getByTestId('catalog__films').children.length).toBe(fakeStore.FAVORITE_FILMS.data.length);
+    expect(screen.getByTestId('catalog__films').children.length).toBe(fakeStore.FAVORITE_FILMS.films.length);
   });
 
   it('should render "MoviePage" when user navigate to "/films/{id}" not auth', () => {
@@ -95,7 +95,7 @@ describe('Application Routing', () => {
       withHistoryComponent,
       fakeStore
     );
-    mockHistory.push(AppRoute.Film(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.Film(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
 
@@ -111,7 +111,7 @@ describe('Application Routing', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -129,7 +129,7 @@ describe('Application Routing', () => {
       withHistoryComponent,
       fakeStore
     );
-    mockHistory.push(AppRoute.Film(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.Film(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
 
@@ -149,11 +149,11 @@ describe('Application Routing', () => {
       withHistoryComponent,
       fakeStore
     );
-    mockHistory.push(AppRoute.Player(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.Player(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
     expect(screen.getByText(/Exit/i)).toBeInTheDocument();
-    expect(screen.getByTestId('player__name').textContent).toBe(fakeStore.FILM.film.data?.name);
+    expect(screen.getByTestId('player__name').textContent).toBe(fakeStore.FILM.film.film?.name);
   });
 
   it('should render "AddReview" when user navigate to "/films/{id}/review"', () => {
@@ -161,7 +161,7 @@ describe('Application Routing', () => {
     const fakeStore = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           error: null,
           loading: false,
         },
@@ -179,7 +179,7 @@ describe('Application Routing', () => {
       withHistoryComponent,
       fakeStore
     );
-    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.data?.id));
+    mockHistory.push(AppRoute.AddReview(fakeStore.FILM.film.film?.id));
 
     render(withStoreComponent);
     expect(screen.getByText(/Post/i)).toBeInTheDocument();

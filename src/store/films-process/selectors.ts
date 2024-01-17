@@ -3,7 +3,7 @@ import { State } from '../../types/state.ts';
 import { FilmType } from '../../types/film.ts';
 
 export const filmsSelector = (state: State): FilmType[] =>
-  state[NameSpace.Films].data;
+  state[NameSpace.Films].films;
 
 export const errorFilmsSelector = (state: State): string | null =>
   state[NameSpace.Films].error;

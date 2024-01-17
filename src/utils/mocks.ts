@@ -132,7 +132,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   USER: {
     authorizationStatus: {
       error: null,
-      data: AuthorizationStatus.NoAuth,
+      status: AuthorizationStatus.NoAuth,
       loading: false,
     },
     userData: {
@@ -148,17 +148,17 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
     film: {
       loading: false,
       error: null,
-      data: testFilm,
+      film: testFilm,
     },
     similarFilms: {
       loading: false,
       error: null,
-      data: testSimilarFilms,
+      films: testSimilarFilms,
     },
     comments: {
       loading: false,
       error: null,
-      data: testCommentsFilm,
+      comments: testCommentsFilm,
     },
     operation: {
       error: null,
@@ -168,18 +168,18 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   FILMS: {
     loading: false,
     error: null,
-    data: testFilms,
+    films: testFilms,
     currentGenre: DEFAULT_GENRE,
   },
   PROMO_FILM: {
     loading: false,
     error: null,
-    data: testPromoFilm,
+    film: testPromoFilm,
   },
   FAVORITE_FILMS: {
     loading: false,
     error: null,
-    data: testFavoriteFilms,
+    films: testFavoriteFilms,
   },
   ...(initialState ?? {}),
 });

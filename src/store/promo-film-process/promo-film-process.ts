@@ -6,7 +6,7 @@ import { fetchPromoFilmAction } from '../api-actions.ts';
 const initialState: PromoFilmProcess = {
   loading: false,
   error: null,
-  data: null,
+  film: null,
 };
 
 export const promoFilmProcess = createSlice({
@@ -20,10 +20,10 @@ export const promoFilmProcess = createSlice({
       })
       .addCase(fetchPromoFilmAction.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        state.film = action.payload;
       })
       .addCase(fetchPromoFilmAction.rejected, (state, value) => {
-        state.data = null;
+        state.film = null;
         state.loading = false;
         state.error = value.error.message ?? null;
       });

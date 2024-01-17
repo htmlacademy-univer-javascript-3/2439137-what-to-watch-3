@@ -1,15 +1,7 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const.ts';
+import { useNavigate } from 'react-router-dom';
 import { FilmFullType } from '../../types/film.ts';
-import {
-  MouseEvent,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import {
-  formatRunTimeLeft,
-} from '../../components/film-card/utils.ts';
+import { MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { formatRunTimeLeft } from '../../components/film-card/utils.ts';
 
 export interface PlayerPros {
   film: FilmFullType;
@@ -18,10 +10,15 @@ export interface PlayerPros {
 const PROGRESS_PADDING = 25;
 
 export const EntityPlayer = ({ film }: PlayerPros) => {
+  const navigate = useNavigate();
   const [progressTime, setProgressTime] = useState<number>(0);
   const [progressBarTime, setProgressBarTime] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoTime = useMemo(
+    () => videoRef?.current?.duration || 0,
+    [videoRef.current, videoRef?.current?.duration],
+  );
   const progressBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,26 +41,26 @@ export const EntityPlayer = ({ film }: PlayerPros) => {
     const video = videoRef.current;
 
     if (video) {
-      const currentTime = Math.floor(video.currentTime);
+      const currentTime = video.currentTime;
 
       if (progressTime !== currentTime) {
         setProgressTime(currentTime);
-        setProgressBarTime((currentTime * 100) / (film.runTime * 60));
+        setProgressBarTime((currentTime * 100) / videoTime);
       }
     }
   };
 
-  const setTimeProgressBar = (event: MouseEvent<HTMLProgressElement>) => {
+  const setTimeProgressBar = (event: MouseEvent<HTMLDivElement>) => {
     const video = videoRef.current;
     const progressBar = progressBarRef.current;
 
     if (video && progressBar) {
       const currentTimeLength = event.clientX - PROGRESS_PADDING;
       const currentTime =
-        film.runTime * 60 * (currentTimeLength / progressBar.clientWidth);
+        videoTime * (currentTimeLength / progressBar.clientWidth);
       video.currentTime = currentTime;
       setProgressTime(currentTime);
-      setProgressBarTime((currentTime * 100) / (film.runTime * 60));
+      setProgressBarTime((currentTime * 100) / videoTime);
     }
   };
 
@@ -79,18 +76,26 @@ export const EntityPlayer = ({ film }: PlayerPros) => {
         onClick={() => setIsPlaying((prev) => !prev)}
       />
 
-      <Link type="button" className="player__exit" to={AppRoute.Film(film.id)}>
+      <button
+        type="button"
+        className="player__exit"
+        onClick={() => navigate(-1)}
+      >
         Exit
-      </Link>
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
-          <div ref={progressBarRef} className="player__time">
+          <div
+            ref={progressBarRef}
+            className="player__time"
+            onClick={(event) => setTimeProgressBar(event)}
+            style={{padding: '16px 0'}}
+          >
             <progress
               className="player__progress"
               value={`${progressBarTime}`}
               max="100"
-              onClick={(event) => setTimeProgressBar(event)}
             />
             <div
               className="player__toggler"
@@ -100,7 +105,7 @@ export const EntityPlayer = ({ film }: PlayerPros) => {
             </div>
           </div>
           <div className="player__time-value">
-            {formatRunTimeLeft(film.runTime * 60 - progressTime)}
+            {formatRunTimeLeft(Math.floor(videoTime - progressTime))}
           </div>
         </div>
 
@@ -115,7 +120,9 @@ export const EntityPlayer = ({ film }: PlayerPros) => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name" data-testid={'player__name'}>{film.name}</div>
+          <div className="player__name" data-testid={'player__name'}>
+            {film.name}
+          </div>
 
           <button
             type="button"

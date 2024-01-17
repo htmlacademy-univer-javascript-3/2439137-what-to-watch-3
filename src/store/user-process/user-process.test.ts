@@ -10,7 +10,7 @@ describe('userProcess', () => {
     state = {
       authorizationStatus: {
         error: null,
-        data: AuthorizationStatus.Unknown,
+        status: AuthorizationStatus.Unknown,
         loading: false,
       },
       userData: {
@@ -39,7 +39,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: null,
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           loading: false,
         },
         userData: {
@@ -61,7 +61,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: 'error',
-          data: AuthorizationStatus.Unknown,
+          status: AuthorizationStatus.Unknown,
           loading: false,
         },
         userData: {
@@ -86,7 +86,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: null,
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           loading: false,
         },
         userData: {
@@ -103,25 +103,19 @@ describe('userProcess', () => {
       expect(
         userProcess.reducer(state, {
           type: loginAction.rejected.type,
-          payload: {
-            response: {
-              data: {
-                details: [
-                  {
-                    property: 'password',
-                    messages: [
-                      'password must be longer than or equal to 3 characters',
-                    ],
-                  },
-                ],
-              },
+          payload: [
+            {
+              property: 'password',
+              messages: [
+                'password must be longer than or equal to 3 characters',
+              ],
             },
-          },
+          ],
         }),
       ).toMatchObject({
         authorizationStatus: {
           error: null,
-          data: AuthorizationStatus.NoAuth,
+          status: AuthorizationStatus.NoAuth,
           loading: false,
         },
         userData: {
@@ -138,7 +132,7 @@ describe('userProcess', () => {
 
   describe('logout', () => {
     it('should update authorization status to "NO_AUTH" and user data if logoutAction fulfilled', () => {
-      state.authorizationStatus.data = AuthorizationStatus.Auth;
+      state.authorizationStatus.status = AuthorizationStatus.Auth;
       state.userData.data = testUser;
       expect(
         userProcess.reducer(state, {
@@ -147,7 +141,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: null,
-          data: AuthorizationStatus.NoAuth,
+          status: AuthorizationStatus.NoAuth,
           loading: false,
         },
         userData: {
@@ -161,7 +155,7 @@ describe('userProcess', () => {
       });
     });
     it('should add error if logoutAction rejected', () => {
-      state.authorizationStatus.data = AuthorizationStatus.Auth;
+      state.authorizationStatus.status = AuthorizationStatus.Auth;
       state.userData.data = testUser;
       expect(
         userProcess.reducer(state, {
@@ -171,7 +165,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: 'error',
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           loading: false,
         },
         userData: {

@@ -70,7 +70,7 @@ describe('Component: AuthScreen', () => {
     const store = makeFakeStore({
       USER: {
         authorizationStatus: {
-          data: AuthorizationStatus.NoAuth,
+          status: AuthorizationStatus.NoAuth,
           error: null,
           loading: false,
         },
