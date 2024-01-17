@@ -22,7 +22,7 @@ describe('promoFilmProcess', () => {
     ).toMatchObject({
       loading: false,
       error: null,
-      data: testPromoFilm,
+      film: testPromoFilm,
     });
   });
   it('should add error if fetchPromoFilmAction rejected', () => {
@@ -34,7 +34,7 @@ describe('promoFilmProcess', () => {
     ).toMatchObject({
       loading: false,
       error: 'error',
-      data: null,
+      film: null,
     });
   });
 });

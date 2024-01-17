@@ -23,7 +23,7 @@ describe('favoriteFilmsProcess', () => {
       ).toMatchObject({
         loading: false,
         error: null,
-        data: testFavoriteFilms,
+        films: testFavoriteFilms,
       });
     });
     it('should add error if fetchFavoriteFilmsAction rejected', () => {
@@ -35,7 +35,7 @@ describe('favoriteFilmsProcess', () => {
       ).toMatchObject({
         loading: false,
         error: 'error',
-        data: [],
+        films: [],
       });
     });
   });

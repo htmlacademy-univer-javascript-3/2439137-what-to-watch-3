@@ -8,7 +8,7 @@ enum NameRating {
   Good = 'Good',
   Normal = 'Normal',
   Bad = 'Bad',
-  LackRating = ''
+  LackRating = '',
 }
 
 enum LowerBoundRating {
@@ -21,7 +21,7 @@ enum LowerBoundRating {
 
 enum RatingStringFormat {
   Singular = 'rating',
-  Plural = 'ratings'
+  Plural = 'ratings',
 }
 
 export const getNameRating = function (rating: string) {
@@ -84,5 +84,11 @@ export const formatRunTimeLeft = function (runTime: number) {
     runTime -
     hours * MINUTES_IN_HOUR * SECONDS_IN_MINUTE -
     minutes * SECONDS_IN_MINUTE;
-  return `-${hours ? `${hours}:` : ''}${minutes}:${seconds}`;
+
+  if (!hours && !minutes && !seconds) {
+    return '00:00';
+  }
+  return `-${hours ? `${hours.toString().length < 2 ? `0${hours}` : hours}:` : ''}${
+    minutes.toString().length < 2 ? `0${minutes}` : minutes
+  }:${seconds.toString().length < 2 ? `0${seconds}` : seconds}`;
 };

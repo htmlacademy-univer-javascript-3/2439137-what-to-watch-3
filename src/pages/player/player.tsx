@@ -16,7 +16,7 @@ export const EntityPlayer = ({ film }: PlayerPros) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoTime = useMemo(
-    () => Math.floor(videoRef?.current?.duration || 0),
+    () => videoRef?.current?.duration || 0,
     [videoRef.current, videoRef?.current?.duration],
   );
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -50,7 +50,7 @@ export const EntityPlayer = ({ film }: PlayerPros) => {
     }
   };
 
-  const setTimeProgressBar = (event: MouseEvent<HTMLProgressElement>) => {
+  const setTimeProgressBar = (event: MouseEvent<HTMLDivElement>) => {
     const video = videoRef.current;
     const progressBar = progressBarRef.current;
 
@@ -86,12 +86,16 @@ export const EntityPlayer = ({ film }: PlayerPros) => {
 
       <div className="player__controls">
         <div className="player__controls-row">
-          <div ref={progressBarRef} className="player__time">
+          <div
+            ref={progressBarRef}
+            className="player__time"
+            onClick={(event) => setTimeProgressBar(event)}
+            style={{padding: '16px 0'}}
+          >
             <progress
               className="player__progress"
               value={`${progressBarTime}`}
               max="100"
-              onClick={(event) => setTimeProgressBar(event)}
             />
             <div
               className="player__toggler"

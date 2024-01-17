@@ -39,7 +39,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: null,
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           loading: false,
         },
         userData: {
@@ -61,7 +61,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: 'error',
-          data: AuthorizationStatus.Unknown,
+          status: AuthorizationStatus.Unknown,
           loading: false,
         },
         userData: {
@@ -86,7 +86,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: null,
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           loading: false,
         },
         userData: {
@@ -103,25 +103,19 @@ describe('userProcess', () => {
       expect(
         userProcess.reducer(state, {
           type: loginAction.rejected.type,
-          payload: {
-            response: {
-              data: {
-                details: [
-                  {
-                    property: 'password',
-                    messages: [
-                      'password must be longer than or equal to 3 characters',
-                    ],
-                  },
-                ],
-              },
+          payload: [
+            {
+              property: 'password',
+              messages: [
+                'password must be longer than or equal to 3 characters',
+              ],
             },
-          },
+          ],
         }),
       ).toMatchObject({
         authorizationStatus: {
           error: null,
-          data: AuthorizationStatus.NoAuth,
+          status: AuthorizationStatus.NoAuth,
           loading: false,
         },
         userData: {
@@ -147,7 +141,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: null,
-          data: AuthorizationStatus.NoAuth,
+          status: AuthorizationStatus.NoAuth,
           loading: false,
         },
         userData: {
@@ -171,7 +165,7 @@ describe('userProcess', () => {
       ).toMatchObject({
         authorizationStatus: {
           error: 'error',
-          data: AuthorizationStatus.Auth,
+          status: AuthorizationStatus.Auth,
           loading: false,
         },
         userData: {

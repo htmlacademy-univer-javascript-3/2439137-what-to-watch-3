@@ -1,9 +1,12 @@
-export const errorFormat = (error: unknown) => {
+interface Details {
+  messages: string[];
+  property: string;
+  value: string;
+}
+
+export const errorFormat = (error: Details[]) => {
   if (error) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    const result = error.response.data.details.reduce(
+    const result = Array.from(error).reduce(
       (
         accumulator: {
           property: string[];

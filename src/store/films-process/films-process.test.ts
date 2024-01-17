@@ -25,7 +25,7 @@ describe('filmsProcess', () => {
       ).toMatchObject({
         loading: false,
         error: null,
-        data: testFilms,
+        films: testFilms,
         currentGenre: DEFAULT_GENRE,
       });
     });
@@ -38,7 +38,7 @@ describe('filmsProcess', () => {
       ).toMatchObject({
         loading: false,
         error: 'error',
-        data: [],
+        films: [],
         currentGenre: DEFAULT_GENRE,
       });
     });
@@ -54,7 +54,7 @@ describe('filmsProcess', () => {
     ).toMatchObject({
       loading: false,
       error: null,
-      data: testFilms,
+      films: testFilms,
       currentGenre: 'newGenre',
     });
   });
