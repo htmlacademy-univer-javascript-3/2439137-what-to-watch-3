@@ -64,7 +64,9 @@ export const getStarringFullList = function (starring: string[]) {
 
 export const formatDate = function (date: Date) {
   const datePrimary = new Date(date);
-  const dateChanged = new Date(datePrimary.setMonth(datePrimary.getMonth() - 1));
+  const dateChanged = new Date(
+    datePrimary.setMonth(datePrimary.getMonth() - 1),
+  );
   const year = dateChanged.toLocaleString('en-us', { year: 'numeric' });
   const month = dateChanged.toLocaleString('en-us', { month: 'long' });
   const day = dateChanged.toLocaleString('en-us', { day: 'numeric' });
@@ -88,7 +90,7 @@ export const formatRunTimeLeft = function (runTime: number) {
   if (!hours && !minutes && !seconds) {
     return '00:00';
   }
-  return `-${hours ? `${hours.toString().length < 2 ? `0${hours}` : hours}:` : ''}${
-    minutes.toString().length < 2 ? `0${minutes}` : minutes
-  }:${seconds.toString().length < 2 ? `0${seconds}` : seconds}`;
+  return `-${hours ? `${hours.toString().padStart(2, '0')}` : ''}${minutes
+    .toString()
+    .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 };
